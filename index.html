@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kaomoji Fun</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    
     <div class="container">
-        <h1>Kaomoji Selector</h1>
-        <div class="button-container">
-            <button data-type="cat" onclick="displayKaomojis('cat')">Cat</button>
-<button data-type="bear" onclick="displayKaomojis('bear')">Bear</button>
-<!-- Add more buttons with the data-type attribute as needed -->
+      <h1>Kaomoji Selector</h1>
+      <div class="button-container">
+        <button data-type="cat" onclick="displayKaomojis('cat')">🐱</button>
+        <button data-type="bear" onclick="displayKaomojis('bear')">🐻</button>
+        <button data-type="dog" onclick="displayKaomojis('dog')">🐶</button>
+        <button data-type="rabbit" onclick="displayKaomojis('rabbit')">🐰</button>
+        <button data-type="panda" onclick="displayKaomojis('panda')">🐼</button>
+        <button data-type="owl" onclick="displayKaomojis('owl')">🦉</button>
+        <button data-type="elephant" onclick="displayKaomojis('elephant')">🐘</button>
+        <button data-type="fox" onclick="displayKaomojis('fox')">🦊</button>
+        <button data-type="mouse" onclick="displayKaomojis('mouse')">🐭</button>
+        <button data-type="pig" onclick="displayKaomojis('pig')">🐷</button>
+        <button data-type="duck" onclick="displayKaomojis('duck')">🦆</button>
+        <button data-type="monkey" onclick="displayKaomojis('monkey')">🐒</button>
+        
+        
 
-            <!-- Add more buttons for other categories -->
-        </div>
-        <div id="kaomoji-display" class="kaomoji-display"></div>
+
+
+
+
+        <!-- Add more buttons for other categories -->
+      </div>
+      <div id="kaomoji-display" class="kaomoji-display"></div>
     </div>
+
+
     <div id="snackbar"></div>
 
     <script src="script.js"></script>
-</body>
+  </body>
 </html>
