@@ -1,0 +1,133 @@
+/* Global reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Optional: ensures padding and borders are included in the element's total width and height */
+}
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    width: 90%;
+    max-width: 600px;
+    margin: 20px auto; /* Corrected for top centering */
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.button-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+}
+
+
+.button-container button {
+    /* margin: 10px; */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border: none;
+    background-color: #007bff;
+    color: white;
+    border-radius: 8px;
+    transition: background-color 0.3s;
+}
+
+.button-container button:hover {
+    background-color: #0056b3;
+}
+
+.kaomoji-display {
+    /* margin-top: 20px; */
+    font-size: 24px;
+    word-break: break-all; /* Ensure long text wraps */
+    min-height: 50px; /* Adjust as needed */
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.kaomoji-button {
+    margin: 5px;
+    padding: 5px 10px;
+    border: none;
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.kaomoji-button:hover {
+    background-color: #e0e0e0;
+}
+
+.active {
+    background-color: red; /* Or any color to indicate active state */
+    color: white; /* Adjust text color as needed */
+}
+
+
+/* Snackbar styles */
+#snackbar {
+    visibility: hidden;
+    min-width: 250px;
+    margin-left: -125px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    border-radius: 2px;
+    padding: 16px;
+    position: fixed;
+    z-index: 1;
+    left: 50%;
+    bottom: 30px;
+    font-size: 17px;
+}
+
+#snackbar.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+@keyframes fadein {
+    from {bottom: 0; opacity: 0;} 
+    to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadeout {
+    from {bottom: 30px; opacity: 1;} 
+    to {bottom: 0; opacity: 0;}
+}
+
+
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+    .button-container button {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .kaomoji-display {
+        font-size: 20px;
+    }
+}
+
+@media (max-width: 400px) {
+    .button-container button {
+        width: 100%; /* Full width buttons on very small screens */
+        margin: 10px 0; /* Adjust margin for vertical layout */
+    }
+}
+
