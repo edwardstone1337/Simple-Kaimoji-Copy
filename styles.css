@@ -7,18 +7,28 @@
 
 body {
   font-family: Arial, sans-serif;
-  /* background-image: url(Images/Grid.png); */
-background-color:#FFFCFC;
+  background-color: white;
 }
 
 .container {
   text-align: center;
   width: 90%;
-  max-width: 600px;
-  margin: 20px auto; /* Corrected for top centering */
+  max-width: 800px;
+  margin: 24px auto; /* Corrected for top centering */
   display: flex;
   flex-direction: column;
   gap: 24px;
+  align-items: center;
+}
+
+.header-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.header-container p {
+  color: grey;
 }
 
 .button-container {
@@ -27,6 +37,9 @@ background-color:#FFFCFC;
   flex-wrap: wrap;
   gap: 8px;
   justify-content: center;
+  width: 100%;
+  margin: 24px;
+
 }
 
 .button-container button {
@@ -34,22 +47,25 @@ background-color:#FFFCFC;
   height: 56px;
   font-size: 24px;
   cursor: pointer;
-  border: none;
-  background-color: #007bff;
-  color: white;
-  border-radius: 8px;
-  transition: background-color 0.3s;
+  border-radius: 800px;
+  border: 1px solid #d9d9d9;
+  background: #fff;
 }
 
 .button-container button:hover {
-  background-color: #0056b3;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+/* This is the pressed state */
+.button-container button:active {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+}
+
+/* This is the active state */
 .button-container button.active {
-    background-color: #0056b3; /* Darker blue for active state */
-    color: white;
-  }
-  
+  background-color: black; 
+  color: white;
+}
 
 .kaomoji-display {
   font-size: 24px;
@@ -62,30 +78,28 @@ background-color:#FFFCFC;
 }
 
 .kaomoji-button {
-    color: black;
+  color: black;
   position: relative;
   top: 0;
-  transition: ease-in-out 0.25s;
   font-size: 18px;
   height: 56px;
   padding: 12px 16px;
   cursor: pointer;
   border-radius: 8px;
-  border: 2px solid #d33b78;
-  background: #fef0ef;
+  border: 1px solid #d9d9d9;
+  background: #fff;
   opacity: 0; /* Initially invisible */
-  transition: opacity 0.3s ease-in-out;
+  /* transition: opacity 0.3s ease-in-out; */
 }
 
 .kaomoji-button:hover {
-  top: -4px;
-  background: #fef0ef;
-  box-shadow: 0px 8px 0px 0px #e8c2ff;
+  border: 1px solid #d9d9d9;
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+  transition: ease-in-out 0.25s;
 }
 
-.active {
-  background-color: red; /* Or any color to indicate active state */
-  color: white; /* Adjust text color as needed */
+.kaomoji-button:active {
+  box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
 }
 
 /* Snackbar styles */
