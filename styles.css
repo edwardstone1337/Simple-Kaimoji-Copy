@@ -67,7 +67,7 @@ background-color:#FFFCFC;
   top: 0;
   transition: ease-in-out 0.25s;
   font-size: 18px;
-  
+  height: 56px;
   padding: 12px 16px;
   cursor: pointer;
   border-radius: 8px;
