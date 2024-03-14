@@ -1,80 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kaomoji - Your One-Stop Kaomoji Destination</title>
-    <meta name="description" content="Explore a vast collection of Kaomoji, Japanese emoticons, text faces, and cute expressions. Click and copy to your clipboard easily.">
-    <meta name="keywords" content="Kaomoji, Japanese Emoticons, Text Faces, Cute Expressions, Emoji, Smiley Faces, Copy and Paste, Fun Emoticons">
-    <link rel="stylesheet" href="styles.css">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
-</head>
+    <meta
+      name="description"
+      content="Explore a vast collection of Kaomoji, Japanese emoticons, text faces, and cute expressions. Click and copy to your clipboard easily."
+    />
+    <meta
+      name="keywords"
+      content="Kaomoji, Japanese Emoticons, Text Faces, Cute Expressions, Emoji, Smiley Faces, Copy and Paste, Fun Emoticons"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+  </head>
+
+  <!-- Google tag (gtag.js) -->
+  <script
+    async
+    src="https://www.googletagmanager.com/gtag/js?id=G-JKEBQ0M6NQ"
+  ></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+    gtag("js", new Date());
+
+    gtag("config", "G-JKEBQ0M6NQ");
+  </script>
 
   <body>
-    
     <div class="container">
       <div class="header-container">
         <h1>顔文字</h1>
         <p>Kao Moji</p>
       </div>
 
-
       <div class="button-container">
-        
-<!-- Positive Emotions -->
+        <!-- Positive Emotions -->
 
-<button data-type="joy" onclick="displayKaomojis('joy')">😊</button>
-<button data-type="love" onclick="displayKaomojis('love')">❤️</button>
-<button data-type="embarrassment" onclick="displayKaomojis('embarrassment')">😳</button>
-<button data-type="sympathy" onclick="displayKaomojis('sympathy')">🥺</button>
+        <button data-type="joy" onclick="displayKaomojis('joy')">😊</button>
+        <button data-type="love" onclick="displayKaomojis('love')">❤️</button>
+        <button
+          data-type="embarrassment"
+          onclick="displayKaomojis('embarrassment')"
+        >
+          😳
+        </button>
+        <button data-type="sympathy" onclick="displayKaomojis('sympathy')">
+          🥺
+        </button>
 
-<!-- Negative Emotions -->
+        <!-- Negative Emotions -->
 
-<button data-type="dissatisfaction" onclick="displayKaomojis('dissatisfaction')">😒</button>
-<button data-type="anger" onclick="displayKaomojis('anger')">😠</button>
-<button data-type="sadness" onclick="displayKaomojis('sadness')">😢</button>
-<button data-type="pain" onclick="displayKaomojis('pain')">😖</button>
-<button data-type="fear" onclick="displayKaomojis('fear')">😨</button>
+        <button
+          data-type="dissatisfaction"
+          onclick="displayKaomojis('dissatisfaction')"
+        >
+          😒
+        </button>
+        <button data-type="anger" onclick="displayKaomojis('anger')">😠</button>
+        <button data-type="sadness" onclick="displayKaomojis('sadness')">
+          😢
+        </button>
+        <button data-type="pain" onclick="displayKaomojis('pain')">😖</button>
+        <button data-type="fear" onclick="displayKaomojis('fear')">😨</button>
 
-<!-- Neutral Emotions -->
+        <!-- Neutral Emotions -->
 
-<button data-type="indifference" onclick="displayKaomojis('indifference')">😐</button>
-<button data-type="confusion" onclick="displayKaomojis('confusion')">🤔</button>
-<button data-type="doubt" onclick="displayKaomojis('doubt')">🤨</button>
-<button data-type="surprise" onclick="displayKaomojis('surprise')">😲</button>
+        <button
+          data-type="indifference"
+          onclick="displayKaomojis('indifference')"
+        >
+          😐
+        </button>
+        <button data-type="confusion" onclick="displayKaomojis('confusion')">
+          🤔
+        </button>
+        <button data-type="doubt" onclick="displayKaomojis('doubt')">🤨</button>
+        <button data-type="surprise" onclick="displayKaomojis('surprise')">
+          😲
+        </button>
 
-<!-- Various Actions -->
+        <!-- Various Actions -->
 
-<button data-type="greeting" onclick="displayKaomojis('greeting')">👋</button>
-<button data-type="hugging" onclick="displayKaomojis('hugging')">🤗</button>
-<button data-type="winking" onclick="displayKaomojis('winking')">😉</button>
-<button data-type="apologizing" onclick="displayKaomojis('apologizing')">🙇‍♂️</button>
-<button data-type="hiding" onclick="displayKaomojis('hiding')">🙈</button>
-<button data-type="writing" onclick="displayKaomojis('writing')">✍️</button>
-<button data-type="running" onclick="displayKaomojis('running')">🏃</button>
-<button data-type="sleeping" onclick="displayKaomojis('sleeping')">😴</button>
+        <button data-type="greeting" onclick="displayKaomojis('greeting')">
+          👋
+        </button>
+        <button data-type="hugging" onclick="displayKaomojis('hugging')">
+          🤗
+        </button>
+        <button data-type="winking" onclick="displayKaomojis('winking')">
+          😉
+        </button>
+        <button
+          data-type="apologizing"
+          onclick="displayKaomojis('apologizing')"
+        >
+          🙇‍♂️
+        </button>
+        <button data-type="hiding" onclick="displayKaomojis('hiding')">
+          🙈
+        </button>
+        <button data-type="writing" onclick="displayKaomojis('writing')">
+          ✍️
+        </button>
+        <button data-type="running" onclick="displayKaomojis('running')">
+          🏃
+        </button>
+        <button data-type="sleeping" onclick="displayKaomojis('sleeping')">
+          😴
+        </button>
 
-<!-- Animals -->
+        <!-- Animals -->
 
-<button data-type="cat" onclick="displayKaomojis('cat')">🐱</button>
-<button data-type="bear" onclick="displayKaomojis('bear')">🐻</button>
-<button data-type="dog" onclick="displayKaomojis('dog')">🐶</button>
-<button data-type="rabbit" onclick="displayKaomojis('rabbit')">🐰</button>
-<button data-type="pig" onclick="displayKaomojis('pig')">🐷</button>
-<button data-type="panda" onclick="displayKaomojis('panda')">🐼</button>
-<button data-type="owl" onclick="displayKaomojis('owl')">🦉</button>
-<button data-type="elephant" onclick="displayKaomojis('elephant')">🐘</button>
-<button data-type="fox" onclick="displayKaomojis('fox')">🦊</button>
-<button data-type="mouse" onclick="displayKaomojis('mouse')">🐭</button>
-<button data-type="duck" onclick="displayKaomojis('duck')">🦆</button>
-<button data-type="monkey" onclick="displayKaomojis('monkey')">🐒</button>
-
+        <button data-type="cat" onclick="displayKaomojis('cat')">🐱</button>
+        <button data-type="bear" onclick="displayKaomojis('bear')">🐻</button>
+        <button data-type="dog" onclick="displayKaomojis('dog')">🐶</button>
+        <button data-type="rabbit" onclick="displayKaomojis('rabbit')">
+          🐰
+        </button>
+        <button data-type="pig" onclick="displayKaomojis('pig')">🐷</button>
+        <button data-type="panda" onclick="displayKaomojis('panda')">🐼</button>
+        <button data-type="owl" onclick="displayKaomojis('owl')">🦉</button>
+        <button data-type="elephant" onclick="displayKaomojis('elephant')">
+          🐘
+        </button>
+        <button data-type="fox" onclick="displayKaomojis('fox')">🦊</button>
+        <button data-type="mouse" onclick="displayKaomojis('mouse')">🐭</button>
+        <button data-type="duck" onclick="displayKaomojis('duck')">🦆</button>
+        <button data-type="monkey" onclick="displayKaomojis('monkey')">
+          🐒
+        </button>
       </div>
-
 
       <div id="kaomoji-display" class="kaomoji-display"></div>
     </div>
-
 
     <div id="snackbar"></div>
 
