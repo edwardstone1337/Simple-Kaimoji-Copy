@@ -1,583 +1,338 @@
-const kaomojis = {
-  // Positive Emotions
-  joy: [
-    "(^_^)",
-    "(*≧ω≦)",
-    "(´꒳`)",
-    "(✧∀✧)/",
-    "(*^‿^*)",
-    "(๑>ᴗ<๑)",
-    "(๑˃ᴗ˂)ﻭ",
-    "ヽ(・∀・)ﾉ",
-    "(´｡• ᵕ •｡`)",
-    "☆*:.｡.o(≧▽≦)o.｡.:*☆",
-  ],
+function logError(context, error) {
+  console.error('[kaomoji] ' + context + ':', error);
+}
 
-  love: [
-    "(♥ω♥*)",
-    "(*♡∀♡)",
-    "(ღ˘⌣˘ღ)",
-    "（♥￫ｏ￩♥）",
-    "♡(˃͈ દ ˂͈ ༶ )",
-    "(｡♥‿♥｡)",
-    "(๑♡⌓♡๑)",
-    "(◍•ᴗ•◍)❤",
-    "(●♡∀♡)",
-    "(✿ ♡‿♡)",
-  ],
-
-  embarrassment: [
-    "(⁄ ⁄•⁄ω⁄•⁄ ⁄)",
-    "(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)",
-    "(⸝⸝⸝°⁻̫° ⸝⸝⸝)",
-    "(*ﾉωﾉ)",
-    "(o////o)",
-    "(#｀ε´#ゞ",
-    "(#^.^#)",
-    "٩(//̀Д/́/)۶",
-    "(/ω＼)",
-    "(⸝⸝>_<⸝⸝)",
-  ],
-
-  sympathy: [
-    "(っ˘̩╭╮˘̩)っ",
-    "(｡•́︿•̀｡)",
-    "(*´I`)",
-    "(/□＼*)・゜",
-    "(｡╯︵╰｡)",
-    "(ノ_<。)ヾ(´ ▽ ` )",
-    "ρ(- ω -、)ヾ(￣ω￣; )",
-    "ヽ(´ー｀)ノ ヽ(´ー｀)ノ",
-    "(っ´ω`)ﾉ(╥ω╥)",
-  ],
-
-  // Negative Emotions
-  dissatisfaction: [
-    "(¬_¬)",
-    "(￢_￢)",
-    "╮(￣_￣)╭",
-    "ヽ( `д´*)ノ",
-    "(－‸ლ)",
-    "(눈_눈)",
-    "(¬▂¬)",
-    "(c'mon)",
-    "＼(〇_ｏ)／",
-    "(＃￣0￣)",
-  ],
-
-  anger: [
-    "(╬ಠ益ಠ)",
-    "ヽ(≧Д≦)ノ",
-    "୧(๑•̀ㅁ•́๑)૭",
-    "( `ε´ )",
-    "(*≧m≦*)",
-    "ヽ(#`Д´)ﾉ",
-    "(*￣m￣)",
-    "( ╬◣ 益◢)",
-    "ヾ(。◣∀◢。)ﾉ",
-    "o(-`д´- ｡)",
-  ],
-
-  sadness: [
-    "(╥_╥)",
-    "(T_T)",
-    "(ಥ﹏ಥ)",
-    "｡･ﾟﾟ*(>д<)*ﾟﾟ･｡",
-    "(。╯︵╰。)",
-    "｡ﾟ(ﾟ´Д｀ﾟ)ﾟ｡",
-    "๐·°(৹˃̵﹏˂̵৹)°·๐",
-    "(个_个)",
-    "(╯︵╰,)",
-    "(╥﹏╥)",
-  ],
-
-  pain: [
-    "☆⌒(＞。≪)",
-    "(x_x)",
-    "(*>_<*)ﾉ",
-    "(>.<)",
-    "～(＞＜)～",
-    "(*_*)",
-    "(×_×;）",
-    "( ͡° ʖ̯ ͡°)",
-    "(ᗒᗩᗕ)",
-  ],
-
-  fear: [
-    "(ノωヽ)",
-    "(⊃д⊂)",
-    "(o_O)",
-    "ヽ(ﾟДﾟ)ﾉ",
-    "(((φ(◎ロ◎;)φ)))",
-    "{{|└(>o< )┘|}}",
-    "＼(º □ º l|l)/",
-    "(/;◇;)/",
-    "（ΩДΩ）",
-    "ミ●﹏☉ミ",
-  ],
-
-  // Neutral Emotions
-  indifference: [
-    "ヽ(ー_ー )ノ",
-    "┐('～`;)┌",
-    "ヽ( ´¬`)ノ",
-    "¯\\_(ツ)_/¯",
-    "ヽ(ಠ_ಠ)ノ",
-    "(ー_ー)!!",
-    "〜(￣▽￣〜)",
-    "┐(￣ヘ￣)┌",
-    "ᕕ( ᐛ )ᕗ",
-    "╮ (. ❛ ᴗ ❛.) ╭",
-  ],
-
-  confusion: [
-    "(￣ω￣;)",
-    "(⊙_☉)",
-    "(゜-゜)",
-    "ヽ(°〇°)ﾉ",
-    "( •́ .̫ •̀ )",
-    "(・_・ヾ",
-    "(・・。)ゞ",
-    "↷( ó╻ò)",
-    "￢(￢ )ﾍ",
-    "「(°ヘ°)",
-  ],
-
-  doubt: [
-    "(￢_￢)",
-    "(→_→)",
-    "(￣_￣|||)",
-    "(-_-?)",
-    "(。ヘ°)",
-    "(ーー;)",
-    "(^～^;)ゞ",
-    "ヽ(゜Q。)ノ？",
-    "(」゜ロ゜)」",
-    "(Ծ‸ Ծ)",
-  ],
-
-  surprise: [
-    "(°o°)",
-    "(⊙_⊙)",
-    "( ﾟoﾟ)",
-    "Σ(゜゜)",
-    "o(〒﹏〒)o",
-    "(ﾟﾛﾟ)",
-    "Σ(๑０ω０๑)",
-    "(•ิ_•ิ)?",
-    "(*0*;)",
-    "(□_□)",
-  ],
-
-  // Various Actions
-  greeting: [
-    "ヾ(＾-＾)ノ",
-    "( ´ ▽ ` )ﾉ",
-    "(*・ω・)ﾉ",
-    "(ノ^_^)ノ",
-    "ヾ(•ω•`)o",
-    "(*^▽^)/★*☆♪",
-    "(￣▽￣)ノ",
-    "╰(＾3＾)╯",
-    "ヾ(・ω・*)",
-    "＼(￣O￣)",
-  ],
-
-  hugging: [
-    "(づ￣ ³￣)づ",
-    "ლ(・ヮ・ლ)",
-    "⊂(◉‿◉)つ",
-    "(つ≧▽≦)つ",
-    "(つ✧ω✧)つ",
-    "(⊃｡•́‿•̀｡)⊃",
-    "(っಠ‿ಠ)っ",
-    "໒( • ͜ʖ • )७",
-    "(つ◉益◉)つ",
-    "(.づσ▿σ)づ",
-  ],
-
-  winking: [
-    "(^_~)",
-    "(*^ー^)",
-    "（＾＿－）",
-    "(^_<)〜☆",
-    "(;^_~)",
-    "(^.~)☆",
-    "(^ω~)",
-    "(>ω^)",
-    "(~人^)",
-    "(^_-)≡☆",
-  ],
-
-  apologizing: [
-    "m(_ _)m",
-    "(シ_ _)シ",
-    "ごめんなさい(._.)",
-    "(〒︿〒)",
-    "ｍ（．＿．）ｍ",
-    "（ﾉ´д｀）",
-    "(シ. .)シ",
-    "_(_^_)_",
-    "<(_ _)>",
-    "人(_ _*)",
-  ],
-
-  hiding: [
-    "|_・)",
-    "｜_・）",
-    "┬┴┬┴┤(･_├┬┴┬┴",
-    "┬┴┬┴┤(･_├┬┴┬┴",
-    "(ノω<。)ノ))☆.。",
-    "|ω・）",
-    "(/ω＼)",
-    "(/_・)ノ",
-    "|ω･)و ̑̑༉",
-    "|_-)",
-  ],
-
-  writing: [
-    "__φ(。。)",
-    "___φ(°-°=)",
-    "___〆(・∀・)",
-    "__φ(．．)",
-    "___ψ(°-°=)",
-    "__φ(-ω-)",
-    "__〆(￣ー￣)",
-    "__φ(^∇^)",
-    "__ψ(。。)",
-  ],
-
-  running: [
-    "ε=ε=ε=┌(;￣▽￣)┘",
-    "ε=ε=ε=ε=┏(゜ロ゜;)┛",
-    "ヾ(￣▽￣)ノ",
-    "C= C= C= C=┌(;・ω・)┘",
-    "┌(˘⌣˘)ʃ",
-    "ヽ(￣д￣;)ノ=3=3",
-    "。。。(((((º∀º)屮",
-    "!(;ﾟoﾟ)ｏ=3=3=3",
-    "~==三 ε=ε=ε=(ﾉﾟдﾟ)ﾉ",
-    "ε=ε=ε=(ﾉ*´▽｀*)ﾉ",
-  ],
-
-  sleeping: [
-    "(∪｡∪)｡｡｡zzz",
-    "(-.-)Zzz...",
-    "(￣o￣) zzZZzzZZ",
-    "(ᴗ˳ᴗ)",
-    "(-_-) zzz",
-    "[(－－)]..zzz",
-    "(∪｡∪)..zzz",
-    "(´-ω-｀)zzz...",
-    "(○ ´Ｏ｀)ﾉ.｡ｏ○○ｏ｡.ﾉｏ○",
-    "(＿ ＿*) Z z z",
-  ],
-
-  //Animals
-  cat: [
-    "ฅ^•ﻌ•^ฅ",
-    "(=^･ω･^=)",
-    "(=^･ｪ･^=)",
-    "(=①ω①=)",
-    "ฅ(＾・ω・＾ฅ)",
-    "ฅ(ΦωΦ)ฅ",
-    "(=ＴェＴ=)",
-    "(=ｘェｘ=)",
-    "（=´∇｀=）",
-    "(=^･^=)",
-    "(=；ェ；=)",
-    "(=｀ω´=)",
-    "(=｀ェ´=)",
-    "（＾・ω・＾✿）",
-    "(^-人-^)",
-    "(=ΦｴΦ=)",
-    "(=^‥^=)",
-    "ฅ•ω•ฅ",
-    "ฅ(≚ᄌ≚)",
-    "ฅ(•ㅅ•❀)ฅ",
-    "ฅ(^ω^ฅ)",
-    "ฅ(ﾐ・ᆽ・ﾐ)ฅ",
-    "ฅ(ﾐΦ ﻌ Φﾐ)∗",
-    "ฅ(• ɪ •)ฅ",
-    "ฅ(＾・ω・＾ฅ)",
-    "ฅ(º ﻌ ºฅ)",
-    "ฅʕ•ᴥ•ʔฅ",
-    "ฅ(ﾐ꒡ᆽ꒡ﾐ)ฅ✧",
-    "ฅ(ﾐ>ᆽ<ﾐ)∫",
-    "ฅ(ﾐ˘ᆽ˘ﾐ)∫",
-    "ฅ(ﾐ´ω`ﾐ)ฅ",
-    "ฅ(ﾐゝᆽ╹ﾐ)∫",
-  ],
-
-  bear: [
-    "ʕ•ᴥ•ʔ",
-    "ʕっ•ᴥ•ʔっ",
-    "ʕºᴥºʔ",
-    "ʕ•́ᴥ•̀ʔっ",
-    "ʕᴥ• ʔ",
-    "ʕ•ᴥ•ʔノ",
-    "ʕ º ᴥ ºʔ",
-    "ʕ•̫͡•ʔ",
-    "ʕ￫ᴥ￩ʔ",
-    "ʕ•ᴥ•ʔゝ☆",
-    "ʕ ´•ᴥ•`ʔ",
-    "ʕ•̫͡•ིʔྀ",
-    "ʕ·ᴥ·ʔ",
-    "ʕᴥ·ʔ",
-    "ʕʘᴥʘʔ",
-    "ʕง•ᴥ•ʔง",
-    "ʕ•̼͛͡•ʕ-̺͛͡•ʔ•̮͛͡•ʔ",
-    "ʕ༼◕ ౪ ◕✿ʔ",
-    "ʕʽɞʼʔ",
-    "ʕ•̀ω•́ʔ✧",
-    "ʕง ͠° ͟ل͜ ͡°ʔง",
-    "ʕ*ﾉᴥﾉʔ",
-    "ʕಠᴥಠʔ",
-    "ʕ◉ᴥ◉ʔ",
-    "ʕᵔᴥᵔʔ",
-    "ʕ>ᴥ<ʔ",
-    "ʕʘ̅͜ʘ̅ʔ",
-    "ʕ´•ᴥ•`ʔ",
-  ],
-
-  dog: [
-    "∪･ω･∪",
-    "∪＾ェ＾∪",
-    "∪･ｪ･∪",
-    "ヾ(｡･ω･｡)",
-    "(●｀･(ｴ)･´●)",
-    "Σ>―(〃°ω°〃)♡→",
-    "U ´꓃ ` U",
-    "(〓￣(∵エ∵)￣〓)",
-    "U・♀・U",
-    "(U・x・U)",
-    "▼・ᴥ・▼",
-    "V●ᴥ●V",
-    "ฅ^•ﻌ•^ฅ",
-    "U ´･ᴥ･` U",
-    "(❍ᴥ❍ʋ)",
-    "└(°ᴥ°)┘",
-    "U^ｪ^U",
-    "ｖ・。・Ｖ",
-    "U^皿^U",
-    "U･ᴥ･U",
-    "(U・ᴥ・U)",
-    "U｡･ｪ･｡U",
-    "▼(´ᴥ`)▼",
-    "Uo･ｪ･oU",
-    "U ˒˒",
-    "∪￣ᴥ￣∪",
-    "∪･ω･∪",
-    "Uo‿･ｪ･‿oU",
-    "ｏ（Ｕ・ω・）⊃",
-  ],
-
-  rabbit: [
-    // Rabbit kaomojis
-    "(/･ω･(-ω-)",
-    "／(^ x ^=)＼",
-    "／(^ x ^)＼",
-    "／(･ × ･)＼",
-    "／(=∩_∩=)＼",
-    "／(v x v｡)人(｡v x v)＼",
-    "／(=･ x ･=)＼",
-    "／(^･ｪ･^)＼",
-    "／(=⌒x⌒=)＼",
-    "／(v x v)＼",
-    "／(=´x`=)＼",
-    "／(v x v｡)＼",
-    "／(=✪ x ✪=)＼",
-    "／(･ x ･)＼",
-    "／(^･ω･^)＼",
-    "／(｡v x v｡)＼",
-    "／(=^･ｪ･^=)＼",
-    "／(=^･ω･^=)＼",
-    "／(=´x`=)＼",
-  ],
-
-  panda: [
-    // Panda kaomojis
-    "ヽ(￣(ｴ)￣)ﾉ",
-    "( ´(ｴ)｀)",
-    "(￣(エ)￣)",
-    "ヾ(￣(エ)￣ヾ)",
-    "(／(ｴ)＼)",
-    "（´(ｪ)｀）",
-    "(o(￣(ｴ)￣)o)",
-    "ヾ(´(ｴ)｀ﾉﾞ",
-    "ヽ(￣(ｴ)￣)ﾉ",
-    "(๑￣(ｴ)￣๑)",
-    "(／￣(ｴ)￣)／",
-    "(/-(ｴ)-＼)",
-    "(¬(ｴ)¬)",
-    "ヾ(´(ｴ)｀ﾉﾞ",
-    "(〇(ｴ)〇)",
-    "(´(ｪ)｀)",
-    "(￣(ｴ)￣)ﾉ",
-    "(／￣(ｴ)￣)／",
-    "(¬‿¬)",
-    "（〃・(ｴ)・〃）",
-    "(つ-(ｴ)-)つ",
-    "(･(ｴ)･｡)",
-    "(つ￣(ｴ)￣)つ",
-    "(≧(ｴ)≦ )",
-    "(o-(ｴ)-o)",
-    "(*￣(ｴ)￣*)",
-  ],
-
-  owl: [
-    "(๑•o•๑)",
-    "▼o・ェ・o▼",
-    "(o･(ェ)･o)",
-    "＠・＊・＠",
-    "▼・ᴥ・▼",
-    "(o(エ)o)",
-    "(￣(エ)￣)",
-    "(Φ(エ)Φ)",
-    "(ΦзΦ)",
-    "▼(エ)▼",
-    "(o(ｪ)o)",
-    "(Φ(ｪ)Φ)",
-    "(￣(ｴ)￣)ﾉ",
-    "(ΦωΦ)",
-    "(o(ｪ)o)",
-    "(๑Φ(エ)Φ๑)",
-    "(ΦωΦσ)σ",
-    "(ΦзΦ)",
-    "(ΦεΦ)",
-    "(ﾐ○ﻌ○ﾐ)",
-    "(ꀄꀾꀄ)",
-    "(❛ӧ❛三❛ӧ❛)",
-    "(◉Θ◉)",
-    "(]ΦωΦ[)",
-    "(oΦｴΦo)",
-    "(   ⊙ Θ ⊙)",
-    "(ㅇㅅㅇ❀)",
-    "(oΦﻌΦo)",
-    "(*ΦωΦ)ゞ",
-    "(✪㉨✪)",
-    ],
-
-  elephant: [
-    "(¬(エ)¬)",
-    "(っ・(エ)・)っ",
-    "(￣(エ)￣)",
-    "(◕(エ)◕)",
-    "ʕ •(エ)•ʔ",
-    "ʕ ·(エ)·ʔ",
-    "ʕ ￫(エ)￩ ʔ",
-    "(◉(エ)◉)",
-    "ʕ•̫͡ •ʔ",
-    "ʕ ˵ •(エ)• ˵ ʔ",
-    "ʢ◉ᴥ(エ)ʡ",
-    "ʕ ·͡ˑ·ཻʔ",
-    "ʕ•̫͡(エ) •ʔ",
-    "ʕ•(エ)•ʔﾉ",
-    "ʕっ•(エ)•ʔっ",
-    "ʕ ·ᴥ·ʔ",
-    "ʕ•(エ) •ʔ",
-    "ʕ ฅ•(エ)•ฅʔ",
-    ],
-
-  fox: [
-    "(๑ↀᆺↀ๑)✧", 
-    "๏◡๏",
-    "ᘛᵒᴥᵒᘚ",
-    "ᘛ⁐̤ᕐᐷ",
-    "(●...●)",
-    "ᕮ╹ヮ╹ᕭ",
-    "ᕳ˵•ﻌ•˵ᕲ",
-    "✧/ᐠ-ꞈ-ᐟ",
-    "(＾ᵔᴥᵔ＾)",
-    "⁽˙³˙⁾◟(˘•ω•˘)◞⁽˙³˙",
-    "ᶘ ͡°ᴥ͡°ᶅ",
-    "ˁ˙͠˟˙ˀ",
-    "( ͒ ु•·̫• ू ͒)",
-  ],
-
-  mouse: [
-    // Mouse kaomojis
-    "ʢ◉ᴥ◉ʡ",
-    "(•ิ_•ิ)/",
-    "ᘛᵒᴥᵒᘚ",
-    "(=⌒‿‿⌒=)",
-    "(=⌒‿‿⌒=)",
-  ],
-
-  pig: ["( ´(00)ˋ )", "(=｀(∞)´=)", "(´(00)ˋ)", "ʕ•͡(oo)•͡ʔ", "ʕ•͡(oo)•͡ʔ"],
-
-  duck: ["( •ө• )", "(._.)", "(•ө•)♡", "ㄟ( ･ө･ )ㄏ", "꜀( ˊ̠˂˃ˋ̠ )꜆"],
-
-  monkey: [
-    "@(o･ｪ･o)@",
-    "⊂((・⊥・))⊃",
-    "⊂(ο･㉨･ο)⊃",
-    "⊂(･ω･*⊂)",
-    "⊂(・(ェ)・)⊃",
-  ],
-
-  sheep: ["ᏊˊꈊˋᏊ", "Ꮚ˘̩̩̩ꍓ˘̩̩̩Ꮚ", "ᏊˊꍓˋᏊ", "ᏊᵔꈊᵔᏊ", "Ꮚˊ̥̥̥̥̥̥ꈊˋ̥̥̥̥̥̥Ꮚ"],
-};
-
-function displayKaomojis(type) {
-  const kaomojiDisplay = document.getElementById("kaomoji-display");
-  const categoryButtons = document.querySelectorAll(".button-container button");
-
-  // Update active state for category buttons
-  categoryButtons.forEach((button) => {
-    if (button.getAttribute("data-type") === type) {
-      button.classList.add("active");
-    } else {
-      button.classList.remove("active");
-    }
-  });
-
-  if (kaomojis[type]) {
-    // Create kaomoji buttons with initial opacity set to 0
-    const buttonsHtml = kaomojis[type]
-      .map(
-        (kaomoji) =>
-          `<button class="kaomoji-button" style="opacity:0;" onclick="copyKaomojiToClipboard('${kaomoji}')">${kaomoji}</button>`
-      )
-      .join(" ");
-
-    // Set inner HTML
-    kaomojiDisplay.innerHTML = buttonsHtml;
-
-    // Calculate the max width
-    let maxWidth = 0;
-    const kaomojiButtons =
-      kaomojiDisplay.getElementsByClassName("kaomoji-button");
-    for (const button of kaomojiButtons) {
-      if (button.offsetWidth > maxWidth) {
-        maxWidth = button.offsetWidth;
-      }
-    }
-
-    // Apply max width to all buttons and make them visible
-    for (const button of kaomojiButtons) {
-      button.style.minWidth = `${maxWidth}px`;
-      button.style.opacity = "1";
-    }
-  } else {
-    kaomojiDisplay.innerText = "No kaomojis found for this category";
+function trackEvent(eventName, params) {
+  if (typeof gtag === 'function') {
+    gtag('event', eventName, params);
   }
 }
 
-function copyKaomojiToClipboard(kaomoji) {
-  navigator.clipboard
-    .writeText(kaomoji)
-    .then(() => {
-      // Show snackbar
-      const snackbar = document.getElementById("snackbar");
-      snackbar.className = "show";
-      snackbar.innerText = `${kaomoji} copied to clipboard`;
-      setTimeout(
-        () => (snackbar.className = snackbar.className.replace("show", "")),
-        3000
-      );
+function toggleTheme() {
+  var current = document.documentElement.getAttribute('data-theme');
+  var next = current === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateToggleIcon(next);
+  document.getElementById('meta-theme-color').setAttribute('content', next === 'dark' ? '#1a1a1a' : '#ffffff');
+}
+
+function updateToggleIcon(theme) {
+  var btn = document.getElementById('theme-toggle');
+  btn.textContent = theme === 'dark' ? '☀️' : '🌙';
+}
+
+var kaomojiData = null;
+var groupObserver = null;
+var categoryObserver = null;
+
+function scrollNavToActive(navElement, activeLink) {
+  if (!navElement || !activeLink) return;
+  var linkLeft = activeLink.offsetLeft;
+  var linkWidth = activeLink.offsetWidth;
+  var navWidth = navElement.clientWidth;
+  navElement.scrollTo({
+    left: linkLeft - (navWidth / 2) + (linkWidth / 2),
+    behavior: 'smooth'
+  });
+}
+
+function debounce(fn, delay) {
+  var timer;
+  return function() {
+    clearTimeout(timer);
+    timer = setTimeout(fn, delay);
+  };
+}
+
+function initApp() {
+  fetch('kaomojis.json')
+    .then(function(response) {
+      if (!response.ok) {
+        throw new Error('Failed to load kaomoji data');
+      }
+      return response.json();
     })
-    .catch((err) => {
-      console.error("Error copying kaomoji to clipboard:", err);
+    .then(function(data) {
+      if (!data || !Array.isArray(data.groups) || !Array.isArray(data.categories) || !Array.isArray(data.kaomojis)) {
+        throw new Error('Invalid kaomoji data format');
+      }
+      kaomojiData = data;
+      renderNav(data.groups);
+      renderAllSections(data);
+      initGroupObserver(data);
+      initCategoryObserver();
+      renderSubNav([]);
+      updateOverflowClasses();
+      window.addEventListener('resize', debounce(updateOverflowClasses, 150));
+    })
+    .catch(function(error) {
+      logError('initApp', error);
+      var main = document.getElementById('main-content');
+      if (main) {
+        main.innerHTML = '';
+        var msg = document.createElement('p');
+        msg.style.textAlign = 'center';
+        msg.style.padding = '48px 16px';
+        msg.style.color = 'var(--s-color-text-secondary)';
+        msg.textContent = 'Unable to load kaomoji. Please refresh the page.';
+        main.appendChild(msg);
+      }
     });
 }
+
+function renderNav(groups) {
+  var nav = document.getElementById('sticky-nav');
+  nav.innerHTML = '';
+
+  var popLink = document.createElement('a');
+  popLink.href = '#popular';
+  popLink.textContent = 'Popular';
+  popLink.className = 'nav-link';
+  nav.appendChild(popLink);
+
+  groups.forEach(function(group) {
+    var link = document.createElement('a');
+    link.href = '#' + group.id;
+    link.textContent = group.label;
+    link.className = 'nav-link';
+    nav.appendChild(link);
+  });
+}
+
+function updateOverflowClasses() {
+  var navs = [document.getElementById('sticky-nav'), document.getElementById('sub-nav')];
+  navs.forEach(function(nav) {
+    if (!nav) return;
+    if (nav.scrollWidth > nav.clientWidth) {
+      nav.classList.add('has-overflow');
+    } else {
+      nav.classList.remove('has-overflow');
+    }
+  });
+}
+
+function renderSubNav(categories) {
+  var subNav = document.getElementById('sub-nav');
+  subNav.innerHTML = '';
+  if (categories.length === 0) {
+    subNav.classList.add('hidden');
+    updateOverflowClasses();
+    return;
+  }
+  subNav.classList.remove('hidden');
+  categories.forEach(function(cat) {
+    var link = document.createElement('a');
+    link.className = 'sub-nav-link';
+    link.href = '#' + cat.id;
+    link.textContent = cat.label;
+    subNav.appendChild(link);
+  });
+  updateOverflowClasses();
+}
+
+function initGroupObserver(data) {
+  var main = document.getElementById('main-content');
+  var sections = main.querySelectorAll('section.content-section');
+  if (sections.length === 0) return;
+
+  groupObserver = new IntersectionObserver(
+    function(entries) {
+      var firstIntersecting = null;
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          firstIntersecting = entries[i];
+          break;
+        }
+      }
+      if (!firstIntersecting) return;
+
+      var sectionId = firstIntersecting.target.id;
+      var stickyNav = document.getElementById('sticky-nav');
+      var navLinks = stickyNav.querySelectorAll('.nav-link');
+      var activeLink = null;
+      navLinks.forEach(function(link) {
+        if (link.getAttribute('href') === '#' + sectionId) {
+          link.classList.add('active');
+          activeLink = link;
+        } else {
+          link.classList.remove('active');
+        }
+      });
+      if (activeLink) {
+        scrollNavToActive(document.getElementById('sticky-nav'), activeLink);
+        trackEvent('view_group', { group_id: sectionId });
+      }
+
+      if (sectionId === 'popular') {
+        renderSubNav([]);
+      } else {
+        var filtered = data.categories.filter(function(cat) { return cat.group === sectionId; });
+        renderSubNav(filtered);
+      }
+    },
+    { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
+  );
+
+  sections.forEach(function(section) {
+    groupObserver.observe(section);
+  });
+}
+
+function initCategoryObserver() {
+  var main = document.getElementById('main-content');
+  var categorySections = main.querySelectorAll('div.category-section');
+  if (categorySections.length === 0) return;
+
+  categoryObserver = new IntersectionObserver(
+    function(entries) {
+      var firstIntersecting = null;
+      for (var i = 0; i < entries.length; i++) {
+        if (entries[i].isIntersecting) {
+          firstIntersecting = entries[i];
+          break;
+        }
+      }
+      if (!firstIntersecting) return;
+
+      var categoryId = firstIntersecting.target.id;
+      var subNav = document.getElementById('sub-nav');
+      var subLinks = subNav.querySelectorAll('.sub-nav-link');
+      var activeSubLink = null;
+      subLinks.forEach(function(link) {
+        if (link.getAttribute('href') === '#' + categoryId) {
+          link.classList.add('active');
+          activeSubLink = link;
+        } else {
+          link.classList.remove('active');
+        }
+      });
+      if (activeSubLink) {
+        scrollNavToActive(document.getElementById('sub-nav'), activeSubLink);
+        trackEvent('view_category', { category_id: categoryId });
+      }
+    },
+    { rootMargin: '-30% 0px -70% 0px', threshold: 0 }
+  );
+
+  categorySections.forEach(function(div) {
+    categoryObserver.observe(div);
+  });
+}
+
+function renderAllSections(data) {
+  var main = document.getElementById('main-content');
+  main.innerHTML = '';
+
+  var popularSection = document.createElement('section');
+  popularSection.id = 'popular';
+  popularSection.className = 'content-section';
+
+  var popHeading = document.createElement('h2');
+  popHeading.textContent = 'Popular';
+  popularSection.appendChild(popHeading);
+
+  var popDesc = document.createElement('p');
+  popDesc.className = 'section-description';
+  popDesc.textContent = 'The most iconic kaomoji — click to copy.';
+  popularSection.appendChild(popDesc);
+
+  var popularKaomojis = data.kaomojis.filter(function(k) { return k.popular; });
+  popularSection.appendChild(createKaomojiGrid(popularKaomojis));
+  main.appendChild(popularSection);
+
+  data.groups.forEach(function(group) {
+    var section = document.createElement('section');
+    section.id = group.id;
+    section.className = 'content-section';
+
+    var groupHeading = document.createElement('h2');
+    groupHeading.textContent = group.label;
+    section.appendChild(groupHeading);
+
+    var groupCategories = data.categories.filter(function(cat) {
+      return cat.group === group.id;
+    });
+
+    groupCategories.forEach(function(cat) {
+      var catDiv = document.createElement('div');
+      catDiv.id = cat.id;
+      catDiv.className = 'category-section';
+
+      var catHeading = document.createElement('h3');
+      catHeading.textContent = cat.label;
+      catDiv.appendChild(catHeading);
+
+      var catDesc = document.createElement('p');
+      catDesc.className = 'section-description';
+      catDesc.textContent = cat.description;
+      catDiv.appendChild(catDesc);
+
+      var catKaomojis = data.kaomojis.filter(function(k) {
+        return Array.isArray(k.categories) && k.categories.indexOf(cat.id) !== -1;
+      });
+      catDiv.appendChild(createKaomojiGrid(catKaomojis));
+
+      section.appendChild(catDiv);
+    });
+
+    main.appendChild(section);
+  });
+}
+
+function createKaomojiGrid(kaomojis) {
+  var grid = document.createElement('div');
+  grid.className = 'kaomoji-grid';
+
+  kaomojis.forEach(function(k) {
+    var btn = document.createElement('button');
+    btn.className = 'kaomoji-button';
+    btn.textContent = k.char;
+    btn.addEventListener('click', function() {
+      copyKaomojiToClipboard(k.char);
+    });
+    grid.appendChild(btn);
+  });
+
+  return grid;
+}
+
+function copyKaomojiToClipboard(kaomoji) {
+  if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
+    var snackbar = document.getElementById('snackbar');
+    snackbar.textContent = 'Copy not supported — try HTTPS or a different browser';
+    snackbar.classList.add('show');
+    setTimeout(function() { snackbar.classList.remove('show'); }, 3000);
+    return;
+  }
+  navigator.clipboard
+    .writeText(kaomoji)
+    .then(function() {
+      var snackbar = document.getElementById('snackbar');
+      snackbar.classList.add('show');
+      snackbar.innerText = kaomoji + ' copied to clipboard';
+      setTimeout(function() {
+        snackbar.classList.remove('show');
+      }, 3000);
+      trackEvent('copy_kaomoji', { kaomoji: kaomoji });
+    })
+    .catch(function(error) {
+      logError('copyKaomoji', error);
+      var snackbar = document.getElementById('snackbar');
+      if (snackbar) {
+        snackbar.textContent = 'Copy failed — try again';
+        snackbar.classList.add('show');
+        setTimeout(function() { snackbar.classList.remove('show'); }, 2000);
+      }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  var theme = document.documentElement.getAttribute('data-theme') || 'light';
+  updateToggleIcon(theme);
+  document.getElementById('theme-toggle').addEventListener('click', function() {
+    toggleTheme();
+    trackEvent('toggle_theme', { theme: document.documentElement.getAttribute('data-theme') });
+  });
+  initApp();
+});

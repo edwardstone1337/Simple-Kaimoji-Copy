@@ -3,140 +3,82 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kaomoji - Your One-Stop Kaomoji Destination</title>
+    <title>Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ | kaomoji.click</title>
     <meta
       name="description"
-      content="Explore a vast collection of Kaomoji, Japanese emoticons, text faces, and cute expressions. Click and copy to your clipboard easily."
+      content="Browse and copy 500+ Japanese kaomoji emoticons. Organized by category — faces, animals, actions and more. One click to copy. No app needed."
     />
     <meta
       name="keywords"
       content="Kaomoji, Japanese Emoticons, Text Faces, Cute Expressions, Emoji, Smiley Faces, Copy and Paste, Fun Emoticons"
     />
+    <link rel="canonical" href="https://www.kaomoji.click/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
+    <meta property="og:description" content="Browse and copy 500+ Japanese kaomoji emoticons. One click to copy." />
+    <meta property="og:url" content="https://www.kaomoji.click/" />
+    <meta property="og:site_name" content="kaomoji.click" />
+    <meta property="og:locale" content="en_US" />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
+    <meta name="twitter:description" content="Browse and copy 500+ Japanese kaomoji emoticons. One click to copy." />
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-JKEBQ0M6NQ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-JKEBQ0M6NQ");
+    </script>
+    <link rel="preload" href="kaomojis.json" as="fetch" crossorigin />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
+    <meta name="theme-color" content="#ffffff" id="meta-theme-color" />
+    <script>
+      (function() {
+        var theme = localStorage.getItem('theme');
+        if (!theme) {
+          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+        document.documentElement.setAttribute('data-theme', theme);
+        document.getElementById('meta-theme-color').setAttribute('content', theme === 'dark' ? '#1a1a1a' : '#ffffff');
+      })();
+    </script>
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "kaomoji.click",
+  "url": "https://www.kaomoji.click/",
+  "description": "Browse and copy 500+ Japanese kaomoji emoticons. Organized by category — faces, animals, actions and more.",
+  "inLanguage": "en"
+}
+    </script>
   </head>
 
-  <!-- Google tag (gtag.js) -->
-  <script
-    async
-    src="https://www.googletagmanager.com/gtag/js?id=G-JKEBQ0M6NQ"
-  ></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-    gtag("js", new Date());
-
-    gtag("config", "G-JKEBQ0M6NQ");
-  </script>
-
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+
+    <header class="header-container">
+      <h1>顔文字</h1>
+      <p class="subtitle">Kaomoji — Japanese Emoticons</p>
+    </header>
+
+    <div class="nav-wrapper" id="nav-wrapper">
+      <nav class="sticky-nav" id="sticky-nav"></nav>
+      <nav class="sub-nav" id="sub-nav"></nav>
+    </div>
+
     <div class="container">
-      <div class="header-container">
-        <h1>顔文字</h1>
-        <p>Kao Moji</p>
-      </div>
-
-      <div class="button-container">
-        <!-- Positive Emotions -->
-
-        <button data-type="joy" onclick="displayKaomojis('joy')">😊</button>
-        <button data-type="love" onclick="displayKaomojis('love')">❤️</button>
-        <button
-          data-type="embarrassment"
-          onclick="displayKaomojis('embarrassment')"
-        >
-          😳
-        </button>
-        <button data-type="sympathy" onclick="displayKaomojis('sympathy')">
-          🥺
-        </button>
-
-        <!-- Negative Emotions -->
-
-        <button
-          data-type="dissatisfaction"
-          onclick="displayKaomojis('dissatisfaction')"
-        >
-          😒
-        </button>
-        <button data-type="anger" onclick="displayKaomojis('anger')">😠</button>
-        <button data-type="sadness" onclick="displayKaomojis('sadness')">
-          😢
-        </button>
-        <button data-type="pain" onclick="displayKaomojis('pain')">😖</button>
-        <button data-type="fear" onclick="displayKaomojis('fear')">😨</button>
-
-        <!-- Neutral Emotions -->
-
-        <button
-          data-type="indifference"
-          onclick="displayKaomojis('indifference')"
-        >
-          😐
-        </button>
-        <button data-type="confusion" onclick="displayKaomojis('confusion')">
-          🤔
-        </button>
-        <button data-type="doubt" onclick="displayKaomojis('doubt')">🤨</button>
-        <button data-type="surprise" onclick="displayKaomojis('surprise')">
-          😲
-        </button>
-
-        <!-- Various Actions -->
-
-        <button data-type="greeting" onclick="displayKaomojis('greeting')">
-          👋
-        </button>
-        <button data-type="hugging" onclick="displayKaomojis('hugging')">
-          🤗
-        </button>
-        <button data-type="winking" onclick="displayKaomojis('winking')">
-          😉
-        </button>
-        <button
-          data-type="apologizing"
-          onclick="displayKaomojis('apologizing')"
-        >
-          🙇‍♂️
-        </button>
-        <button data-type="hiding" onclick="displayKaomojis('hiding')">
-          🙈
-        </button>
-        <button data-type="writing" onclick="displayKaomojis('writing')">
-          ✍️
-        </button>
-        <button data-type="running" onclick="displayKaomojis('running')">
-          🏃
-        </button>
-        <button data-type="sleeping" onclick="displayKaomojis('sleeping')">
-          😴
-        </button>
-
-        <!-- Animals -->
-
-        <button data-type="cat" onclick="displayKaomojis('cat')">🐱</button>
-        <button data-type="bear" onclick="displayKaomojis('bear')">🐻</button>
-        <button data-type="dog" onclick="displayKaomojis('dog')">🐶</button>
-        <button data-type="rabbit" onclick="displayKaomojis('rabbit')">
-          🐰
-        </button>
-        <button data-type="pig" onclick="displayKaomojis('pig')">🐷</button>
-        <button data-type="panda" onclick="displayKaomojis('panda')">🐼</button>
-        <button data-type="owl" onclick="displayKaomojis('owl')">🦉</button>
-        <button data-type="elephant" onclick="displayKaomojis('elephant')">
-          🐘
-        </button>
-        <button data-type="fox" onclick="displayKaomojis('fox')">🦊</button>
-        <button data-type="mouse" onclick="displayKaomojis('mouse')">🐭</button>
-        <button data-type="duck" onclick="displayKaomojis('duck')">🦆</button>
-        <button data-type="monkey" onclick="displayKaomojis('monkey')">
-          🐒
-        </button>
-      </div>
-
-      <div id="kaomoji-display" class="kaomoji-display"></div>
+      <main id="main-content"></main>
     </div>
 
     <div id="snackbar"></div>

@@ -1,0 +1,2675 @@
+{
+  "groups": [
+    {
+      "id": "positive-emotions",
+      "label": "Positive Emotions"
+    },
+    {
+      "id": "negative-emotions",
+      "label": "Negative Emotions"
+    },
+    {
+      "id": "neutral-emotions",
+      "label": "Neutral Emotions"
+    },
+    {
+      "id": "actions",
+      "label": "Actions"
+    },
+    {
+      "id": "animals",
+      "label": "Animals"
+    }
+  ],
+  "categories": [
+    {
+      "id": "joy",
+      "group": "positive-emotions",
+      "label": "Joy",
+      "description": "Smiling, laughing, and cheerful kaomoji for when you're feeling happy."
+    },
+    {
+      "id": "love",
+      "group": "positive-emotions",
+      "label": "Love",
+      "description": "Hearts, affection, and romance — express your love with these kaomoji."
+    },
+    {
+      "id": "embarrassment",
+      "group": "positive-emotions",
+      "label": "Embarrassment",
+      "description": "Blushing, flustered, and shy faces for those awkward moments."
+    },
+    {
+      "id": "sympathy",
+      "group": "positive-emotions",
+      "label": "Sympathy",
+      "description": "Comforting and supportive kaomoji to show you care."
+    },
+    {
+      "id": "dissatisfaction",
+      "group": "negative-emotions",
+      "label": "Dissatisfaction",
+      "description": "Unimpressed, annoyed, and fed-up faces."
+    },
+    {
+      "id": "anger",
+      "group": "negative-emotions",
+      "label": "Anger",
+      "description": "Furious, raging, and frustrated kaomoji for when you've had enough."
+    },
+    {
+      "id": "sadness",
+      "group": "negative-emotions",
+      "label": "Sadness",
+      "description": "Crying, tearful, and sorrowful faces for those tough times."
+    },
+    {
+      "id": "pain",
+      "group": "negative-emotions",
+      "label": "Pain",
+      "description": "Hurt, suffering, and defeated kaomoji."
+    },
+    {
+      "id": "fear",
+      "group": "negative-emotions",
+      "label": "Fear",
+      "description": "Scared, terrified, and anxious faces."
+    },
+    {
+      "id": "indifference",
+      "group": "neutral-emotions",
+      "label": "Indifference",
+      "description": "Shrugs, blank stares, and unbothered faces."
+    },
+    {
+      "id": "confusion",
+      "group": "neutral-emotions",
+      "label": "Confusion",
+      "description": "Puzzled, lost, and bewildered kaomoji."
+    },
+    {
+      "id": "doubt",
+      "group": "neutral-emotions",
+      "label": "Doubt",
+      "description": "Skeptical, suspicious, and questioning faces."
+    },
+    {
+      "id": "surprise",
+      "group": "neutral-emotions",
+      "label": "Surprise",
+      "description": "Shocked, stunned, and wide-eyed reactions."
+    },
+    {
+      "id": "greeting",
+      "group": "actions",
+      "label": "Greeting",
+      "description": "Friendly waves and hello faces to start a conversation."
+    },
+    {
+      "id": "hugging",
+      "group": "actions",
+      "label": "Hugging",
+      "description": "Open arms and warm embraces."
+    },
+    {
+      "id": "winking",
+      "group": "actions",
+      "label": "Winking",
+      "description": "Playful, cheeky, and flirty winks."
+    },
+    {
+      "id": "apologizing",
+      "group": "actions",
+      "label": "Apologizing",
+      "description": "Bowing, sorry, and remorseful kaomoji."
+    },
+    {
+      "id": "hiding",
+      "group": "actions",
+      "label": "Hiding",
+      "description": "Peeking out, covering eyes, and hiding behind walls."
+    },
+    {
+      "id": "writing",
+      "group": "actions",
+      "label": "Writing",
+      "description": "Studious, note-taking, and scribbling faces."
+    },
+    {
+      "id": "running",
+      "group": "actions",
+      "label": "Running",
+      "description": "Dashing, fleeing, and sprinting kaomoji."
+    },
+    {
+      "id": "sleeping",
+      "group": "actions",
+      "label": "Sleeping",
+      "description": "Dozing, snoring, and dreaming faces."
+    },
+    {
+      "id": "cat",
+      "group": "animals",
+      "label": "Cat",
+      "description": "Cute cat faces with whiskers, paws, and pointy ears."
+    },
+    {
+      "id": "bear",
+      "group": "animals",
+      "label": "Bear",
+      "description": "Adorable bear faces with round ears and snouts."
+    },
+    {
+      "id": "dog",
+      "group": "animals",
+      "label": "Dog",
+      "description": "Loyal, happy, and playful dog faces."
+    },
+    {
+      "id": "rabbit",
+      "group": "animals",
+      "label": "Rabbit",
+      "description": "Floppy-eared and twitchy-nosed bunny kaomoji."
+    },
+    {
+      "id": "panda",
+      "group": "animals",
+      "label": "Panda",
+      "description": "Cuddly panda bear faces."
+    },
+    {
+      "id": "owl",
+      "group": "animals",
+      "label": "Owl",
+      "description": "Wide-eyed and wise owl faces."
+    },
+    {
+      "id": "elephant",
+      "group": "animals",
+      "label": "Elephant",
+      "description": "Big-eared and trunked elephant faces."
+    },
+    {
+      "id": "fox",
+      "group": "animals",
+      "label": "Fox",
+      "description": "Sly, clever, and bushy-tailed fox faces."
+    },
+    {
+      "id": "mouse",
+      "group": "animals",
+      "label": "Mouse",
+      "description": "Tiny, squeaky mouse faces."
+    },
+    {
+      "id": "pig",
+      "group": "animals",
+      "label": "Pig",
+      "description": "Round-nosed and snouty pig faces."
+    },
+    {
+      "id": "duck",
+      "group": "animals",
+      "label": "Duck",
+      "description": "Quacking and waddling duck faces."
+    },
+    {
+      "id": "monkey",
+      "group": "animals",
+      "label": "Monkey",
+      "description": "Playful and cheeky monkey faces."
+    }
+  ],
+  "kaomojis": [
+    {
+      "char": "___〆(・∀・)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "___φ(°-°=)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "___ψ(°-°=)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "__〆(￣ー￣)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "__φ(-ω-)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "__φ(．．)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "__φ(。。)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "__φ(^∇^)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "__ψ(。。)",
+      "categories": [
+        "writing"
+      ]
+    },
+    {
+      "char": "_(_^_)_",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "〜(￣▽￣〜)",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "!(;ﾟoﾟ)ｏ=3=3=3",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "｡･ﾟﾟ*(>д<)*ﾟﾟ･｡",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "。。。(((((º∀º)屮",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "｡ﾟ(ﾟ´Д｀ﾟ)ﾟ｡",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(   ⊙ Θ ⊙)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "( ͒ ु•·̫• ू ͒)",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "(￣_￣|||)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(￣(エ)￣)",
+      "categories": [
+        "panda",
+        "owl",
+        "elephant"
+      ]
+    },
+    {
+      "char": "(￣(ｴ)￣)ﾉ",
+      "categories": [
+        "panda",
+        "owl"
+      ]
+    },
+    {
+      "char": "( •́ .̫ •̀ )",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "( •ө• )",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "( `ε´ )",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "( ´ ▽ ` )ﾉ",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "( ´(00)ˋ )",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "( ´(ｴ)｀)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "( ͡° ʖ̯ ͡°)",
+      "categories": [
+        "pain"
+      ],
+      "popular": true
+    },
+    {
+      "char": "( ╬◣ 益◢)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(￣▽￣)ノ",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "(￣o￣) zzZZzzZZ",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "( ﾟoﾟ)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(￣ω￣;)",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "(＿ ＿*) Z z z",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(-_-?)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(-_-) zzz",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(-.-)Zzz...",
+      "categories": [
+        "sleeping"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(－‸ლ)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(・_・ヾ",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "(・・。)ゞ",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "(･(ｴ)･｡)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(;^_~)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(._.)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(.づσ▿σ)づ",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "(｡•́︿•̀｡)",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "(。╯︵╰。)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(｡╯︵╰｡)",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "(｡♥‿♥｡)",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(。ヘ°)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(((φ(◎ロ◎;)φ)))",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "(]ΦωΦ[)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(⸝⸝⸝°⁻̫° ⸝⸝⸝)",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(⸝⸝>_<⸝⸝)",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(」゜ロ゜)」",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(*￣(ｴ)￣*)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(*￣m￣)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(*_*)",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "(*・ω・)ﾉ",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "(*´I`)",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "(*^‿^*)",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "(*^▽^)/★*☆♪",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "(*^ー^)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(*>_<*)ﾉ",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "(*≧m≦*)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(*≧ω≦)",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "(*♡∀♡)",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(*0*;)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(*ﾉωﾉ)",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(*ΦωΦ)ゞ",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(／￣(ｴ)￣)／",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(/_・)ノ",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "(/-(ｴ)-＼)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(/･ω･(-ω-)",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "(/;◇;)/",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "(／(ｴ)＼)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(/□＼*)・゜",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "(/ω＼)",
+      "categories": [
+        "embarrassment",
+        "hiding"
+      ]
+    },
+    {
+      "char": "(＃￣0￣)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(#｀ε´#ゞ",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(#^.^#)",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(•ө•)♡",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(•ิ_•ิ)?",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(•ิ_•ิ)/",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "（〃・(ｴ)・〃）",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(´-ω-｀)zzz...",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(´｡• ᵕ •｡`)",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "(´(00)ˋ)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "（´(ｪ)｀）",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(´(ｪ)｀)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(´꒳`)",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "（＾＿－）",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(^_-)≡☆",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(^_^)",
+      "categories": [
+        "joy"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(^_<)〜☆",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(^_~)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(^-人-^)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "（＾・ω・＾✿）",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(^.~)☆",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(^～^;)ゞ",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(＾ᵔᴥᵔ＾)",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "(^ω~)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "⁽˙³˙⁾◟(˘•ω•˘)◞⁽˙³˙",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "(゜-゜)",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "(°o°)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(→_→)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(×_×;）",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "(=；ェ；=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=｀(∞)´=)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "(=｀ェ´=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=｀ω´=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "（=´∇｀=）",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=^･^=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=^･ｪ･^=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=^･ω･^=)",
+      "categories": [
+        "cat"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(=^‥^=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=⌒‿‿⌒=)",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "(=①ω①=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=ＴェＴ=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=ｘェｘ=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(=ΦｴΦ=)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "(>.<)",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "(>ω^)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(¬_¬)",
+      "categories": [
+        "dissatisfaction"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(￢_￢)",
+      "categories": [
+        "dissatisfaction",
+        "doubt"
+      ]
+    },
+    {
+      "char": "(¬(エ)¬)",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "(¬(ｴ)¬)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(¬‿¬)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(¬▂¬)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(~人^)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(⁄ ⁄•⁄ω⁄•⁄ ⁄)",
+      "categories": [
+        "embarrassment"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(⁄ ⁄>⁄ ▽ ⁄<⁄ ⁄)",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(∪｡∪)..zzz",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(∪｡∪)｡｡｡zzz",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(≧(ｴ)≦ )",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(⊃｡•́‿•̀｡)⊃",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "(⊃д⊂)",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "(⊙_⊙)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(⊙_☉)",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "(╥_╥)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(╥﹏╥)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(╬ಠ益ಠ)",
+      "categories": [
+        "anger"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(╯︵╰,)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(□_□)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(◉(エ)◉)",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "(◉Θ◉)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(○ ´Ｏ｀)ﾉ.｡ｏ○○ｏ｡.ﾉｏ○",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(◍•ᴗ•◍)❤",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(●...●)",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "(●｀･(ｴ)･´●)",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "(●♡∀♡)",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(◕(エ)◕)",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "（♥￫ｏ￩♥）",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(♥ω♥*)",
+      "categories": [
+        "love"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(✧∀✧)/",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "(✪㉨✪)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(✿ ♡‿♡)",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(❍ᴥ❍ʋ)",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "(❛ӧ❛三❛ӧ❛)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(〒︿〒)",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "(〓￣(∵エ∵)￣〓)",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "(ー_ー)!!",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "(ーー;)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(〇(ｴ)〇)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(๑￣(ｴ)￣๑)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(๑•o•๑)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(๑˃ᴗ˂)ﻭ",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "(๑>ᴗ<๑)",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "(๑♡⌓♡๑)",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(๑ↀᆺↀ๑)✧",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "(๑Φ(エ)Φ๑)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(c'mon)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(o_O)",
+      "categories": [
+        "fear"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(o-(ｴ)-o)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(o･(ェ)･o)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(o(￣(ｴ)￣)o)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(o(ｪ)o)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(o(エ)o)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(o////o)",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "(oΦｴΦo)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(oΦﻌΦo)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ᴗ˳ᴗ)",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "(T_T)",
+      "categories": [
+        "sadness"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(U・x・U)",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "(U・ᴥ・U)",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "(x_x)",
+      "categories": [
+        "pain"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(シ_ _)シ",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "(シ. .)シ",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "(づ￣ ³￣)づ",
+      "categories": [
+        "hugging"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(つ￣(ｴ)￣)つ",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(つ-(ｴ)-)つ",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "(っ・(エ)・)っ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "(っ´ω`)ﾉ(╥ω╥)",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "(っ˘̩╭╮˘̩)っ",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "(つ≧▽≦)つ",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "(つ◉益◉)つ",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "(つ✧ω✧)つ",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "(っಠ‿ಠ)っ",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "(ノ_<。)ヾ(´ ▽ ` )",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "（ﾉ´д｀）",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "(ノ^_^)ノ",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "(ノω<。)ノ))☆.。",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "(ノωヽ)",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "(ﾐ○ﻌ○ﾐ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ﾟﾛﾟ)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "(个_个)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(Φ(ｪ)Φ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(Φ(エ)Φ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ΦεΦ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ΦωΦ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ΦωΦσ)σ",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ΦзΦ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "（ΩДΩ）",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "(ღ˘⌣˘ღ)",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "(Ծ‸ Ծ)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "(ಥ﹏ಥ)",
+      "categories": [
+        "sadness"
+      ],
+      "popular": true
+    },
+    {
+      "char": "(ᗒᗩᗕ)",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "(눈_눈)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(ㅇㅅㅇ❀)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "(ꀄꀾꀄ)",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "[(－－)]..zzz",
+      "categories": [
+        "sleeping"
+      ]
+    },
+    {
+      "char": "{{|└(>o< )┘|}}",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "「(°ヘ°)",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "＠・＊・＠",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "@(o･ｪ･o)@",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "／(･ × ･)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(･ x ･)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(｡v x v｡)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(^ x ^)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(^ x ^=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(^･ｪ･^)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(^･ω･^)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=･ x ･=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=´x`=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=^･ｪ･^=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=^･ω･^=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=∩_∩=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=⌒x⌒=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(=✪ x ✪=)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(v x v｡)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(v x v｡)人(｡v x v)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "／(v x v)＼",
+      "categories": [
+        "rabbit"
+      ]
+    },
+    {
+      "char": "＼(￣O￣)",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "＼(〇_ｏ)／",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "＼(º □ º l|l)/",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "๏◡๏",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "¯\\_(ツ)_/¯",
+      "categories": [
+        "indifference"
+      ],
+      "popular": true
+    },
+    {
+      "char": "꜀( ˊ̠˂˃ˋ̠ )꜆",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "↷( ó╻ò)",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "<(_ _)>",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "￢(￢ )ﾍ",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "|_-)",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "|_・)",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "｜_・）",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "|ω・）",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "|ω･)و ̑̑༉",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "～(＞＜)～",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "~==三 ε=ε=ε=(ﾉﾟдﾟ)ﾉ",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "∪￣ᴥ￣∪",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "∪･ｪ･∪",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "∪･ω･∪",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "∪＾ェ＾∪",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "⊂(・(ェ)・)⊃",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "⊂(･ω･*⊂)",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "⊂((・⊥・))⊃",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "⊂(◉‿◉)つ",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "⊂(ο･㉨･ο)⊃",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "┌(˘⌣˘)ʃ",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "┐(￣ヘ￣)┌",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "┐('～`;)┌",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "└(°ᴥ°)┘",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "┬┴┬┴┤(･_├┬┴┬┴",
+      "categories": [
+        "hiding"
+      ]
+    },
+    {
+      "char": "╮ (. ❛ ᴗ ❛.) ╭",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "╮(￣_￣)╭",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "╰(＾3＾)╯",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "▼・ᴥ・▼",
+      "categories": [
+        "dog",
+        "owl"
+      ]
+    },
+    {
+      "char": "▼(´ᴥ`)▼",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "▼(エ)▼",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "▼o・ェ・o▼",
+      "categories": [
+        "owl"
+      ]
+    },
+    {
+      "char": "☆*:.｡.o(≧▽≦)o.｡.:*☆",
+      "categories": [
+        "joy"
+      ]
+    },
+    {
+      "char": "☆⌒(＞。≪)",
+      "categories": [
+        "pain"
+      ]
+    },
+    {
+      "char": "♡(˃͈ દ ˂͈ ༶ )",
+      "categories": [
+        "love"
+      ]
+    },
+    {
+      "char": "✧/ᐠ-ꞈ-ᐟ",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "ヽ(￣(ｴ)￣)ﾉ",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "ヾ(￣(エ)￣ヾ)",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "ヽ( `д´*)ノ",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "ヽ( ´¬`)ノ",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "ヾ(￣▽￣)ノ",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "ヽ(￣д￣;)ノ=3=3",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "ヽ(・∀・)ﾉ",
+      "categories": [
+        "joy"
+      ],
+      "popular": true
+    },
+    {
+      "char": "ヾ(・ω・*)",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "ヾ(｡･ω･｡)",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "ヾ(。◣∀◢。)ﾉ",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "ヽ(#`Д´)ﾉ",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "ヾ(•ω•`)o",
+      "categories": [
+        "greeting"
+      ]
+    },
+    {
+      "char": "ヾ(´(ｴ)｀ﾉﾞ",
+      "categories": [
+        "panda"
+      ]
+    },
+    {
+      "char": "ヽ(´ー｀)ノ ヽ(´ー｀)ノ",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "ヾ(＾-＾)ノ",
+      "categories": [
+        "greeting"
+      ],
+      "popular": true
+    },
+    {
+      "char": "ヽ(゜Q。)ノ？",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "ヽ(°〇°)ﾉ",
+      "categories": [
+        "confusion"
+      ]
+    },
+    {
+      "char": "ヽ(≧Д≦)ノ",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "ヽ(ー_ー )ノ",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "ヽ(ﾟДﾟ)ﾉ",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "ヽ(ಠ_ಠ)ノ",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "๐·°(৹˃̵﹏˂̵৹)°·๐",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "୧(๑•̀ㅁ•́๑)૭",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "໒( • ͜ʖ • )७",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "٩(//̀Д/́/)۶",
+      "categories": [
+        "embarrassment"
+      ]
+    },
+    {
+      "char": "C= C= C= C=┌(;・ω・)┘",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "m(_ _)m",
+      "categories": [
+        "apologizing"
+      ],
+      "popular": true
+    },
+    {
+      "char": "ｍ（．＿．）ｍ",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "o(-`д´- ｡)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "o(〒﹏〒)o",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "ｏ（Ｕ・ω・）⊃",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "ᶘ ͡°ᴥ͡°ᶅ",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "U ´･ᴥ･` U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U ´꓃ ` U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U ˒˒",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U・♀・U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U･ᴥ･U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U｡･ｪ･｡U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U^ｪ^U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U^皿^U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "Uo･ｪ･oU",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "Uo‿･ｪ･‿oU",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "ｖ・。・Ｖ",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "V●ᴥ●V",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "ʕ ·(エ)·ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ ·͡ˑ·ཻʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ ·ᴥ·ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ •(エ)•ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ ´•ᴥ•`ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ ˵ •(エ)• ˵ ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ ￫(エ)￩ ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ º ᴥ ºʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ ฅ•(エ)•ฅʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ·ᴥ·ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ༼◕ ౪ ◕✿ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ*ﾉᴥﾉʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•̫͡ •ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ•͡(oo)•͡ʔ",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "ʕ•(エ) •ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ•̫͡(エ) •ʔ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ•(エ)•ʔﾉ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕ•̫͡•ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•̼͛͡•ʕ-̺͛͡•ʔ•̮͛͡•ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•̫͡•ིʔྀ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•ᴥ•ʔ",
+      "categories": [
+        "bear"
+      ],
+      "popular": true
+    },
+    {
+      "char": "ʕ•ᴥ•ʔゝ☆",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•́ᴥ•̀ʔっ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•ᴥ•ʔノ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•̀ω•́ʔ✧",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ´•ᴥ•`ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ￫ᴥ￩ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ>ᴥ<ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ◉ᴥ◉ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕʽɞʼʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕºᴥºʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕᵔᴥᵔʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕᴥ·ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕᴥ• ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕʘᴥʘʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕʘ̅͜ʘ̅ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕっ•(エ)•ʔっ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʕっ•ᴥ•ʔっ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕಠᴥಠʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕง ͠° ͟ل͜ ͡°ʔง",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕง•ᴥ•ʔง",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ˁ˙͠˟˙ˀ",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "ʢ◉ᴥ(エ)ʡ",
+      "categories": [
+        "elephant"
+      ]
+    },
+    {
+      "char": "ʢ◉ᴥ◉ʡ",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "ごめんなさい(._.)",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "ミ●﹏☉ミ",
+      "categories": [
+        "fear"
+      ]
+    },
+    {
+      "char": "人(_ _*)",
+      "categories": [
+        "apologizing"
+      ]
+    },
+    {
+      "char": "ε=ε=ε=(ﾉ*´▽｀*)ﾉ",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "ε=ε=ε=┌(;￣▽￣)┘",
+      "categories": [
+        "running"
+      ],
+      "popular": true
+    },
+    {
+      "char": "ε=ε=ε=ε=┏(゜ロ゜;)┛",
+      "categories": [
+        "running"
+      ]
+    },
+    {
+      "char": "ρ(- ω -、)ヾ(￣ω￣; )",
+      "categories": [
+        "sympathy"
+      ]
+    },
+    {
+      "char": "Σ(゜゜)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "Σ(๑０ω０๑)",
+      "categories": [
+        "surprise"
+      ]
+    },
+    {
+      "char": "Σ>―(〃°ω°〃)♡→",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "ლ(・ヮ・ლ)",
+      "categories": [
+        "hugging"
+      ]
+    },
+    {
+      "char": "ฅ(• ɪ •)ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(•ㅅ•❀)ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(＾・ω・＾ฅ)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(^ω^ฅ)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(≚ᄌ≚)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(º ﻌ ºฅ)",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐ・ᆽ・ﾐ)ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐ´ω`ﾐ)ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐ˘ᆽ˘ﾐ)∫",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐ>ᆽ<ﾐ)∫",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐ꒡ᆽ꒡ﾐ)ฅ✧",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐゝᆽ╹ﾐ)∫",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ﾐΦ ﻌ Φﾐ)∗",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ(ΦωΦ)ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ•ω•ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅ^•ﻌ•^ฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ฅʕ•ᴥ•ʔฅ",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "ᕕ( ᐛ )ᕗ",
+      "categories": [
+        "indifference"
+      ]
+    },
+    {
+      "char": "ᕮ╹ヮ╹ᕭ",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "ᕳ˵•ﻌ•˵ᕲ",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "ᘛ⁐̤ᕐᐷ",
+      "categories": [
+        "fox"
+      ]
+    },
+    {
+      "char": "ᘛᵒᴥᵒᘚ",
+      "categories": [
+        "fox",
+        "mouse"
+      ]
+    },
+    {
+      "char": "ㄟ( ･ө･ )ㄏ",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(╯°□°)╯︵ ┻━┻",
+      "categories": ["anger"],
+      "popular": true
+    }
+  ]
+}
