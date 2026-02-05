@@ -25,6 +25,7 @@ function updateToggleIcon(theme) {
 var kaomojiData = null;
 var groupObserver = null;
 var categoryObserver = null;
+var kaomojiTooltipIdCounter = 0;
 
 function scrollNavToActive(navElement, activeLink) {
   if (!navElement || !activeLink) return;
@@ -43,6 +44,40 @@ function debounce(fn, delay) {
     clearTimeout(timer);
     timer = setTimeout(fn, delay);
   };
+}
+
+function scrollToTop() {
+  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
+}
+
+function initBackToTop() {
+  var backToTop = document.getElementById('back-to-top');
+  var headerScrollBtn = document.querySelector('.header-scroll-to-top');
+  if (!backToTop) return;
+
+  var updateVisibility = function() {
+    if (window.scrollY > 800) {
+      backToTop.classList.add('visible');
+    } else {
+      backToTop.classList.remove('visible');
+    }
+  };
+
+  backToTop.addEventListener('click', function() {
+    scrollToTop();
+    trackEvent('scroll_to_top', { source: 'back_to_top_button' });
+  });
+
+  if (headerScrollBtn) {
+    headerScrollBtn.addEventListener('click', function() {
+      scrollToTop();
+      trackEvent('scroll_to_top', { source: 'header_logo' });
+    });
+  }
+
+  window.addEventListener('scroll', debounce(updateVisibility, 50));
+  updateVisibility();
 }
 
 function initApp() {
@@ -89,6 +124,9 @@ function renderNav(groups) {
   popLink.href = '#popular';
   popLink.textContent = 'Popular';
   popLink.className = 'nav-link';
+  popLink.addEventListener('click', function() {
+    trackEvent('click_nav_group', { group_id: 'popular' });
+  });
   nav.appendChild(popLink);
 
   groups.forEach(function(group) {
@@ -96,6 +134,9 @@ function renderNav(groups) {
     link.href = '#' + group.id;
     link.textContent = group.label;
     link.className = 'nav-link';
+    link.addEventListener('click', function() {
+      trackEvent('click_nav_group', { group_id: group.id });
+    });
     nav.appendChild(link);
   });
 }
@@ -126,6 +167,9 @@ function renderSubNav(categories) {
     link.className = 'sub-nav-link';
     link.href = '#' + cat.id;
     link.textContent = cat.label;
+    link.addEventListener('click', function() {
+      trackEvent('click_nav_category', { category_id: cat.id });
+    });
     subNav.appendChild(link);
   });
   updateOverflowClasses();
@@ -285,13 +329,27 @@ function createKaomojiGrid(kaomojis) {
   grid.className = 'kaomoji-grid';
 
   kaomojis.forEach(function(k) {
+    var tooltipId = 'kaomoji-tooltip-' + kaomojiTooltipIdCounter++;
+
+    var wrapper = document.createElement('div');
+    wrapper.className = 'kaomoji-button-wrapper';
+
+    var tooltip = document.createElement('span');
+    tooltip.id = tooltipId;
+    tooltip.className = 'kaomoji-tooltip';
+    tooltip.textContent = 'Click to copy';
+
     var btn = document.createElement('button');
     btn.className = 'kaomoji-button';
     btn.textContent = k.char;
+    btn.setAttribute('aria-describedby', tooltipId);
     btn.addEventListener('click', function() {
       copyKaomojiToClipboard(k.char);
     });
-    grid.appendChild(btn);
+
+    wrapper.appendChild(tooltip);
+    wrapper.appendChild(btn);
+    grid.appendChild(wrapper);
   });
 
   return grid;
@@ -335,4 +393,5 @@ document.addEventListener('DOMContentLoaded', function() {
     trackEvent('toggle_theme', { theme: document.documentElement.getAttribute('data-theme') });
   });
   initApp();
+  initBackToTop();
 });
