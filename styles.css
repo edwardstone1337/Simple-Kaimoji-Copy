@@ -33,6 +33,8 @@
   /* Kawaii light palette */
   --p-color-kawaii-rose-white: #fff8f9;
   --p-color-kawaii-lavender-blush: #fff0f5;
+  --p-color-kawaii-soft-violet: #F5E6FF;
+  --p-color-kawaii-soft-blue: #E6F0FF;
   --p-color-kawaii-text-primary: #3d2b3d;
   --p-color-kawaii-text-secondary: #8b6b80;
   --p-color-kawaii-border-light: #f0d0e0;
@@ -146,7 +148,7 @@
 }
 
 [data-theme="dark"] .category-section {
-  background: var(--s-color-bg-surface);
+  background: transparent;
   animation: none;
 }
 
@@ -172,8 +174,12 @@
   opacity: 0.4;
 }
 
+[data-theme="dark"] .category-section::after,
+[data-theme="dark"] .seo-link-card::after {
+  background: var(--s-color-bg-surface);
+}
+
 body,
-.kaomoji-button,
 #snackbar {
   transition:
     background-color var(--p-motion-fast) var(--p-ease-standard),
@@ -223,10 +229,10 @@ body {
   font-family: var(--p-font-sans);
   background: conic-gradient(
     from var(--bg-gradient-angle),
-    #FFF0F5,
-    #F5E6FF,
-    #E6F0FF,
-    #FFF0F5
+    var(--p-color-kawaii-lavender-blush),
+    var(--p-color-kawaii-soft-violet),
+    var(--p-color-kawaii-soft-blue),
+    var(--p-color-kawaii-lavender-blush)
   );
   background-attachment: fixed;
   animation: rotate-bg-gradient 30s linear infinite;
@@ -622,9 +628,9 @@ html {
   position: relative;
   z-index: 0;
   isolation: isolate;
-  border: 1px solid var(--s-color-border-default);
+  border: none;
   border-radius: var(--p-radius-lg);
-  background: var(--s-color-bg-surface);
+  background: transparent;
   padding: var(--p-space-24);
   box-shadow: 0 4px 0 var(--s-color-shadow-solid);
   transition:
@@ -645,9 +651,19 @@ html {
     #B8D4F0,
     var(--p-color-kawaii-accent-pink)
   );
-  z-index: -1;
+  z-index: -2;
   animation: rotate-gradient 8s linear infinite;
   opacity: 0.5;
+}
+
+.seo-link-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--p-radius-lg);
+  background: var(--s-color-bg-surface);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .seo-link-card:hover {
@@ -809,7 +825,7 @@ html {
   isolation: isolate;
   padding: var(--p-space-24) var(--p-space-30);
   margin-bottom: var(--p-space-24);
-  background: var(--s-color-bg-surface);
+  background: transparent;
   border-radius: var(--p-radius-lg);
   animation: none;
 }
@@ -827,9 +843,19 @@ html {
     #B8D4F0,
     var(--p-color-kawaii-accent-pink)
   );
-  z-index: -1;
+  z-index: -2;
   animation: rotate-gradient 8s linear infinite;
   opacity: 0.5;
+}
+
+.category-section::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--p-radius-lg);
+  background: var(--s-color-bg-surface);
+  z-index: -1;
+  pointer-events: none;
 }
 
 @keyframes rotate-gradient {
