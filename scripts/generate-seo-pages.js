@@ -261,6 +261,8 @@ function layout(options) {
     '  <div id="snackbar" role="status" aria-live="polite" aria-atomic="true"></div>',
     '  <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">Back to Top</button>',
     '  <script src="/seo-page.js"></script>',
+    '  <div id="es-footer" data-project="kaomoji"></div>',
+    '  <script type="module" src="https://footer.edwardstone.design/src/footer.js"></script>',
     "</body>",
     "</html>",
     "",
