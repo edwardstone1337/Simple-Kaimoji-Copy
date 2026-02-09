@@ -1,0 +1,4 @@
+[     391ms] [ERROR] Access to script at 'https://footer.edwardstone.design/src/footer.js' from origin 'http://127.0.0.1:4181' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://127.0.0.1:4181/explore/index.html:0
+[     391ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://footer.edwardstone.design/src/footer.js:0
+[   85792ms] [ERROR] Access to script at 'https://footer.edwardstone.design/src/footer.js' from origin 'http://127.0.0.1:4181' has been blocked by CORS policy: No 'Access-Control-Allow-Origin' header is present on the requested resource. @ http://127.0.0.1:4181/explore/index.html:0
+[   85792ms] [ERROR] Failed to load resource: net::ERR_FAILED @ https://footer.edwardstone.design/src/footer.js:0
