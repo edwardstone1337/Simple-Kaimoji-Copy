@@ -8,13 +8,22 @@ function trackEvent(eventName, params) {
   }
 }
 
+function updateMetaThemeColor() {
+  var metaThemeColor = document.getElementById('meta-theme-color');
+  if (!metaThemeColor) return;
+  var color = getComputedStyle(document.documentElement).getPropertyValue('--s-color-bg-page').trim();
+  if (color) {
+    metaThemeColor.setAttribute('content', color);
+  }
+}
+
 function toggleTheme() {
   var current = document.documentElement.getAttribute('data-theme');
   var next = current === 'dark' ? 'light' : 'dark';
   document.documentElement.setAttribute('data-theme', next);
   localStorage.setItem('theme', next);
   updateToggleIcon(next);
-  document.getElementById('meta-theme-color').setAttribute('content', next === 'dark' ? '#1a1a1a' : '#ffffff');
+  updateMetaThemeColor();
 }
 
 function updateToggleIcon(theme) {
@@ -278,7 +287,7 @@ function renderAllSections(data) {
 
   var popDesc = document.createElement('p');
   popDesc.className = 'section-description';
-  popDesc.textContent = 'The most iconic kaomoji — click to copy.';
+  popDesc.textContent = 'The most iconic kaomoji - click to copy.';
   popularSection.appendChild(popDesc);
 
   var popularKaomojis = data.kaomojis.filter(function(k) { return k.popular; });
@@ -358,7 +367,7 @@ function createKaomojiGrid(kaomojis) {
 function copyKaomojiToClipboard(kaomoji) {
   if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
     var snackbar = document.getElementById('snackbar');
-    snackbar.textContent = 'Copy not supported — try HTTPS or a different browser';
+    snackbar.textContent = 'Copy not supported - try HTTPS or a different browser';
     snackbar.classList.add('show');
     setTimeout(function() { snackbar.classList.remove('show'); }, 3000);
     return;
@@ -378,7 +387,7 @@ function copyKaomojiToClipboard(kaomoji) {
       logError('copyKaomoji', error);
       var snackbar = document.getElementById('snackbar');
       if (snackbar) {
-        snackbar.textContent = 'Copy failed — try again';
+        snackbar.textContent = 'Copy failed - try again';
         snackbar.classList.add('show');
         setTimeout(function() { snackbar.classList.remove('show'); }, 2000);
       }
@@ -388,6 +397,7 @@ function copyKaomojiToClipboard(kaomoji) {
 document.addEventListener('DOMContentLoaded', function() {
   var theme = document.documentElement.getAttribute('data-theme') || 'light';
   updateToggleIcon(theme);
+  updateMetaThemeColor();
   document.getElementById('theme-toggle').addEventListener('click', function() {
     toggleTheme();
     trackEvent('toggle_theme', { theme: document.documentElement.getAttribute('data-theme') });

@@ -21,9 +21,16 @@ Single-page web app for browsing Japanese kaomoji (text faces) and copying them 
 | `script.js` | Fetches JSON, renders nav + sections, IntersectionObserver for active nav, copy + snackbar, theme toggle |
 | `styles.css` | Primitives/semantic CSS variables, light/dark theme, layout, nav, grid, snackbar, responsive |
 | `kaomojis.json` | Data: `groups`, `categories`, `kaomojis` (see Data model) |
+| `scripts/generate-seo-pages.js` | Generates static SEO pages in `/explore/` from `kaomojis.json` and regenerates `sitemap.xml` |
+| `scripts/ship-check.sh` | Release gate: syntax checks, SEO page regeneration checks, sitemap count checks, copy policy checks |
+| `seo-page.js` | Shared interactions for generated SEO pages (theme toggle, copy, snackbar, back-to-top) |
+| `README.md` | Quick start and daily developer entrypoint |
+| `CONTRIBUTING.md` | Definition of done, release workflow, and guardrails |
+| `.github/workflows/ship-check.yml` | CI automation for ship checks on PRs and pushes to `main` |
+| `.github/pull_request_template.md` | PR checklist enforcing docs/changelog and ship checks |
 | `favicon.png` | 32×32 favicon |
 | `robots.txt` | Allows all crawlers |
-| `sitemap.xml` | Single URL `https://www.kaomoji.click/` |
+| `sitemap.xml` | URLs for home, explore hub, group pages, and category pages |
 | `CNAME` | Custom domain for static host |
 
 ---
@@ -47,7 +54,38 @@ Single-page web app for browsing Japanese kaomoji (text faces) and copying them 
    - No clipboard API or failure: snackbar shows “Copy not supported…” or “Copy failed…”.
 
 4. **Theme**  
-   Theme toggle (fixed top-right) switches `data-theme` between `light` and `dark`, updates `localStorage` and `meta-theme-color`. Icon: moon in light theme, sun in dark.
+  Theme toggle (fixed top-right) switches `data-theme` between `light` and `dark`, updates `localStorage` and `meta-theme-color`. Icon: moon in light theme, sun in dark.
+
+5. **SEO pages (`/explore/`)**
+   Generated static pages provide crawlable intent-specific URLs:
+   - Hub: `/explore/`
+   - Group pages: `/explore/groups/{group-id}/`
+   - Category pages: `/explore/categories/{category-id}/`
+   These pages reuse the same design tokens and component styling (`styles.css`) and include JSON-LD breadcrumbs + canonical URLs.
+
+---
+
+## Regenerate SEO pages
+
+When `kaomojis.json` changes, regenerate SEO pages and sitemap:
+
+```bash
+node scripts/generate-seo-pages.js
+```
+
+## Ship checklist (required)
+
+Before shipping, run:
+
+```bash
+./scripts/ship-check.sh
+```
+
+This enforces:
+- JS syntax is valid
+- generated SEO pages and sitemap are in sync with `kaomojis.json`
+- no em dashes in shipping copy files
+- `/explore/` and `sitemap.xml` changes are committed
 
 ---
 

@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ | kaomoji.click</title>
+    <title>Kaomoji - Copy Japanese Emoticons ʕ•ᴥ•ʔ | kaomoji.click</title>
     <meta
       name="description"
-      content="Browse and copy 500+ Japanese kaomoji emoticons. Organized by category — faces, animals, actions and more. One click to copy. No app needed."
+      content="Browse and copy 500+ Japanese kaomoji emoticons. Organized by category - faces, animals, actions and more. One click to copy. No app needed."
     />
     <meta
       name="keywords"
@@ -14,13 +14,13 @@
     />
     <link rel="canonical" href="https://www.kaomoji.click/" />
     <meta property="og:type" content="website" />
-    <meta property="og:title" content="Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
+    <meta property="og:title" content="Kaomoji - Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
     <meta property="og:description" content="Browse and copy 500+ Japanese kaomoji emoticons. One click to copy." />
     <meta property="og:url" content="https://www.kaomoji.click/" />
     <meta property="og:site_name" content="kaomoji.click" />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary" />
-    <meta name="twitter:title" content="Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
+    <meta name="twitter:title" content="Kaomoji - Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
     <meta name="twitter:description" content="Browse and copy 500+ Japanese kaomoji emoticons. One click to copy." />
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
@@ -48,7 +48,10 @@
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
         document.documentElement.setAttribute('data-theme', theme);
-        document.getElementById('meta-theme-color').setAttribute('content', theme === 'dark' ? '#1a1a1a' : '#ffffff');
+        var color = getComputedStyle(document.documentElement).getPropertyValue('--s-color-bg-page').trim();
+        if (color) {
+          document.getElementById('meta-theme-color').setAttribute('content', color);
+        }
       })();
     </script>
     <script type="application/ld+json">
@@ -57,7 +60,7 @@
   "@type": "WebSite",
   "name": "kaomoji.click",
   "url": "https://www.kaomoji.click/",
-  "description": "Browse and copy 500+ Japanese kaomoji emoticons. Organized by category — faces, animals, actions and more.",
+  "description": "Browse and copy 500+ Japanese kaomoji emoticons. Organized by category - faces, animals, actions and more.",
   "inLanguage": "en"
 }
     </script>
@@ -70,7 +73,7 @@
     <header class="header-container">
       <button type="button" class="header-scroll-to-top" aria-label="Scroll to top">
         <h1>顔文字</h1>
-        <p class="subtitle">Kaomoji — Japanese Emoticons</p>
+        <p class="subtitle">Kaomoji - Japanese Emoticons</p>
       </button>
     </header>
 
@@ -81,6 +84,20 @@
 
     <div class="container">
       <main id="main-content"></main>
+      <section class="seo-discovery" aria-labelledby="seo-discovery-title">
+        <h2 id="seo-discovery-title">Explore Focused Kaomoji Pages</h2>
+        <p class="section-description">
+          Browse category and group pages built for faster discovery and one-click copy.
+        </p>
+        <ul class="seo-discovery-links">
+          <li><a href="/explore/">Explore Directory</a></li>
+          <li><a href="/explore/groups/positive-emotions/">Positive Emotions</a></li>
+          <li><a href="/explore/groups/negative-emotions/">Negative Emotions</a></li>
+          <li><a href="/explore/groups/neutral-emotions/">Neutral Emotions</a></li>
+          <li><a href="/explore/groups/actions/">Actions</a></li>
+          <li><a href="/explore/groups/animals/">Animals</a></li>
+        </ul>
+      </section>
     </div>
 
     <div id="snackbar"></div>
