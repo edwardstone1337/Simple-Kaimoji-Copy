@@ -35,6 +35,49 @@ var kaomojiData = null;
 var groupObserver = null;
 var categoryObserver = null;
 var kaomojiTooltipIdCounter = 0;
+var JAPANESE_LABELS = {
+  // Groups
+  'positive-emotions': 'ポジティブな感情',
+  'negative-emotions': 'ネガティブな感情',
+  'neutral-emotions': '中立的な感情',
+  actions: '動作',
+  animals: '動物',
+
+  // Categories
+  joy: '喜び',
+  love: '愛',
+  embarrassment: '恥ずかしさ',
+  sympathy: '思いやり',
+  dissatisfaction: '不満',
+  anger: '怒り',
+  sadness: '悲しみ',
+  pain: '痛み',
+  fear: '恐れ',
+  indifference: '無関心',
+  confusion: '混乱',
+  doubt: '疑い',
+  surprise: '驚き',
+  greeting: '挨拶',
+  hugging: 'ハグ',
+  winking: 'ウィンク',
+  apologizing: '謝罪',
+  hiding: '隠れる',
+  writing: '書く',
+  running: '走る',
+  sleeping: '睡眠',
+  cat: '猫',
+  bear: 'クマ',
+  dog: '犬',
+  rabbit: 'うさぎ',
+  panda: 'パンダ',
+  owl: 'フクロウ',
+  elephant: '象',
+  fox: 'キツネ',
+  mouse: 'ネズミ',
+  pig: '豚',
+  duck: 'アヒル',
+  monkey: '猿'
+};
 
 function scrollNavToActive(navElement, activeLink) {
   if (!navElement || !activeLink) return;
@@ -299,6 +342,11 @@ function renderAllSections(data) {
     section.id = group.id;
     section.className = 'content-section';
 
+    var groupEyebrow = document.createElement('span');
+    groupEyebrow.className = 'heading-eyebrow';
+    groupEyebrow.textContent = JAPANESE_LABELS[group.id] || '';
+    section.appendChild(groupEyebrow);
+
     var groupHeading = document.createElement('h2');
     groupHeading.textContent = group.label;
     section.appendChild(groupHeading);
@@ -311,6 +359,11 @@ function renderAllSections(data) {
       var catDiv = document.createElement('div');
       catDiv.id = cat.id;
       catDiv.className = 'category-section';
+
+      var catEyebrow = document.createElement('span');
+      catEyebrow.className = 'heading-eyebrow';
+      catEyebrow.textContent = JAPANESE_LABELS[cat.id] || '';
+      catDiv.appendChild(catEyebrow);
 
       var catHeading = document.createElement('h3');
       catHeading.textContent = cat.label;

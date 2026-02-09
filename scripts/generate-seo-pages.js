@@ -227,7 +227,7 @@ function layout(options) {
     renderGtagScript(),
     '  <link rel="preconnect" href="https://fonts.googleapis.com" />',
     '  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />',
-    '  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />',
+    '  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />',
     '  <link rel="stylesheet" href="/styles.css" />',
     '  <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />',
     '  <meta name="theme-color" content="#FFF8F9" id="meta-theme-color" />',

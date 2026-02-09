@@ -41,6 +41,7 @@
   --p-shadow-inset: inset 0 2px 6px;
 
   --p-font-sans: 'Nunito', Arial, sans-serif;
+  --p-font-display: 'Fredoka', 'Nunito', Arial, sans-serif;
   --p-font-size-xs: 13px;
   --p-font-size-body: 14px;
   --p-font-size-sm: 17px;
@@ -58,8 +59,8 @@
   --p-space-48: 48px;
 
   --p-radius-sm: 4px;
-  --p-radius-md: 12px;
-  --p-radius-lg: 16px;
+  --p-radius-md: 24px;
+  --p-radius-lg: 32px;
   --p-radius-full: 800px;
 
   --p-size-control-md: 40px;
@@ -247,6 +248,7 @@ html {
 }
 
 .header-container h1 {
+  font-family: var(--p-font-display);
   font-size: 32px;
   font-weight: 700;
   line-height: 1.2;
@@ -658,6 +660,7 @@ html {
 }
 
 .content-section h2 {
+  font-family: var(--p-font-display);
   font-size: var(--p-font-size-xl);
   font-weight: 700;
   letter-spacing: 0.01em;
@@ -671,12 +674,33 @@ html {
 }
 
 .category-section h3 {
+  font-family: var(--p-font-display);
   font-size: var(--p-font-size-lg);
   font-weight: 600;
   letter-spacing: 0.01em;
   line-height: 1.3;
   margin-bottom: var(--p-space-4);
   color: var(--s-color-text-primary);
+}
+
+.heading-eyebrow {
+  display: block;
+  font-family: var(--p-font-sans);
+  font-size: var(--p-font-size-xs);
+  font-weight: 400;
+  color: var(--s-color-text-secondary);
+  letter-spacing: 0.08em;
+  margin-bottom: var(--p-space-4);
+  opacity: 0;
+  transform: translateY(4px);
+  animation: eyebrow-in 0.5s var(--p-ease-emphasis) forwards;
+}
+
+@keyframes eyebrow-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .section-description {
@@ -745,6 +769,7 @@ html {
 }
 
 .kaomoji-button:hover {
+  animation: jelly 0.4s var(--p-ease-standard);
   box-shadow: 0 6px 0 var(--s-color-shadow-solid);
   transform: translateY(-2px);
   transition:
@@ -806,12 +831,30 @@ html {
   .seo-link-card:hover {
     transform: none;
   }
+
+  .kaomoji-button:hover {
+    animation: none;
+  }
+
+  .heading-eyebrow {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 #snackbar.show {
   visibility: visible;
   -webkit-animation: fadein var(--p-motion-snackbar), fadeout var(--p-motion-snackbar) var(--p-motion-snackbar-delay);
   animation: fadein var(--p-motion-snackbar), fadeout var(--p-motion-snackbar) var(--p-motion-snackbar-delay);
+}
+
+@keyframes jelly {
+  0% { transform: translateY(-2px) scale(1, 1); }
+  25% { transform: translateY(-2px) scale(1.05, 0.95); }
+  50% { transform: translateY(-2px) scale(0.98, 1.02); }
+  75% { transform: translateY(-2px) scale(1.01, 0.99); }
+  100% { transform: translateY(-2px) scale(1, 1); }
 }
 
 @keyframes fadein {
