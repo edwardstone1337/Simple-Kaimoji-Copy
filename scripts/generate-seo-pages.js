@@ -353,7 +353,7 @@ function renderExploreHub() {
     description:
       "Browse focused kaomoji pages by category and emotion. Find copy-ready Japanese emoticons for moods, actions, and animals.",
     pathName: "/explore/",
-    subtitle: "Kaomoji - SEO-friendly category directory",
+    subtitle: "Japanese Emoticons - Click to Copy ✨",
     heading: "Kaomoji Explore",
     activeNavPath: "/explore/",
     breadcrumbs: [

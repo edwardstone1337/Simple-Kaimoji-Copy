@@ -271,6 +271,49 @@
         color: var(--s-color-text-secondary);
       }
 
+      .ds-force-hover.seo-link-card {
+        box-shadow: 0 6px 0 var(--s-color-shadow-solid);
+        transform: translateY(-2px);
+      }
+
+      .ds-force-active.seo-link-card {
+        box-shadow: 0 1px 0 var(--s-color-shadow-solid);
+        transform: translateY(3px);
+      }
+
+      .seo-inline-link-list a.ds-force-hover,
+      .seo-inline-link-list a.ds-force-focus {
+        box-shadow: 0 3px 0 var(--s-color-shadow-solid);
+        transform: translateY(-1px);
+      }
+
+      .seo-inline-link-list a.ds-force-active {
+        box-shadow: 0 1px 0 var(--s-color-shadow-solid);
+        transform: translateY(1px);
+      }
+
+      .ds-explore-column {
+        text-align: left;
+      }
+
+      .ds-card-sample {
+        width: min(280px, 100%);
+        align-items: stretch;
+      }
+
+      .ds-card-sample .seo-link-card {
+        width: 100%;
+        text-align: left;
+      }
+
+      .ds-grid-preview {
+        text-align: left;
+      }
+
+      .ds-grid-preview .seo-link-card {
+        min-height: 150px;
+      }
+
       @media (max-width: 720px) {
         .ds-theme-panes {
           grid-template-columns: 1fr;
@@ -619,6 +662,157 @@
               <span class="ds-state-label">focus-visible</span>
             </div>
           </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Page Components</p>
+        <p class="ds-label">CSS scope: <code>.seo-*</code></p>
+        <p class="ds-note">Live preview of components used across <code>/explore/</code> pages.</p>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Breadcrumb</p>
+        <p class="ds-label">CSS class: <code>.seo-breadcrumb</code></p>
+        <div class="ds-example ds-explore-column">
+          <nav class="seo-breadcrumb" aria-label="Breadcrumb">
+            <ol>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">Explore</a></li>
+              <li><span aria-current="page">Joy</span></li>
+            </ol>
+          </nav>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Link Card</p>
+        <p class="ds-label">CSS class: <code>.seo-link-card</code></p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state ds-card-sample">
+              <article class="seo-link-card">
+                <h3><a href="#">Positive Emotions</a></h3>
+                <p class="section-description">4 categories and 39 kaomoji.</p>
+                <p><a class="seo-inline-link" href="#">View group page</a></p>
+              </article>
+              <span class="ds-state-label">default</span>
+            </div>
+            <div class="ds-state ds-card-sample">
+              <article class="seo-link-card ds-force-hover">
+                <h3><a href="#">Positive Emotions</a></h3>
+                <p class="section-description">4 categories and 39 kaomoji.</p>
+                <p><a class="seo-inline-link" href="#">View group page</a></p>
+              </article>
+              <span class="ds-state-label">hover</span>
+            </div>
+            <div class="ds-state ds-card-sample">
+              <article class="seo-link-card ds-force-active">
+                <h3><a href="#">Positive Emotions</a></h3>
+                <p class="section-description">4 categories and 39 kaomoji.</p>
+                <p><a class="seo-inline-link" href="#">View group page</a></p>
+              </article>
+              <span class="ds-state-label">active</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Link Card Compact</p>
+        <p class="ds-label">CSS class: <code>.seo-link-card.seo-link-card-compact</code></p>
+        <div class="ds-example ds-explore-column">
+          <article class="seo-link-card seo-link-card-compact" style="max-width: 320px;">
+            <h3><a href="#">Joy Kaomoji</a></h3>
+            <p class="section-description">10 kaomoji</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Link Grid</p>
+        <p class="ds-label">CSS class: <code>.seo-link-grid</code></p>
+        <div class="ds-example ds-grid-preview">
+          <div class="seo-link-grid">
+            <article class="seo-link-card seo-link-card-compact">
+              <h3><a href="#">Joy Kaomoji</a></h3>
+              <p class="section-description">10 kaomoji</p>
+            </article>
+            <article class="seo-link-card seo-link-card-compact">
+              <h3><a href="#">Love Kaomoji</a></h3>
+              <p class="section-description">10 kaomoji</p>
+            </article>
+            <article class="seo-link-card seo-link-card-compact">
+              <h3><a href="#">Sympathy Kaomoji</a></h3>
+              <p class="section-description">9 kaomoji</p>
+            </article>
+            <article class="seo-link-card seo-link-card-compact">
+              <h3><a href="#">Embarrassment Kaomoji</a></h3>
+              <p class="section-description">10 kaomoji</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Chip</p>
+        <p class="ds-label">CSS class: <code>.seo-chip</code></p>
+        <div class="ds-example ds-explore-column">
+          <div class="seo-chip-row" aria-label="Example kaomoji chips">
+            <span class="seo-chip">(*^‿^*)</span>
+            <span class="seo-chip">(´꒳`)</span>
+            <span class="seo-chip">(๑˃ᴗ˂)ﻭ</span>
+            <span class="seo-chip">ヽ(・∀・)ﾉ</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Meta Pills</p>
+        <p class="ds-label">CSS class: <code>.seo-meta-list</code></p>
+        <div class="ds-example ds-explore-column">
+          <ul class="seo-meta-list">
+            <li>10 total kaomoji</li>
+            <li>One click copy support</li>
+            <li>Group: Positive Emotions</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Inline Link Pills</p>
+        <p class="ds-label">CSS class: <code>.seo-inline-link-list</code></p>
+        <div class="ds-example ds-explore-column">
+          <ul class="seo-inline-link-list">
+            <li><a href="#">Default</a></li>
+            <li><a class="ds-force-hover" href="#">Hover</a></li>
+            <li><a class="ds-force-active" href="#">Active</a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Meta Line</p>
+        <p class="ds-label">CSS class: <code>.seo-meta-line</code></p>
+        <div class="ds-example ds-explore-column">
+          <p class="seo-meta-line">10 kaomoji</p>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Explore Discovery Section</p>
+        <p class="ds-label">CSS class: <code>.seo-discovery</code></p>
+        <div class="ds-example ds-explore-column">
+          <section class="seo-discovery">
+            <h2>Explore Focused Kaomoji Pages</h2>
+            <p class="section-description">Browse category and group pages built for faster discovery and one-click copy.</p>
+            <ul class="seo-discovery-links">
+              <li><a href="#">Explore Directory</a></li>
+              <li><a href="#">Positive Emotions</a></li>
+              <li><a href="#">Negative Emotions</a></li>
+              <li><a href="#">Animals</a></li>
+            </ul>
+          </section>
         </div>
       </section>
     </main>
