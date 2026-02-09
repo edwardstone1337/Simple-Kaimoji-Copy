@@ -2,6 +2,11 @@
 
 Static, data-driven kaomoji site with one-click copy UX and SEO landing pages.
 
+Latest UI shell update:
+- category sections (including Popular) render as frosted-glass cards with animated conic gradient borders
+- nav pills use the display font token for stronger hierarchy
+- section eyebrow and heading typography scales were increased for readability
+
 ## Quick Start
 
 ```bash

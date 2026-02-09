@@ -37,6 +37,7 @@ var categoryObserver = null;
 var kaomojiTooltipIdCounter = 0;
 var JAPANESE_LABELS = {
   // Groups
+  popular: '人気',
   'positive-emotions': 'ポジティブな感情',
   'negative-emotions': 'ネガティブな感情',
   'neutral-emotions': '中立的な感情',
@@ -64,7 +65,7 @@ var JAPANESE_LABELS = {
   hiding: '隠れる',
   writing: '書く',
   running: '走る',
-  sleeping: '睡眠',
+  sleeping: '眠り',
   cat: '猫',
   bear: 'クマ',
   dog: '犬',
@@ -324,6 +325,11 @@ function renderAllSections(data) {
   popularSection.id = 'popular';
   popularSection.className = 'content-section';
 
+  var popEyebrow = document.createElement('span');
+  popEyebrow.className = 'heading-eyebrow';
+  popEyebrow.textContent = '人気';
+  popularSection.appendChild(popEyebrow);
+
   var popHeading = document.createElement('h2');
   popHeading.textContent = 'Popular';
   popularSection.appendChild(popHeading);
@@ -334,7 +340,10 @@ function renderAllSections(data) {
   popularSection.appendChild(popDesc);
 
   var popularKaomojis = data.kaomojis.filter(function(k) { return k.popular; });
-  popularSection.appendChild(createKaomojiGrid(popularKaomojis));
+  var popCard = document.createElement('div');
+  popCard.className = 'category-section';
+  popCard.appendChild(createKaomojiGrid(popularKaomojis));
+  popularSection.appendChild(popCard);
   main.appendChild(popularSection);
 
   data.groups.forEach(function(group) {

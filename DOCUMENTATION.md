@@ -42,7 +42,7 @@ Single-page web app for browsing Japanese kaomoji (text faces) and copying them 
 
 2. **Init**  
    - **Nav**: `renderNav(data.groups)` builds the sticky nav: “Popular” + one link per group (e.g. Positive Emotions, Negative Emotions, Actions, Animals).  
-   - **Content**: `renderAllSections(data)` builds main: a “Popular” section (kaomojis with `popular: true`), then one section per group. Each group section contains category blocks (from `data.categories` for that group); each block has heading, description, and a grid of kaomoji buttons.  
+   - **Content**: `renderAllSections(data)` builds main: a “Popular” section (kaomojis with `popular: true`) with Japanese eyebrow label (`人気`) and a `.category-section` card wrapper around its kaomoji grid. Then one section per group. Each group section contains category cards (from `data.categories` for that group); each card has eyebrow label, heading, description, and a grid of kaomoji buttons.  
    - **Sub-nav**: Rendered by `renderSubNav(categories)`; shows category links for the current group. When “Popular” is in view, sub-nav is hidden.  
    - **Observers**: `IntersectionObserver` on sections updates the active link in the sticky nav and scrolls the nav so the active link is centered. A second observer on category blocks updates the active sub-nav link and scrolls the sub-nav.  
    - **Overflow**: `updateOverflowClasses()` adds `.has-overflow` to navs when they scroll; CSS applies horizontal fade masks.
@@ -102,7 +102,7 @@ This enforces:
 
 ## Functionality (current)
 
-- **Popular section**: Kaomojis with `popular: true`; first section, no sub-nav.
+- **Popular section**: Kaomojis with `popular: true`; first section, includes eyebrow label (`人気`) and card shell; no sub-nav.
 - **Group sections**: One section per group; each contains its categories and kaomoji grids.
 - **Sticky nav**: “Popular” + group links; active section tracked by scroll (IntersectionObserver); horizontal scroll with fade when overflow.
 - **Sub-nav**: Category links for current group; active category tracked by scroll; hidden on Popular.
@@ -115,12 +115,14 @@ This enforces:
 
 ## Styling summary
 
-- **Variables**: `:root` defines primitives (`--p-color-*`, `--p-font-*`, `--p-space-*`, `--p-radius-*`) and semantics (`--s-color-bg-page`, `--s-color-text-primary`, etc.). `[data-theme="dark"]` overrides semantic colors.
+- **Variables**: `:root` defines primitives (`--p-color-*`, `--p-font-*`, `--p-space-*`, `--p-radius-*`) and semantics (`--s-color-bg-page`, `--s-color-text-primary`, etc.). `[data-theme="dark"]` overrides semantic colors. `@property --gradient-angle` enables animated conic borders on cards.
 - **Layout**: Container max-width 960px; sticky nav wrapper with border-bottom; main content full width inside container.
-- **Nav links**: Pill-style (full radius); active state border + background; horizontal scroll, scrollbar hidden, optional mask when `.has-overflow`.
+- **Nav links**: Pill-style (full radius), now using display typeface token (`--p-font-display`); active state border + background; horizontal scroll, scrollbar hidden, optional mask when `.has-overflow`.
+- **Category cards**: `.category-section` uses frosted-glass treatment (`backdrop-filter`) with large radius and an animated conic-gradient border via `::before`; dark mode swaps to neon gradient stops; reduced-motion disables border animation.
 - **Kaomoji buttons**: Grid with gap; bordered, rounded; hover shadow, active inset shadow.
 - **Snackbar**: Fixed bottom center, overlay colors, fade in/out, visible ~3s after copy.
-- **Responsive**: At ≤600px, navs justify flex-start; section headings slightly smaller.
+- **Typography**: Group headings use a larger `h2` size (`28px` desktop), with the existing mobile override at ≤600px. Eyebrow labels use the `--p-font-size-sm` token.
+- **Responsive**: At ≤600px, navs justify flex-start; section headings drop to `--p-font-size-lg`.
 
 ---
 
