@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Design System - kaomoji.click</title>
+    <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
+    <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=G-JKEBQ0M6NQ"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "G-JKEBQ0M6NQ");
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Nunito:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+    <meta name="theme-color" content="#FFF8F9" id="meta-theme-color" />
+    <script>
+      (function() {
+        var theme = localStorage.getItem("theme");
+        if (!theme) {
+          theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+        }
+        document.documentElement.setAttribute("data-theme", theme);
+        var color = getComputedStyle(document.documentElement).getPropertyValue("--s-color-bg-page").trim();
+        if (color) {
+          document.getElementById("meta-theme-color").setAttribute("content", color);
+        }
+      })();
+    </script>
+    <style>
+      .ds-page {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 48px 24px;
+      }
+
+      .ds-section {
+        margin-bottom: 64px;
+        background: var(--s-color-bg-surface);
+        border: 1px solid var(--s-color-border-default);
+        border-radius: 12px;
+        padding: 24px;
+      }
+
+      .ds-label {
+        font-family: monospace;
+        font-size: 13px;
+        color: #888;
+        margin-bottom: 4px;
+      }
+
+      .ds-component-name {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 8px;
+      }
+
+      .ds-note {
+        font-size: 14px;
+        color: var(--s-color-text-secondary);
+        margin-bottom: 12px;
+      }
+
+      .ds-example {
+        position: relative;
+        padding: 24px;
+        border: 1px dashed #ccc;
+        border-radius: 12px;
+        margin-top: 12px;
+        background: var(--s-color-bg-surface);
+      }
+
+      .ds-swatch-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(136px, 1fr));
+        gap: 10px;
+      }
+
+      .ds-swatch-wrap {
+        text-align: center;
+      }
+
+      .ds-swatch {
+        display: inline-block;
+        width: 48px;
+        height: 48px;
+        border-radius: 8px;
+        border: 1px solid #eee;
+        margin: 4px;
+        vertical-align: top;
+      }
+
+      .ds-swatch-label {
+        font-size: 11px;
+        font-family: monospace;
+        text-align: center;
+        display: block;
+        margin-top: 2px;
+        word-break: break-word;
+      }
+
+      .ds-theme-panes {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+
+      .ds-theme-pane {
+        border: 1px solid var(--s-color-border-default);
+        border-radius: 10px;
+        padding: 12px;
+      }
+
+      .ds-theme-pane-title {
+        font-family: monospace;
+        font-size: 12px;
+        margin-bottom: 10px;
+      }
+
+      .ds-type-grid {
+        display: grid;
+        grid-template-columns: 110px 1fr 1fr;
+        gap: 8px 12px;
+        align-items: center;
+      }
+
+      .ds-type-row-label {
+        font-family: monospace;
+        font-size: 12px;
+        color: var(--s-color-text-secondary);
+      }
+
+      .ds-size-chip {
+        display: inline-block;
+        padding: 2px 8px;
+        border: 1px solid var(--s-color-border-default);
+        border-radius: 999px;
+        font-family: monospace;
+        font-size: 11px;
+      }
+
+      .ds-spacing-grid,
+      .ds-radius-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+        gap: 12px;
+      }
+
+      .ds-spacing-item,
+      .ds-radius-item {
+        border: 1px solid var(--s-color-border-default);
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      .ds-spacing-bar {
+        height: 14px;
+        background: var(--s-color-bg-overlay);
+        border-radius: 999px;
+      }
+
+      .ds-radius-sample {
+        width: 100%;
+        height: 52px;
+        border: 1px solid var(--s-color-border-default);
+        background: var(--s-color-bg-surface);
+      }
+
+      .ds-states {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+
+      .ds-state {
+        display: inline-flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .ds-state-label {
+        font-size: 11px;
+        font-family: monospace;
+        text-align: center;
+        margin-top: 4px;
+      }
+
+      .ds-force-hover.kaomoji-button {
+        animation: jelly 0.4s var(--p-ease-standard);
+        box-shadow: 0 6px 0 var(--s-color-shadow-solid);
+        transform: translateY(-2px);
+      }
+
+      .ds-force-active.kaomoji-button {
+        box-shadow: 0 1px 0 var(--s-color-shadow-solid);
+        transform: translateY(3px);
+      }
+
+      .ds-force-hover.nav-link {
+        color: var(--s-color-text-primary);
+        border-color: var(--s-color-border-default);
+        box-shadow: 0 4px 0 var(--s-color-shadow-solid);
+        transform: translateY(-1px);
+      }
+
+      .ds-force-active.nav-link {
+        box-shadow: 0 1px 0 var(--s-color-shadow-solid);
+        transform: translateY(2px);
+      }
+
+      .ds-force-hover.sub-nav-link {
+        color: var(--s-color-text-primary);
+        box-shadow: 0 3px 0 var(--s-color-shadow-solid);
+        transform: translateY(-1px);
+      }
+
+      .ds-force-active.sub-nav-link {
+        box-shadow: 0 1px 0 var(--s-color-shadow-solid);
+        transform: translateY(1px);
+      }
+
+      .ds-force-hover.theme-toggle {
+        box-shadow: var(--p-shadow-hover) var(--s-color-shadow);
+        transform: translateY(-2px);
+      }
+
+      .ds-force-active.theme-toggle {
+        box-shadow: var(--p-shadow-inset) var(--s-color-shadow);
+      }
+
+      .ds-force-hover.back-to-top {
+        box-shadow: var(--p-shadow-hover) var(--s-color-shadow);
+        transform: translateY(-2px);
+      }
+
+      .ds-force-active.back-to-top {
+        box-shadow: var(--p-shadow-inset) var(--s-color-shadow);
+      }
+
+      .ds-force-tooltip-visible {
+        opacity: 1;
+        pointer-events: auto;
+      }
+
+      .ds-force-focus.skip-link {
+        top: var(--p-space-8);
+      }
+
+      .ds-static-position {
+        position: static;
+      }
+
+      .ds-inline-note {
+        margin-top: 8px;
+        font-size: 13px;
+        color: var(--s-color-text-secondary);
+      }
+
+      @media (max-width: 720px) {
+        .ds-theme-panes {
+          grid-template-columns: 1fr;
+        }
+
+        .ds-type-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <a href="#design-system-main" class="skip-link">Skip to content</a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+
+    <main id="design-system-main" class="ds-page">
+      <section class="ds-section">
+        <p class="ds-label">Page: /design-system.html</p>
+        <h1 class="ds-component-name">kaomoji.click Design System Reference</h1>
+        <p class="ds-note">Component and token gallery using live styles from <code>styles.css</code>.</p>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Page Background</p>
+        <p class="ds-label">CSS class: <code>body</code></p>
+        <p class="ds-note">The page background is an animated conic gradient driven by <code>--bg-gradient-angle</code> and <code>@keyframes rotate-bg-gradient</code>, with dark mode switching to a static surface color.</p>
+        <div class="ds-example">
+          <p>Body background is visible around the page while this reference card remains readable.</p>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Tokens: Colors</p>
+        <p class="ds-label">CSS class: <code>:root</code> and <code>[data-theme="dark"]</code></p>
+        <p class="ds-note">Swatches read real CSS custom properties directly using inline <code>var(...)</code> backgrounds.</p>
+
+        <div class="ds-example">
+          <div class="ds-theme-panes">
+            <div class="ds-theme-pane">
+              <p class="ds-theme-pane-title">Light - --p-color-kawaii-* primitives</p>
+              <div class="ds-swatch-grid">
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-rose-white);"></span><span class="ds-swatch-label">--p-color-kawaii-rose-white</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-lavender-blush);"></span><span class="ds-swatch-label">--p-color-kawaii-lavender-blush</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-text-primary);"></span><span class="ds-swatch-label">--p-color-kawaii-text-primary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-text-secondary);"></span><span class="ds-swatch-label">--p-color-kawaii-text-secondary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-border-light);"></span><span class="ds-swatch-label">--p-color-kawaii-border-light</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-shadow-light);"></span><span class="ds-swatch-label">--p-color-kawaii-shadow-light</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-deep-plum);"></span><span class="ds-swatch-label">--p-color-kawaii-deep-plum</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-dark-purple);"></span><span class="ds-swatch-label">--p-color-kawaii-dark-purple</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-ghost-white);"></span><span class="ds-swatch-label">--p-color-kawaii-ghost-white</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-muted-lavender);"></span><span class="ds-swatch-label">--p-color-kawaii-muted-lavender</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-border-dark);"></span><span class="ds-swatch-label">--p-color-kawaii-border-dark</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-neon-pink-glow);"></span><span class="ds-swatch-label">--p-color-kawaii-neon-pink-glow</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-accent-pink);"></span><span class="ds-swatch-label">--p-color-kawaii-accent-pink</span></div>
+              </div>
+            </div>
+
+            <div class="ds-theme-pane" data-theme="dark">
+              <p class="ds-theme-pane-title">Dark - --p-color-kawaii-* primitives</p>
+              <div class="ds-swatch-grid">
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-rose-white);"></span><span class="ds-swatch-label">--p-color-kawaii-rose-white</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-lavender-blush);"></span><span class="ds-swatch-label">--p-color-kawaii-lavender-blush</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-text-primary);"></span><span class="ds-swatch-label">--p-color-kawaii-text-primary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-text-secondary);"></span><span class="ds-swatch-label">--p-color-kawaii-text-secondary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-border-light);"></span><span class="ds-swatch-label">--p-color-kawaii-border-light</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-shadow-light);"></span><span class="ds-swatch-label">--p-color-kawaii-shadow-light</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-deep-plum);"></span><span class="ds-swatch-label">--p-color-kawaii-deep-plum</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-dark-purple);"></span><span class="ds-swatch-label">--p-color-kawaii-dark-purple</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-ghost-white);"></span><span class="ds-swatch-label">--p-color-kawaii-ghost-white</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-muted-lavender);"></span><span class="ds-swatch-label">--p-color-kawaii-muted-lavender</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-border-dark);"></span><span class="ds-swatch-label">--p-color-kawaii-border-dark</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-neon-pink-glow);"></span><span class="ds-swatch-label">--p-color-kawaii-neon-pink-glow</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--p-color-kawaii-accent-pink);"></span><span class="ds-swatch-label">--p-color-kawaii-accent-pink</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="ds-theme-panes" style="margin-top: 12px;">
+            <div class="ds-theme-pane">
+              <p class="ds-theme-pane-title">Light - --s-color-* semantics</p>
+              <div class="ds-swatch-grid">
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-bg-page);"></span><span class="ds-swatch-label">--s-color-bg-page</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-bg-surface);"></span><span class="ds-swatch-label">--s-color-bg-surface</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-bg-overlay);"></span><span class="ds-swatch-label">--s-color-bg-overlay</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-text-primary);"></span><span class="ds-swatch-label">--s-color-text-primary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-text-secondary);"></span><span class="ds-swatch-label">--s-color-text-secondary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-text-on-overlay);"></span><span class="ds-swatch-label">--s-color-text-on-overlay</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-border-default);"></span><span class="ds-swatch-label">--s-color-border-default</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-shadow);"></span><span class="ds-swatch-label">--s-color-shadow</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-shadow-solid);"></span><span class="ds-swatch-label">--s-color-shadow-solid</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-glow);"></span><span class="ds-swatch-label">--s-color-glow</span></div>
+              </div>
+            </div>
+
+            <div class="ds-theme-pane" data-theme="dark">
+              <p class="ds-theme-pane-title">Dark - --s-color-* semantics</p>
+              <div class="ds-swatch-grid">
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-bg-page);"></span><span class="ds-swatch-label">--s-color-bg-page</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-bg-surface);"></span><span class="ds-swatch-label">--s-color-bg-surface</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-bg-overlay);"></span><span class="ds-swatch-label">--s-color-bg-overlay</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-text-primary);"></span><span class="ds-swatch-label">--s-color-text-primary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-text-secondary);"></span><span class="ds-swatch-label">--s-color-text-secondary</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-text-on-overlay);"></span><span class="ds-swatch-label">--s-color-text-on-overlay</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-border-default);"></span><span class="ds-swatch-label">--s-color-border-default</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-shadow);"></span><span class="ds-swatch-label">--s-color-shadow</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-shadow-solid);"></span><span class="ds-swatch-label">--s-color-shadow-solid</span></div>
+                <div class="ds-swatch-wrap"><span class="ds-swatch" style="background: var(--s-color-glow);"></span><span class="ds-swatch-label">--s-color-glow</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Tokens: Typography</p>
+        <p class="ds-label">CSS class: <code>--p-font-size-*</code>, <code>--p-font-display</code>, <code>--p-font-sans</code></p>
+        <div class="ds-example">
+          <div class="ds-type-grid">
+            <p class="ds-size-chip">Token</p>
+            <p class="ds-size-chip">Fredoka (display)</p>
+            <p class="ds-size-chip">Nunito (body)</p>
+
+            <p class="ds-type-row-label">--p-font-size-xs</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-xs);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-xs);">Body sample text 123</p>
+
+            <p class="ds-type-row-label">--p-font-size-body</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-body);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-body);">Body sample text 123</p>
+
+            <p class="ds-type-row-label">--p-font-size-sm</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-sm);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-sm);">Body sample text 123</p>
+
+            <p class="ds-type-row-label">--p-font-size-md</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-md);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-md);">Body sample text 123</p>
+
+            <p class="ds-type-row-label">--p-font-size-lg</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-lg);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-lg);">Body sample text 123</p>
+
+            <p class="ds-type-row-label">--p-font-size-xl</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-xl);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-xl);">Body sample text 123</p>
+
+            <p class="ds-type-row-label">--p-font-size-h2</p>
+            <p style="font-family: var(--p-font-display); font-size: var(--p-font-size-h2);">Display sample text 123</p>
+            <p style="font-family: var(--p-font-sans); font-size: var(--p-font-size-h2);">Body sample text 123</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Tokens: Spacing</p>
+        <p class="ds-label">CSS class: <code>--p-space-*</code></p>
+        <div class="ds-example">
+          <div class="ds-spacing-grid">
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-4</p><div class="ds-spacing-bar" style="width: var(--p-space-4);"></div></div>
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-8</p><div class="ds-spacing-bar" style="width: var(--p-space-8);"></div></div>
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-12</p><div class="ds-spacing-bar" style="width: var(--p-space-12);"></div></div>
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-16</p><div class="ds-spacing-bar" style="width: var(--p-space-16);"></div></div>
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-24</p><div class="ds-spacing-bar" style="width: var(--p-space-24);"></div></div>
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-30</p><div class="ds-spacing-bar" style="width: var(--p-space-30);"></div></div>
+            <div class="ds-spacing-item"><p class="ds-swatch-label">--p-space-48</p><div class="ds-spacing-bar" style="width: var(--p-space-48);"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Tokens: Radius</p>
+        <p class="ds-label">CSS class: <code>--p-radius-*</code></p>
+        <div class="ds-example">
+          <div class="ds-radius-grid">
+            <div class="ds-radius-item"><p class="ds-swatch-label">--p-radius-sm</p><div class="ds-radius-sample" style="border-radius: var(--p-radius-sm);"></div></div>
+            <div class="ds-radius-item"><p class="ds-swatch-label">--p-radius-md</p><div class="ds-radius-sample" style="border-radius: var(--p-radius-md);"></div></div>
+            <div class="ds-radius-item"><p class="ds-swatch-label">--p-radius-lg</p><div class="ds-radius-sample" style="border-radius: var(--p-radius-lg);"></div></div>
+            <div class="ds-radius-item"><p class="ds-swatch-label">--p-radius-full</p><div class="ds-radius-sample" style="border-radius: var(--p-radius-full);"></div></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Group Heading</p>
+        <p class="ds-label">CSS class: <code>.content-section</code>, <code>.heading-eyebrow</code>, <code>h2</code></p>
+        <div class="ds-example">
+          <section class="content-section" style="padding: 0;">
+            <span class="heading-eyebrow">人気</span>
+            <h2>Popular</h2>
+          </section>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Category Heading</p>
+        <p class="ds-label">CSS class: <code>.heading-eyebrow</code>, <code>h3</code></p>
+        <div class="ds-example">
+          <span class="heading-eyebrow">喜び</span>
+          <h3 style="font-family: var(--p-font-display); font-size: var(--p-font-size-lg);">Joy</h3>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Section Description</p>
+        <p class="ds-label">CSS class: <code>.section-description</code></p>
+        <div class="ds-example">
+          <p class="section-description">The most iconic kaomoji - click to copy.</p>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Category Card</p>
+        <p class="ds-label">CSS class: <code>.category-section</code></p>
+        <div class="ds-example" style="overflow: visible;">
+          <div class="category-section" style="margin-bottom: 0;">
+            <span class="heading-eyebrow">感情</span>
+            <h3>Example Category</h3>
+            <p class="section-description">Gradient border comes from <code>.category-section::before</code>.</p>
+            <div class="kaomoji-grid">
+              <button class="kaomoji-button" type="button">(◕‿◕)</button>
+              <button class="kaomoji-button" type="button">(╯°□°)╯</button>
+              <button class="kaomoji-button" type="button">ʕ•ᴥ•ʔ</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Kaomoji Button</p>
+        <p class="ds-label">CSS class: <code>.kaomoji-button</code></p>
+        <p class="ds-note">Hover includes the jelly animation plus raised 3D shadow. Active compresses shadow for press depth.</p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state"><button class="kaomoji-button" type="button">(＾▽＾)</button><span class="ds-state-label">default</span></div>
+            <div class="ds-state"><button class="kaomoji-button ds-force-hover" type="button">(＾▽＾)</button><span class="ds-state-label">hover</span></div>
+            <div class="ds-state"><button class="kaomoji-button ds-force-active" type="button">(＾▽＾)</button><span class="ds-state-label">active</span></div>
+            <div class="ds-state"><button class="kaomoji-button" type="button" disabled style="opacity: 0.5; cursor: not-allowed; box-shadow: none;">(＾▽＾)</button><span class="ds-state-label">disabled</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Kaomoji Tooltip</p>
+        <p class="ds-label">CSS class: <code>.kaomoji-tooltip</code></p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state">
+              <div class="kaomoji-button-wrapper">
+                <span class="kaomoji-tooltip">Click to copy</span>
+                <button class="kaomoji-button" type="button">(｡•̀ᴗ-)✧</button>
+              </div>
+              <span class="ds-state-label">hidden</span>
+            </div>
+            <div class="ds-state">
+              <div class="kaomoji-button-wrapper">
+                <span class="kaomoji-tooltip ds-force-tooltip-visible">Click to copy</span>
+                <button class="kaomoji-button" type="button">(｡•̀ᴗ-)✧</button>
+              </div>
+              <span class="ds-state-label">visible</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Nav Pill (Primary)</p>
+        <p class="ds-label">CSS class: <code>.nav-link</code></p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state"><a class="nav-link" href="#">Default</a><span class="ds-state-label">default</span></div>
+            <div class="ds-state"><a class="nav-link ds-force-hover" href="#">Hover</a><span class="ds-state-label">hover</span></div>
+            <div class="ds-state"><a class="nav-link ds-force-active" href="#">Active Press</a><span class="ds-state-label">active</span></div>
+            <div class="ds-state"><a class="nav-link active" href="#">Selected</a><span class="ds-state-label">.active</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Nav Pill (Sub)</p>
+        <p class="ds-label">CSS class: <code>.sub-nav-link</code></p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state"><a class="sub-nav-link" href="#">Default</a><span class="ds-state-label">default</span></div>
+            <div class="ds-state"><a class="sub-nav-link ds-force-hover" href="#">Hover</a><span class="ds-state-label">hover</span></div>
+            <div class="ds-state"><a class="sub-nav-link ds-force-active" href="#">Active Press</a><span class="ds-state-label">active</span></div>
+            <div class="ds-state"><a class="sub-nav-link active" href="#">Selected</a><span class="ds-state-label">.active</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Snackbar</p>
+        <p class="ds-label">CSS class: <code>#snackbar</code></p>
+        <div class="ds-example">
+          <div id="snackbar" class="show" style="position: static; left: auto; bottom: auto; margin: 0; visibility: visible; animation: none; -webkit-animation: none;">(＾▽＾) copied to clipboard</div>
+          <p class="ds-inline-note">Visible state shown with <code>.show</code>.</p>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Theme Toggle</p>
+        <p class="ds-label">CSS class: <code>.theme-toggle</code></p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state"><button class="theme-toggle ds-static-position" type="button" aria-label="Theme">🌙</button><span class="ds-state-label">default</span></div>
+            <div class="ds-state"><button class="theme-toggle ds-static-position ds-force-hover" type="button" aria-label="Theme">🌙</button><span class="ds-state-label">hover</span></div>
+            <div class="ds-state"><button class="theme-toggle ds-static-position ds-force-active" type="button" aria-label="Theme">🌙</button><span class="ds-state-label">active</span></div>
+            <div class="ds-state"><button class="theme-toggle ds-static-position" type="button" disabled aria-label="Theme" style="opacity: 0.5; cursor: not-allowed;">🌙</button><span class="ds-state-label">disabled</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Back to Top</p>
+        <p class="ds-label">CSS class: <code>.back-to-top</code></p>
+        <div class="ds-example">
+          <div class="ds-states">
+            <div class="ds-state"><button class="back-to-top ds-static-position visible" type="button" style="opacity: 1; pointer-events: auto;">Back to Top</button><span class="ds-state-label">visible</span></div>
+            <div class="ds-state"><button class="back-to-top ds-static-position visible ds-force-hover" type="button" style="opacity: 1; pointer-events: auto;">Back to Top</button><span class="ds-state-label">hover</span></div>
+            <div class="ds-state"><button class="back-to-top ds-static-position visible ds-force-active" type="button" style="opacity: 1; pointer-events: auto;">Back to Top</button><span class="ds-state-label">active</span></div>
+            <div class="ds-state"><button class="back-to-top ds-static-position" type="button" style="opacity: 0.5; pointer-events: none;">Back to Top</button><span class="ds-state-label">hidden/disabled</span></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Noise Overlay</p>
+        <p class="ds-label">CSS class: <code>body::after</code></p>
+        <p class="ds-note">The subtle grain texture is rendered by a fixed <code>body::after</code> pseudo-element using an inline SVG turbulence pattern at low opacity.</p>
+        <div class="ds-example">
+          <p>Move around the page and inspect the viewport: the overlay stays fixed and does not intercept pointer events.</p>
+        </div>
+      </section>
+
+      <section class="ds-section">
+        <p class="ds-component-name">Skip to Content</p>
+        <p class="ds-label">CSS class: <code>.skip-link</code></p>
+        <div class="ds-example" style="min-height: 70px;">
+          <div class="ds-states">
+            <div class="ds-state" style="align-items: flex-start;">
+              <a href="#design-system-main" class="skip-link" style="position: absolute;">Skip to content</a>
+              <span class="ds-state-label">default (off-canvas)</span>
+            </div>
+            <div class="ds-state" style="align-items: flex-start;">
+              <a href="#design-system-main" class="skip-link ds-force-focus" style="position: absolute;">Skip to content</a>
+              <span class="ds-state-label">focus-visible</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      function updateMetaThemeColor() {
+        var metaThemeColor = document.getElementById("meta-theme-color");
+        if (!metaThemeColor) return;
+        var color = getComputedStyle(document.documentElement).getPropertyValue("--s-color-bg-page").trim();
+        if (color) {
+          metaThemeColor.setAttribute("content", color);
+        }
+      }
+
+      function updateToggleIcon(theme) {
+        var btn = document.getElementById("theme-toggle");
+        if (!btn) return;
+        btn.textContent = theme === "dark" ? "☀️" : "🌙";
+      }
+
+      function toggleTheme() {
+        var current = document.documentElement.getAttribute("data-theme");
+        var next = current === "dark" ? "light" : "dark";
+        document.documentElement.setAttribute("data-theme", next);
+        localStorage.setItem("theme", next);
+        updateToggleIcon(next);
+        updateMetaThemeColor();
+      }
+
+      document.addEventListener("DOMContentLoaded", function() {
+        var theme = document.documentElement.getAttribute("data-theme") || "light";
+        updateToggleIcon(theme);
+        updateMetaThemeColor();
+        var toggle = document.getElementById("theme-toggle");
+        if (toggle) {
+          toggle.addEventListener("click", toggleTheme);
+        }
+      });
+    </script>
+  </body>
+</html>

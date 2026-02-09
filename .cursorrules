@@ -1,0 +1,8 @@
+## Pre-ship checklist (mandatory before completing any task)
+- [ ] Read all user-visible copy — no developer jargon, placeholder text, or "SEO" references
+- [ ] Confirm GA tracking (G-JKEBQ0M6NQ) is present on any new or modified HTML pages
+- [ ] Run generate-seo-pages.js if any template or shared component changes were made
+- [ ] Remove console.log and debug statements
+- [ ] Verify changes don't break dark mode (even if dark mode isn't the focus)
+- [ ] Run ship-check.sh and confirm PASS
+- [ ] Provide a status report listing every file modified, selectors/functions changed, and any concerns
