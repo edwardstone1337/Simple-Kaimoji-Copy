@@ -41,7 +41,24 @@ function showSnackbar(message, durationMs) {
   }, durationMs);
 }
 
-function copyKaomojiToClipboard(kaomoji) {
+function copyKaomojiToClipboard(kaomoji, event) {
+  var wrapper =
+    event && event.currentTarget
+      ? event.currentTarget.closest(".kaomoji-button-wrapper")
+      : null;
+
+  if (wrapper) {
+    wrapper.classList.add("tooltip-hidden");
+    wrapper.addEventListener(
+      "mouseleave",
+      function handler() {
+        wrapper.classList.remove("tooltip-hidden");
+        wrapper.removeEventListener("mouseleave", handler);
+      },
+      { once: true }
+    );
+  }
+
   if (!navigator.clipboard || typeof navigator.clipboard.writeText !== "function") {
     showSnackbar("Copy not supported - try HTTPS or a different browser", 3000);
     return;
@@ -61,8 +78,8 @@ function copyKaomojiToClipboard(kaomoji) {
 function initCopyButtons() {
   var buttons = document.querySelectorAll(".kaomoji-button[data-kaomoji]");
   buttons.forEach(function(btn) {
-    btn.addEventListener("click", function() {
-      copyKaomojiToClipboard(btn.getAttribute("data-kaomoji"));
+    btn.addEventListener("click", function(event) {
+      copyKaomojiToClipboard(btn.getAttribute("data-kaomoji"), event);
     });
   });
 }

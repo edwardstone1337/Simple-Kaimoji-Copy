@@ -976,6 +976,11 @@ button.seo-chip:hover {
     opacity: 1;
     transform: translateX(-50%) scale(1);
   }
+
+  .kaomoji-button-wrapper.tooltip-hidden .kaomoji-tooltip {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.85);
+  }
 }
 
 .kaomoji-button {

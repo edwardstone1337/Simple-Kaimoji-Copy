@@ -447,8 +447,8 @@ function createKaomojiGrid(kaomojis) {
     btn.className = 'kaomoji-button';
     btn.textContent = k.char;
     btn.setAttribute('aria-describedby', tooltipId);
-    btn.addEventListener('click', function() {
-      copyKaomojiToClipboard(k.char);
+    btn.addEventListener('click', function(event) {
+      copyKaomojiToClipboard(k.char, event);
     });
 
     wrapper.appendChild(tooltip);
@@ -459,7 +459,16 @@ function createKaomojiGrid(kaomojis) {
   return grid;
 }
 
-function copyKaomojiToClipboard(kaomoji) {
+function copyKaomojiToClipboard(kaomoji, event) {
+  var wrapper = event && event.currentTarget ? event.currentTarget.closest('.kaomoji-button-wrapper') : null;
+  if (wrapper) {
+    wrapper.classList.add('tooltip-hidden');
+    wrapper.addEventListener('mouseleave', function handler() {
+      wrapper.classList.remove('tooltip-hidden');
+      wrapper.removeEventListener('mouseleave', handler);
+    }, { once: true });
+  }
+
   if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
     var snackbar = document.getElementById('snackbar');
     snackbar.textContent = 'Copy not supported - try HTTPS or a different browser';
