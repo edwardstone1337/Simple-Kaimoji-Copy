@@ -1015,7 +1015,7 @@ button.seo-chip:hover {
   }
 
   .kaomoji-button-wrapper:hover .kaomoji-tooltip,
-  .kaomoji-button-wrapper:focus-within .kaomoji-tooltip {
+  .kaomoji-button-wrapper:has(:focus-visible) .kaomoji-tooltip {
     opacity: 1;
     transform: translateX(-50%) scale(1);
   }
