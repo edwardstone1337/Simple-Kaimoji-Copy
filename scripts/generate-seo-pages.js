@@ -4,6 +4,8 @@ const path = require("path");
 const ROOT_DIR = path.resolve(__dirname, "..");
 const SITE_URL = "https://www.kaomoji.click";
 const TODAY = new Date().toISOString().slice(0, 10);
+const sharedComponents = require(path.join(ROOT_DIR, "components.js"));
+const escapeHtml = sharedComponents.escapeHtml;
 
 const dataPath = path.join(ROOT_DIR, "kaomojis.json");
 const outputDir = path.join(ROOT_DIR, "explore");
@@ -49,15 +51,6 @@ function ensureDir(targetDir) {
 function cleanOutput() {
   fs.rmSync(outputDir, { recursive: true, force: true });
   ensureDir(outputDir);
-}
-
-function escapeHtml(value) {
-  return String(value)
-    .replace(/&/g, "&amp;")
-    .replace(/</g, "&lt;")
-    .replace(/>/g, "&gt;")
-    .replace(/"/g, "&quot;")
-    .replace(/'/g, "&#39;");
 }
 
 function pageTitle(text) {
@@ -146,35 +139,12 @@ function renderPrimaryNav(activePath) {
 }
 
 function renderKaomojiGrid(items, idPrefix) {
-  if (!items || items.length === 0) {
-    return '<p class="section-description">No kaomoji added yet for this category.</p>';
-  }
-
-  return (
-    '<div class="kaomoji-grid" role="list" aria-label="Kaomoji list">' +
-    items
-      .map((item, index) => {
-        const tooltipId = idPrefix + "-tooltip-" + index;
-        const kaomoji = item.char;
-        const escapedKaomoji = escapeHtml(kaomoji);
-        return [
-          '<div class="kaomoji-button-wrapper" role="listitem">',
-          '<span id="' + escapeHtml(tooltipId) + '" class="kaomoji-tooltip">Click to copy</span>',
-          '<button type="button" class="kaomoji-button" aria-describedby="' +
-            escapeHtml(tooltipId) +
-            '" aria-label="Copy kaomoji ' +
-            escapedKaomoji +
-            '" data-kaomoji="' +
-            escapedKaomoji +
-            '">',
-          escapedKaomoji,
-          "</button>",
-          "</div>",
-        ].join("");
-      })
-      .join("") +
-    "</div>"
-  );
+  return sharedComponents.renderKaomojiGridHtml(items, {
+    idPrefix,
+    ariaLabel: "Kaomoji list",
+    emptyMessage: "No kaomoji added yet for this category.",
+    includeRoles: true,
+  });
 }
 
 function renderSeoContentCard(contentLines) {
@@ -379,16 +349,13 @@ function renderGroupPages() {
     const categoryCards = groupCategories
       .map((category) => {
         const categoryItems = kaomojisByCategory.get(category.id) || [];
-        const preview = categoryItems
-          .slice(0, 6)
-          .map((item) => '<button type="button" class="seo-chip kaomoji-button" data-kaomoji="' + escapeHtml(item.char) + '" aria-label="Copy kaomoji ' + escapeHtml(item.char) + '">' + escapeHtml(item.char) + "</button>")
-          .join("");
+        const preview = sharedComponents.renderChipPreviewHtml(categoryItems, 6);
         return [
           '<article class="seo-link-card">',
           '<h3><a href="' + escapeHtml(categoryUrl(category.id)) + '">' + escapeHtml(category.label) + " Kaomoji</a></h3>",
           '<p class="section-description">' + escapeHtml(category.description) + "</p>",
           '<p class="seo-meta-line">' + escapeHtml(categoryItems.length + " kaomoji") + "</p>",
-          preview ? '<div class="seo-chip-row" aria-label="Example kaomoji">' + preview + "</div>" : "",
+          preview,
           "</article>",
         ].join("");
       })

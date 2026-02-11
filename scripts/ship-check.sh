@@ -5,6 +5,7 @@ ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 cd "$ROOT_DIR"
 
 echo "[ship-check] Syntax checks"
+node --check components.js
 node --check script.js
 node --check seo-page.js
 node --check scripts/generate-seo-pages.js
@@ -71,6 +72,13 @@ if ! git diff --quiet -- explore sitemap.xml; then
   echo "[ship-check] Generated artifacts changed. Commit updated /explore and /sitemap.xml before shipping."
   git diff --stat -- explore sitemap.xml
   exit 1
+fi
+
+if [[ "${SHIP_CHECK_VISUAL:-0}" == "1" ]]; then
+  echo "[ship-check] Running visual snapshot check"
+  bash scripts/visual-check.sh
+else
+  echo "[ship-check] Skipping visual snapshot check (set SHIP_CHECK_VISUAL=1 to enable)"
 fi
 
 echo "[ship-check] PASS"

@@ -18,11 +18,13 @@ Single-page web app for browsing Japanese kaomoji (text faces) and copying them 
 | Path | Purpose |
 |------|--------|
 | `index.html` | Shell: skip-link, theme toggle, header, nav placeholders, main, snackbar. Inline theme init and GA. |
+| `components.js` | Shared HTML rendering primitives (`escapeHtml`, kaomoji grid markup) used by both runtime and SEO generator |
 | `script.js` | Fetches JSON, renders nav + sections, IntersectionObserver for active nav, copy + snackbar, theme toggle |
 | `styles.css` | Primitives/semantic CSS variables, light/dark theme, layout, nav, grid, snackbar, responsive |
 | `kaomojis.json` | Data: `groups`, `categories`, `kaomojis` (see Data model) |
 | `scripts/generate-seo-pages.js` | Generates static SEO pages in `/explore/` from `kaomojis.json` and regenerates `sitemap.xml` |
-| `scripts/ship-check.sh` | Release gate: syntax checks, SEO page regeneration checks, sitemap count checks, copy policy checks |
+| `scripts/ship-check.sh` | Release gate: syntax checks, SEO page regeneration checks, sitemap count checks, copy policy checks, optional visual snapshots |
+| `scripts/visual-check.sh` | Playwright screenshot baseline check for key routes (`/`, `/explore/`, `/explore/categories/anger/`) |
 | `seo-page.js` | Shared interactions for generated SEO pages (theme toggle, copy, snackbar, back-to-top) |
 | `README.md` | Quick start and daily developer entrypoint |
 | `CONTRIBUTING.md` | Definition of done, release workflow, and guardrails |
@@ -86,6 +88,18 @@ This enforces:
 - generated SEO pages and sitemap are in sync with `kaomojis.json`
 - no em dashes in shipping copy files
 - `/explore/` and `sitemap.xml` changes are committed
+
+Optional visual snapshot gate:
+
+```bash
+SHIP_CHECK_VISUAL=1 ./scripts/ship-check.sh
+```
+
+Initialize or update screenshot baselines:
+
+```bash
+UPDATE_VISUAL_BASELINE=1 ./scripts/visual-check.sh
+```
 
 ---
 

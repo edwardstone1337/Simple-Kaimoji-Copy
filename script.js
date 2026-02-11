@@ -99,6 +99,12 @@ function debounce(fn, delay) {
   };
 }
 
+function createElementFromHtml(html) {
+  var template = document.createElement('template');
+  template.innerHTML = String(html || '').trim();
+  return template.content.firstElementChild || null;
+}
+
 function scrollToTop() {
   var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
@@ -429,6 +435,27 @@ function renderAllSections(data) {
 }
 
 function createKaomojiGrid(kaomojis) {
+  var shared = window.KaomojiComponents;
+  if (shared && typeof shared.renderKaomojiGridHtml === 'function') {
+    var sharedPrefix = 'kaomoji-tooltip-' + kaomojiTooltipIdCounter;
+    kaomojiTooltipIdCounter += kaomojis.length;
+
+    var sharedGridHtml = shared.renderKaomojiGridHtml(kaomojis, {
+      idPrefix: sharedPrefix,
+      includeRoles: false
+    });
+    var sharedGrid = createElementFromHtml(sharedGridHtml);
+
+    if (sharedGrid) {
+      sharedGrid.querySelectorAll('.kaomoji-button[data-kaomoji]').forEach(function(btn) {
+        btn.addEventListener('click', function(event) {
+          copyKaomojiToClipboard(btn.getAttribute('data-kaomoji'), event);
+        });
+      });
+      return sharedGrid;
+    }
+  }
+
   var grid = document.createElement('div');
   grid.className = 'kaomoji-grid';
 
@@ -447,6 +474,7 @@ function createKaomojiGrid(kaomojis) {
     btn.className = 'kaomoji-button';
     btn.textContent = k.char;
     btn.setAttribute('aria-describedby', tooltipId);
+    btn.setAttribute('data-kaomoji', k.char);
     btn.addEventListener('click', function(event) {
       copyKaomojiToClipboard(k.char, event);
     });

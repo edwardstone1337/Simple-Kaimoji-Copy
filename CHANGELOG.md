@@ -3,6 +3,8 @@
 ## Unreleased
 
 ### Added
+- `components.js` shared rendering module for reusable HTML primitives (`escapeHtml`, kaomoji grid markup) consumed by both homepage runtime and SEO page generator
+- `scripts/visual-check.sh` for lightweight Playwright screenshot baseline checks on key routes
 - Copyable category preview chips on explore group pages (chips are now `<button class="seo-chip kaomoji-button">` with copy behavior)
 - Google Analytics (gtag.js, id `G-JKEBQ0M6NQ`)
 - Favicon (`/favicon.png`, 32×32)
@@ -18,6 +20,9 @@
 - CI ship check workflow (`.github/workflows/ship-check.yml`) and PR checklist template
 
 ### Changed
+- `script.js` now renders kaomoji grids via shared `components.js` markup helpers to reduce rendering drift
+- `scripts/generate-seo-pages.js` now consumes shared render helpers from `components.js` instead of duplicating grid/escaping logic
+- `scripts/ship-check.sh` now validates `components.js` syntax and supports an opt-in visual snapshot gate via `SHIP_CHECK_VISUAL=1`
 - Header + nav wrapped in `.site-header-group` with shared frosted background; dark mode applies blur to both group and nav wrapper
 - Sub-nav collapse is animated (max-height/opacity) instead of instant hide; innerHTML cleared after transition to avoid jump
 - Nav and sub-nav link pills use visible border (`--s-color-border-default`); sticky nav background opacity 0.85

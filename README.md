@@ -19,6 +19,7 @@ Open: `http://localhost:4173`
 ## Core Files
 
 - `index.html`: main single-page product experience
+- `components.js`: shared rendering primitives for homepage + generated pages
 - `script.js`: main app rendering and interactions
 - `styles.css`: shared design tokens + component styles
 - `kaomojis.json`: content source of truth
@@ -44,6 +45,12 @@ This validates:
 - generated `/explore/` output and `sitemap.xml` consistency
 - no em dashes in shipping copy files
 - generated artifacts are committed
+
+Optional visual snapshot gate:
+
+```bash
+SHIP_CHECK_VISUAL=1 ./scripts/ship-check.sh
+```
 
 ## More Docs
 

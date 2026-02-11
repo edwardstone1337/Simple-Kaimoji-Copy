@@ -63,6 +63,11 @@ Single source of truth with three top-level arrays:
    - Share design tokens from `styles.css`
    - Include JSON-LD breadcrumbs and canonical URLs
 
+### Shared rendering primitives
+
+- `components.js` contains shared HTML rendering helpers used by both runtime and generator code
+- If changing kaomoji button/grid markup, update `components.js` first, then regenerate SEO pages
+
 ### Rendering Flow
 
 1. **Load**: Inline script in `<head>` sets theme from localStorage or prefers-color-scheme
@@ -112,6 +117,7 @@ Before completing any task:
 - [ ] Read all user-visible copy — no developer jargon, placeholder text, or "SEO" references
 - [ ] Confirm GA tracking (G-JKEBQ0M6NQ) is present on any new or modified HTML pages
 - [ ] Run `node scripts/generate-seo-pages.js` if any template or shared component changes were made
+- [ ] Run `SHIP_CHECK_VISUAL=1 ./scripts/ship-check.sh` when visual output is expected to change, or before release candidates
 - [ ] Remove console.log and debug statements
 - [ ] Verify changes don't break dark mode (even if dark mode isn't the focus)
 - [ ] Run `./scripts/ship-check.sh` and confirm PASS
