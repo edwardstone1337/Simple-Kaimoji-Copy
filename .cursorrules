@@ -4,5 +4,6 @@
 - [ ] Run generate-seo-pages.js if any template or shared component changes were made
 - [ ] Remove console.log and debug statements
 - [ ] Verify changes don't break dark mode (even if dark mode isn't the focus)
+- [ ] Any new interactive button elements reuse `.kaomoji-button` shadow/hover/active patterns (check design-system.html)
 - [ ] Run ship-check.sh and confirm PASS
 - [ ] Provide a status report listing every file modified, selectors/functions changed, and any concerns

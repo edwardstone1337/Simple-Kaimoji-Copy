@@ -123,20 +123,6 @@ function webPageJsonLd(title, description, pathName) {
   };
 }
 
-function renderBreadcrumbs(items) {
-  const links = items
-    .map((item, index) => {
-      const content =
-        index === items.length - 1
-          ? '<span aria-current="page">' + escapeHtml(item.name) + "</span>"
-          : '<a href="' + escapeHtml(item.path) + '">' + escapeHtml(item.name) + "</a>";
-      return "<li>" + content + "</li>";
-    })
-    .join("");
-
-  return '<nav class="seo-breadcrumb" aria-label="Breadcrumb"><ol>' + links + "</ol></nav>";
-}
-
 function renderPrimaryNav(activePath) {
   const links = [
     { href: "/", label: "Home" },
@@ -257,7 +243,6 @@ function layout(options) {
     "  </div>",
     '  <div class="container">',
     '    <main id="main-content" class="seo-main">',
-    renderBreadcrumbs(breadcrumbs),
     content,
     "    </main>",
     "  </div>",
@@ -391,7 +376,7 @@ function renderGroupPages() {
         const categoryItems = kaomojisByCategory.get(category.id) || [];
         const preview = categoryItems
           .slice(0, 6)
-          .map((item) => '<span class="seo-chip">' + escapeHtml(item.char) + "</span>")
+          .map((item) => '<button type="button" class="seo-chip kaomoji-button" data-kaomoji="' + escapeHtml(item.char) + '" aria-label="Copy kaomoji ' + escapeHtml(item.char) + '">' + escapeHtml(item.char) + "</button>")
           .join("");
         return [
           '<article class="seo-link-card">',

@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Copyable category preview chips on explore group pages (chips are now `<button class="seo-chip kaomoji-button">` with copy behavior)
 - Google Analytics (gtag.js, id `G-JKEBQ0M6NQ`)
 - Favicon (`/favicon.png`, 32×32)
 - DOCUMENTATION.md — tech stack, structure, behavior, data model, styling
@@ -17,6 +18,11 @@
 - CI ship check workflow (`.github/workflows/ship-check.yml`) and PR checklist template
 
 ### Changed
+- Header + nav wrapped in `.site-header-group` with shared frosted background; dark mode applies blur to both group and nav wrapper
+- Sub-nav collapse is animated (max-height/opacity) instead of instant hide; innerHTML cleared after transition to avoid jump
+- Nav and sub-nav link pills use visible border (`--s-color-border-default`); sticky nav background opacity 0.85
+- SEO link card hover/active shadow moved to `::after` so transition doesn’t affect layout
+- Reduced-motion: sub-nav collapse and link-card ::after transitions disabled
 - Site debranding
 - DOCUMENTATION.md updated to match current implementation (JSON data, nav/sections, theme)
 - `sitemap.xml` now includes home + generated explore URLs
@@ -30,3 +36,6 @@
   - eyebrow text size increased and group `h2` heading scale increased on desktop
   - Popular section now renders kaomoji inside a `.category-section` card, with eyebrow label `人気`
   - Japanese label fix: `sleeping` now maps to `眠り`
+
+### Removed
+- Breadcrumb nav on all explore pages (layout, `renderBreadcrumbs`, `.seo-breadcrumb` CSS, design-system example)

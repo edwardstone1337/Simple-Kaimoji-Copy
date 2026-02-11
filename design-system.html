@@ -244,12 +244,14 @@
       }
 
       .ds-force-hover.back-to-top {
-        box-shadow: var(--p-shadow-hover) var(--s-color-shadow);
+        animation: jelly 0.4s var(--p-ease-standard);
+        box-shadow: 0 6px 0 var(--s-color-shadow-solid);
         transform: translateY(-2px);
       }
 
       .ds-force-active.back-to-top {
-        box-shadow: var(--p-shadow-inset) var(--s-color-shadow);
+        box-shadow: 0 1px 0 var(--s-color-shadow-solid);
+        transform: translateY(3px);
       }
 
       .ds-force-tooltip-visible {
@@ -669,20 +671,6 @@
         <p class="ds-component-name">Explore Page Components</p>
         <p class="ds-label">CSS scope: <code>.seo-*</code></p>
         <p class="ds-note">Live preview of components used across <code>/explore/</code> pages.</p>
-      </section>
-
-      <section class="ds-section">
-        <p class="ds-component-name">Explore Breadcrumb</p>
-        <p class="ds-label">CSS class: <code>.seo-breadcrumb</code></p>
-        <div class="ds-example ds-explore-column">
-          <nav class="seo-breadcrumb" aria-label="Breadcrumb">
-            <ol>
-              <li><a href="#">Home</a></li>
-              <li><a href="#">Explore</a></li>
-              <li><span aria-current="page">Joy</span></li>
-            </ol>
-          </nav>
-        </div>
       </section>
 
       <section class="ds-section">

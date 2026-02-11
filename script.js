@@ -150,6 +150,7 @@ function initApp() {
       renderAllSections(data);
       initGroupObserver(data);
       initCategoryObserver();
+      initScrollRevealObserver();
       renderSubNav([]);
       updateOverflowClasses();
       window.addEventListener('resize', debounce(updateOverflowClasses, 150));
@@ -208,12 +209,21 @@ function updateOverflowClasses() {
 
 function renderSubNav(categories) {
   var subNav = document.getElementById('sub-nav');
-  subNav.innerHTML = '';
   if (categories.length === 0) {
     subNav.classList.add('hidden');
-    updateOverflowClasses();
+    var cleared = false;
+    var doClear = function() {
+      if (cleared || !subNav.classList.contains('hidden')) return;
+      cleared = true;
+      subNav.removeEventListener('transitionend', doClear);
+      subNav.innerHTML = '';
+      updateOverflowClasses();
+    };
+    subNav.addEventListener('transitionend', doClear);
+    setTimeout(doClear, 300);
     return;
   }
+  subNav.innerHTML = '';
   subNav.classList.remove('hidden');
   categories.forEach(function(cat) {
     var link = document.createElement('a');
@@ -317,6 +327,27 @@ function initCategoryObserver() {
   });
 }
 
+function initScrollRevealObserver() {
+  var cards = document.querySelectorAll('.category-section');
+  if (cards.length === 0) return;
+
+  var revealObserver = new IntersectionObserver(
+    function(entries) {
+      entries.forEach(function(entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('in-view');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { rootMargin: '0px 0px -10% 0px', threshold: 0 }
+  );
+
+  cards.forEach(function(card) {
+    revealObserver.observe(card);
+  });
+}
+
 function renderAllSections(data) {
   var main = document.getElementById('main-content');
   main.innerHTML = '';
@@ -342,6 +373,7 @@ function renderAllSections(data) {
   var popularKaomojis = data.kaomojis.filter(function(k) { return k.popular; });
   var popCard = document.createElement('div');
   popCard.className = 'category-section';
+  popCard.style.setProperty('--stagger-index', 0);
   popCard.appendChild(createKaomojiGrid(popularKaomojis));
   popularSection.appendChild(popCard);
   main.appendChild(popularSection);
@@ -364,10 +396,11 @@ function renderAllSections(data) {
       return cat.group === group.id;
     });
 
-    groupCategories.forEach(function(cat) {
+    groupCategories.forEach(function(cat, index) {
       var catDiv = document.createElement('div');
       catDiv.id = cat.id;
       catDiv.className = 'category-section';
+      catDiv.style.setProperty('--stagger-index', index);
 
       var catEyebrow = document.createElement('span');
       catEyebrow.className = 'heading-eyebrow';
