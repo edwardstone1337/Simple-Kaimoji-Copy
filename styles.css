@@ -170,7 +170,8 @@
   opacity: 0.4;
 }
 
-[data-theme="dark"] .seo-link-card::before {
+[data-theme="dark"] .seo-link-card::before,
+[data-theme="dark"] .seo-content-card::before {
   background: conic-gradient(
     from var(--gradient-angle),
     var(--p-color-kawaii-accent-pink),
@@ -182,7 +183,8 @@
 }
 
 [data-theme="dark"] .category-section::after,
-[data-theme="dark"] .seo-link-card::after {
+[data-theme="dark"] .seo-link-card::after,
+[data-theme="dark"] .seo-content-card::after {
   background: var(--s-color-bg-surface);
 }
 
@@ -620,6 +622,45 @@ html {
   grid-template-columns: repeat(auto-fit, minmax(var(--p-layout-card-min-compact), 1fr));
 }
 
+.seo-content-card {
+  position: relative;
+  z-index: 0;
+  isolation: isolate;
+  border: none;
+  border-radius: var(--p-radius-lg);
+  background: transparent;
+  padding: var(--p-space-24) var(--p-space-30);
+}
+
+.seo-content-card::before {
+  content: '';
+  position: absolute;
+  inset: -2px;
+  border-radius: inherit;
+  pointer-events: none;
+  background: conic-gradient(
+    from var(--gradient-angle),
+    var(--p-color-kawaii-accent-pink),
+    var(--p-color-kawaii-lavender-blush),
+    #B8D4F0,
+    var(--p-color-kawaii-accent-pink)
+  );
+  z-index: -2;
+  animation: rotate-gradient 8s linear infinite;
+  opacity: 0.5;
+}
+
+.seo-content-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: var(--p-radius-lg);
+  background: var(--s-color-bg-surface);
+  z-index: -1;
+  pointer-events: none;
+  box-shadow: 0 4px 0 var(--s-color-shadow-solid);
+}
+
 .seo-link-card {
   position: relative;
   z-index: 0;
@@ -719,6 +760,7 @@ html {
   box-shadow: 0 2px 0 var(--s-color-shadow-solid);
   font-size: var(--p-font-size-body);
   color: var(--s-color-text-secondary);
+  background: var(--s-color-bg-surface);
 }
 
 .seo-meta-line {
@@ -784,6 +826,7 @@ button.seo-chip:hover {
   color: var(--s-color-text-primary);
   text-decoration: none;
   font-size: var(--p-font-size-body);
+  background: var(--s-color-bg-surface);
   transition:
     box-shadow var(--p-motion-fast) var(--p-ease-standard),
     transform var(--p-motion-fast) var(--p-ease-standard);

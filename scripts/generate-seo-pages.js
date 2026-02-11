@@ -177,6 +177,11 @@ function renderKaomojiGrid(items, idPrefix) {
   );
 }
 
+function renderSeoContentCard(contentLines) {
+  const inner = Array.isArray(contentLines) ? contentLines.join("\n") : String(contentLines || "");
+  return ['  <div class="seo-content-card">', inner, "  </div>"].join("\n");
+}
+
 function layout(options) {
   const title = options.title;
   const description = options.description;
@@ -452,33 +457,41 @@ function renderCategoryPages() {
       ],
       content: [
         '<section class="content-section seo-content-section">',
-        "  <h2>" + escapeHtml(category.label) + " Kaomoji</h2>",
-        '  <p class="section-description">' + escapeHtml(category.description) + "</p>",
-        '  <ul class="seo-meta-list">',
-        "    <li>" + escapeHtml(items.length + " total kaomoji") + "</li>",
-        "    <li>One click copy support</li>",
-        group ? "    <li>Group: " + escapeHtml(group.label) + "</li>" : "",
-        "  </ul>",
+        renderSeoContentCard([
+          "    <h2>" + escapeHtml(category.label) + " Kaomoji</h2>",
+          '    <p class="section-description">' + escapeHtml(category.description) + "</p>",
+          '    <ul class="seo-meta-list">',
+          "      <li>" + escapeHtml(items.length + " total kaomoji") + "</li>",
+          "      <li>One click copy support</li>",
+          group ? "      <li>Group: " + escapeHtml(group.label) + "</li>" : "",
+          "    </ul>",
+        ]),
         "</section>",
         '<section class="content-section seo-content-section">',
-        "  <h2>Copy " + escapeHtml(category.label) + " Kaomoji</h2>",
-        renderKaomojiGrid(items, "category-" + category.id),
+        renderSeoContentCard([
+          "    <h2>Copy " + escapeHtml(category.label) + " Kaomoji</h2>",
+          renderKaomojiGrid(items, "category-" + category.id),
+        ]),
         "</section>",
         popularItems.length
           ? [
               '<section class="content-section seo-content-section">',
-              "  <h2>Popular Picks</h2>",
-              renderKaomojiGrid(popularItems, "popular-" + category.id),
+              renderSeoContentCard([
+                "    <h2>Popular Picks</h2>",
+                renderKaomojiGrid(popularItems, "popular-" + category.id),
+              ]),
               "</section>",
             ].join("\n")
           : "",
         siblingCategories.length
           ? [
               '<section class="content-section seo-content-section">',
-              "  <h2>Related Categories</h2>",
-              '  <ul class="seo-inline-link-list">',
-              relatedLinks,
-              "  </ul>",
+              renderSeoContentCard([
+                "    <h2>Related Categories</h2>",
+                '    <ul class="seo-inline-link-list">',
+                relatedLinks,
+                "    </ul>",
+              ]),
               "</section>",
             ].join("\n")
           : "",
