@@ -69,4 +69,22 @@ if grep -n "—" index.html script.js styles.css kaomojis.json 2>/dev/null; then
   exit 1
 fi
 
+echo "[ship-check] Referenced assets"
+# Strip HTML comments first: a tag parked inside a comment is not a live
+# reference, and a naive grep cannot tell the difference.
+node - <<'NODE'
+const fs = require("fs");
+const html = fs.readFileSync("index.html", "utf8").replace(/<!--[\s\S]*?-->/g, "");
+const refs = [...html.matchAll(/(?:href|src|content)="([^"]*\.(?:png|jpg|svg|ico|webp))"/g)]
+  .map(m => m[1])
+  .filter(u => !/^https?:\/\//.test(u) || u.includes("kaomoji.click"))
+  .map(u => u.replace(/^https?:\/\/[^/]+/, "").replace(/^\//, ""));
+const missing = [...new Set(refs)].filter(f => !fs.existsSync(f));
+if (missing.length) {
+  console.error("  missing asset(s) referenced by index.html: " + missing.join(", "));
+  process.exit(1);
+}
+console.log("  all referenced assets present");
+NODE
+
 echo "[ship-check] PASS"
