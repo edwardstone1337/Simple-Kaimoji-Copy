@@ -84,6 +84,12 @@ These were all real bugs. Read before touching the relevant code.
   every combination into a thin duplicate URL.
 - **Do not add `Disallow: /explore/` to robots.txt.** Those pages are deleted;
   blocking the path stops Google confirming the 404 and they linger in the index.
+- **Do not rebuild per-category landing pages.** They existed, and across 16
+  months of Search Console the homepage was the only URL that ever appeared in
+  search; the 39 generated pages earned zero impressions between them. The
+  homepage already ranks page 1 for the long-tail queries they targeted, because
+  one URL holding all 539 kaomoji matches almost anything. See the SEO section
+  of DOCUMENTATION.md for the full numbers.
 
 ## Adding kaomoji
 

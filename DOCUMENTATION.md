@@ -115,9 +115,64 @@ thin near-duplicate URL.
 deleted; blocking an already-indexed path prevents Google from crawling it to
 confirm it is gone, so a real 404 is what removes it from the index.
 
-A previous version generated 39 `/explore/` landing pages. Over 28 days they
-drew 12 views total against the homepage's 48, all 33 category pages recorded
-zero, and engagement time was 0 seconds. They were removed.
+### What the search data actually said
+
+A previous version generated 39 `/explore/` landing pages, on the theory that
+per-category URLs would capture "{category} kaomoji" searches. They did not.
+
+Search Console, 16 months to 2026-08-17:
+
+| | |
+|---|---|
+| Total | 9 clicks, 485 impressions, 1.86% CTR, average position 50.07 |
+| URLs that ever appeared in search | **1** - the homepage |
+| Impressions to any `/explore/` page | **0** |
+| Head term "kaomoji" | 196 impressions, position 70.2, **0 clicks** |
+
+Analytics agreed from the other side: over 28 days the explore tree drew 12
+views against the homepage's 48, all 33 category pages recorded zero, and
+average engagement was 0 seconds.
+
+Two conclusions worth keeping:
+
+**The category pages were redundant, not merely unsuccessful.** The homepage
+already ranks page 1 for exactly the queries they targeted - "fox kaomoji"
+position 7, "supportive kaomoji" 8, "suffering kaomoji" 9, "sly kaomoji" 10,
+"defeated kaomoji" 11. It can do this because one URL holds all 539 kaomoji, so
+it matches almost any specific query. Splitting that into thin pages made the
+site worse at the job, not better.
+
+**People search emotional nuances the taxonomy does not have.** "Supportive",
+"sly", "defeated" and "flustered" are not categories here, and the site ranks
+for them anyway. That is an argument for keeping search over adding categories.
+
+In fairness to the other side of the argument: impressions did rise 18.6%
+across equal 189-day windows either side of the explore launch (221 to 262).
+But clicks fell 5 to 4, and the explore pages themselves earned no impressions,
+so none of that rise is attributable to them. At these volumes it is noise.
+
+Other signals from the same export:
+
+- Mobile ranks far better than desktop: position 15.5 vs 58.7, 4.3% CTR vs
+  1.29%. Whatever happens to the mobile experience matters more than desktop.
+- "kaomoji maker" is the best-converting query on the site (22% CTR from
+  position 95) and "kaomoji creator" also appears. That is a product signal
+  about unmet intent, not an SEO one.
+- Japan is second by impressions (107) at 0.93% CTR, and Korean queries appear.
+  The site is English-only.
+
+**Do not rebuild the category pages.** If someone proposes it, this is the
+evidence against.
+
+### One standing risk
+
+The kaomoji are rendered client-side from `kaomojis.json`, so the only page
+that ranks is one whose content does not exist until JavaScript runs. Google
+has evidently rendered it, but the site's entire search presence depends on
+that continuing to work. Baking the kaomoji into `index.html` at build time
+would remove the dependency, at the cost of reintroducing a build step. That
+trade has been considered and declined; revisit it only if search starts to
+matter.
 
 ## Shared footer
 
