@@ -1,17 +1,16 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kaomoji - Copy Japanese Emoticons ʕ•ᴥ•ʔ | kaomoji.click</title>
     <meta
       name="description"
-      content="Browse and copy 500+ Japanese kaomoji emoticons. Organized by category - faces, animals, actions and more. One click to copy. No app needed."
+      content="Browse and copy 500+ Japanese kaomoji emoticons. Filter by category - faces, animals, actions and more. One click to copy. No app needed."
     />
-    <meta
-      name="keywords"
-      content="Kaomoji, Japanese Emoticons, Text Faces, Cute Expressions, Emoji, Smiley Faces, Copy and Paste, Fun Emoticons"
-    />
+    <!-- Canonical stays fixed at the root. Filter state lives in ?c= and ?q=
+         params written via replaceState; pointing canonical at those would
+         create hundreds of thin near-duplicate URLs. -->
     <link rel="canonical" href="https://www.kaomoji.click/" />
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Kaomoji - Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
@@ -22,79 +21,134 @@
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="Kaomoji - Copy Japanese Emoticons ʕ•ᴥ•ʔ" />
     <meta name="twitter:description" content="Browse and copy 500+ Japanese kaomoji emoticons. One click to copy." />
+
     <link rel="preconnect" href="https://www.googletagmanager.com" crossorigin />
     <link rel="preconnect" href="https://www.google-analytics.com" crossorigin />
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-JKEBQ0M6NQ"
-    ></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JKEBQ0M6NQ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
       function gtag() {
         dataLayer.push(arguments);
       }
       gtag("js", new Date());
-
       gtag("config", "G-JKEBQ0M6NQ");
     </script>
+
     <link rel="preload" href="kaomojis.json" as="fetch" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;700&family=Nunito:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Hanken+Grotesk:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png" />
-    <meta name="theme-color" content="#FFF8F9" id="meta-theme-color" />
+    <meta name="theme-color" content="#1A1817" id="meta-theme-color" />
+
+    <!-- Set the theme before first paint so there is no flash of the wrong one. -->
     <script>
-      (function() {
-        var theme = localStorage.getItem('theme');
+      (function () {
+        var theme = localStorage.getItem("theme");
         if (!theme) {
-          theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          theme = window.matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
         }
-        document.documentElement.setAttribute('data-theme', theme);
-        var color = getComputedStyle(document.documentElement).getPropertyValue('--s-color-bg-page').trim();
-        if (color) {
-          document.getElementById('meta-theme-color').setAttribute('content', color);
-        }
+        document.documentElement.setAttribute("data-theme", theme);
       })();
     </script>
+
     <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "kaomoji.click",
-  "url": "https://www.kaomoji.click/",
-  "description": "Browse and copy 500+ Japanese kaomoji emoticons. Organized by category - faces, animals, actions and more.",
-  "inLanguage": "en"
-}
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "kaomoji.click",
+        "url": "https://www.kaomoji.click/",
+        "description": "Browse and copy 500+ Japanese kaomoji emoticons. Filter by category - faces, animals, actions and more.",
+        "inLanguage": "en"
+      }
     </script>
   </head>
 
   <body>
-    <a href="#main-content" class="skip-link">Skip to content</a>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode"></button>
+    <a class="skip" href="#results">Skip to kaomoji</a>
 
-    <header class="header-container">
-      <button type="button" class="header-scroll-to-top" aria-label="Scroll to top">
-        <h1>顔文字</h1>
-        <p class="subtitle">Japanese Emoticons - Click to Copy ✨</p>
-      </button>
-    </header>
-    <div class="nav-wrapper" id="nav-wrapper">
-      <nav class="sticky-nav" id="sticky-nav"></nav>
-      <nav class="sub-nav" id="sub-nav"></nav>
+    <div class="bar">
+      <div class="bar-left">
+        <a class="brand" href="#top">
+          <span class="m" id="mascot" aria-hidden="true">ʕ•ᴥ•ʔ</span>
+          <span class="wordmark">kaomoji.click</span>
+        </a>
+        <button class="filter-toggle" id="ftoggle" aria-expanded="false" aria-controls="side">
+          Filters <span class="badge" id="fcount" hidden>0</span>
+        </button>
+      </div>
+
+      <div class="search">
+        <span class="ico" aria-hidden="true">
+          <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <circle cx="10.5" cy="10.5" r="6.5" /><path d="M15.5 15.5 21 21" />
+          </svg>
+        </span>
+        <input id="q" type="search" autocomplete="off" placeholder="Search cat, happy, shrug..." aria-label="Search kaomoji" />
+        <button class="icon-btn" id="qclear" hidden aria-label="Clear search">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round">
+            <path d="M5 5l14 14M19 5L5 19" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="bar-right">
+        <button class="icon-btn icon-btn--bordered" id="theme" aria-label="Switch to light theme">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z" />
+          </svg>
+        </button>
+      </div>
     </div>
 
-    <div class="container">
-      <main id="main-content"></main>
+    <div class="scrim" id="scrim"></div>
+
+    <div class="shell" id="top">
+      <aside id="side" aria-label="Filters">
+        <div class="side-head">
+          <h2>Filter</h2>
+          <button class="link-btn" id="clear" disabled>Clear all</button>
+        </div>
+        <div id="facets"></div>
+      </aside>
+
+      <main id="results" tabindex="-1">
+        <header class="hero">
+          <h1>click to copy</h1>
+        </header>
+
+        <section class="band band--popular" id="popular-band">
+          <div class="band-head"><h2>Popular</h2></div>
+          <div class="grid" id="popular-grid"></div>
+        </section>
+
+        <section class="band">
+          <div class="res-head">
+            <span class="res-count" id="count"></span>
+            <div class="chips" id="chips"></div>
+          </div>
+          <div class="grid" id="grid"></div>
+        </section>
+
+        <p class="sr" role="status" aria-live="polite" aria-atomic="true" id="live"></p>
+      </main>
     </div>
 
-    <div id="snackbar"></div>
+    <div id="snack" role="status" aria-live="polite">
+      <span class="said" aria-hidden="true">Copied</span>
+      <span class="what" id="snack-what" aria-hidden="true"></span>
+      <!-- The glyph reads aloud as a stream of codepoint names, so screen
+           readers get a described message rather than the raw characters. -->
+      <span class="sr" id="snack-sr"></span>
+    </div>
 
-    <button type="button" class="back-to-top" id="back-to-top" aria-label="Back to top">Back to Top</button>
-
-    <script src="components.js"></script>
-    <script src="script.js"></script>
     <div id="es-footer" data-project="kaomoji"></div>
     <script type="module" src="https://footer.edwardstone.design/src/footer.js"></script>
+
+    <script src="script.js"></script>
   </body>
 </html>
