@@ -1,539 +1,370 @@
-function logError(context, error) {
-  console.error('[kaomoji] ' + context + ':', error);
+/* kaomoji.click
+ *
+ * Loads kaomojis.json, renders a filterable grid, copies on click.
+ *
+ * Filtering note: categories are OR within the facet, so selecting more can
+ * only ever ADD results. That is deliberate and forced by the data: 98.7% of
+ * category pairs share no kaomoji at all, so AND would return an empty set
+ * almost every time anyone combined two selections. With OR, a zero-result
+ * state is unreachable by filtering.
+ */
+
+const TIP = "Click to copy";
+/* Animals first: it is the deepest group and the one people browse most. */
+const GROUP_ORDER = ["animals", "positive-emotions", "negative-emotions", "neutral-emotions", "actions"];
+
+const esc = (s) =>
+  String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+
+const isNarrow = () => window.matchMedia("(max-width:900px)").matches;
+
+function trackEvent(name, params) {
+  if (typeof gtag === "function") gtag("event", name, params || {});
 }
 
-function trackEvent(eventName, params) {
-  if (typeof gtag === 'function') {
-    gtag('event', eventName, params);
+let D = null;
+let catById = {};
+const state = { cats: new Set(), q: "" };
+let announceT;
+
+/* ---------------------------------------------------------------- filtering */
+
+function matches(k, s = state) {
+  if (s.cats.size && !k.cats.some((c) => s.cats.has(c))) return false;
+  if (s.q) {
+    const q = s.q.toLowerCase();
+    const hay = k.cats
+      .map((c) => (catById[c] ? catById[c].label + " " + (catById[c].description || "") : c))
+      .join(" ")
+      .toLowerCase();
+    if (!hay.includes(q) && !k.c.toLowerCase().includes(q)) return false;
   }
+  return true;
 }
 
-function updateMetaThemeColor() {
-  var metaThemeColor = document.getElementById('meta-theme-color');
-  if (!metaThemeColor) return;
-  var color = getComputedStyle(document.documentElement).getPropertyValue('--s-color-bg-page').trim();
-  if (color) {
-    metaThemeColor.setAttribute('content', color);
+const countFor = (id) => D.kaomojis.filter((k) => matches(k, { ...state, cats: new Set([id]) })).length;
+
+/* ------------------------------------------------------------------ markup */
+
+const CHEV = `<svg class="chev" aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 9l7 7 7-7"/></svg>`;
+const XICON = `<svg aria-hidden="true" focusable="false" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round"><path d="M5 5l14 14M19 5L5 19"/></svg>`;
+
+/* A kaomoji's characters read aloud as a stream of Unicode names, which tells
+   a screen reader user nothing. Name the button by what the face means. */
+function describe(k) {
+  const label = k.cats.map((id) => catById[id] && catById[id].label).filter(Boolean)[0];
+  return label ? `Copy ${label.toLowerCase()} kaomoji` : "Copy kaomoji";
+}
+
+function mojiHtml(k) {
+  const d = describe(k);
+  return `<button class="moji" data-c="${esc(k.c)}" data-tip="${TIP}" aria-label="${esc(d)}" data-desc="${esc(d)}"><span aria-hidden="true">${esc(k.c)}</span></button>`;
+}
+
+/* The empty state's kaomoji is a real one from the dataset and behaves like
+   every other button on the page, so a dead end still gives you something. */
+const EMPTY_MOJI = { c: "(・_・ヾ", cats: ["confusion"], pop: false };
+
+function emptyHtml() {
+  return `<div class="empty">
+    ${mojiHtml(EMPTY_MOJI)}
+    <p>Nothing matches that. You can still copy this one.</p>
+    <button class="btn" id="reset" type="button">Clear search and filters</button>
+  </div>`;
+}
+
+function optHtml(id, label, n, checked) {
+  const dead = n === 0 && !checked;
+  return `<label class="opt${dead ? " zero" : ""}">
+    <input type="checkbox" data-c="${esc(id)}" ${checked ? "checked" : ""} ${dead ? "disabled" : ""}>
+    <span class="lbl">${esc(label)}</span><span class="cnt">${n}</span></label>`;
+}
+
+function renderFacets() {
+  /* preserve whatever the user has opened across re-renders */
+  const openState = {};
+  document.querySelectorAll("details.fgroup").forEach((d) => (openState[d.dataset.g] = d.open));
+
+  document.getElementById("facets").innerHTML = D.groups
+    .map((g) => {
+      const cats = D.categories.filter((c) => c.group === g.id);
+      const n = cats.filter((c) => state.cats.has(c.id)).length;
+      /* Animals opens by default on desktop so there is an immediate path into
+         a category. On mobile the drawer is already an explicit action and an
+         open group would push the rest off-screen, so everything starts shut. */
+      const defaultOpen = n > 0 || (g.id === "animals" && !isNarrow());
+      const open = openState[g.id] !== undefined ? openState[g.id] : defaultOpen;
+      return `<details class="fgroup" data-g="${esc(g.id)}" ${open ? "open" : ""}>
+      <summary>${esc(g.label)} ${n ? `<span class="badge">${n}</span>` : ""}${CHEV}</summary>
+      <div class="fbody" role="group" aria-label="${esc(g.label)}">
+        ${cats.map((c) => optHtml(c.id, c.label, countFor(c.id), state.cats.has(c.id))).join("")}
+      </div></details>`;
+    })
+    .join("");
+}
+
+function render() {
+  const list = D.kaomojis.filter((k) => matches(k));
+
+  document.getElementById("grid").innerHTML = list.length ? list.map(mojiHtml).join("") : emptyHtml();
+
+  document.getElementById("count").innerHTML = `<b>${list.length}</b> kaomoji`;
+
+  /* The count updates visually on every keystroke, but announcing that often
+     interrupts a screen reader mid-word. Announce only once typing settles. */
+  clearTimeout(announceT);
+  announceT = setTimeout(() => {
+    document.getElementById("live").textContent = `${list.length} kaomoji shown`;
+  }, 700);
+
+  /* Popular is the default landing shortcut. The moment the user narrows
+     anything, their results take the top spot and Popular steps aside. */
+  document.getElementById("popular-band").hidden = !!state.q || state.cats.size > 0;
+
+  const active = [...state.cats].map((id) => ({ id, label: catById[id].label }));
+  document.getElementById("chips").innerHTML = active
+    .map(
+      (a) =>
+        `<span class="chip">${esc(a.label)}<button class="icon-btn icon-btn--sm" data-x="${esc(a.id)}" aria-label="Remove ${esc(a.label)} filter">${XICON}</button></span>`
+    )
+    .join("");
+
+  document.getElementById("clear").disabled = !active.length;
+  const fc = document.getElementById("fcount");
+  fc.textContent = active.length;
+  fc.hidden = !active.length;
+  document.getElementById("qclear").hidden = !state.q;
+
+  renderFacets();
+  syncUrl();
+}
+
+/* --------------------------------------------------------------- URL state */
+
+function syncUrl() {
+  const p = new URLSearchParams();
+  if (state.cats.size) p.set("c", [...state.cats].join(","));
+  if (state.q) p.set("q", state.q);
+  const s = p.toString();
+  history.replaceState(null, "", s ? "?" + s : location.pathname);
+}
+
+function readUrl() {
+  const p = new URLSearchParams(location.search);
+  (p.get("c") || "")
+    .split(",")
+    .filter(Boolean)
+    .forEach((c) => catById[c] && state.cats.add(c));
+  state.q = p.get("q") || "";
+  if (state.q) document.getElementById("q").value = state.q;
+}
+
+/* ------------------------------------------------------------------- theme */
+
+function applyTheme(next) {
+  document.documentElement.dataset.theme = next;
+  localStorage.setItem("theme", next);
+  const btn = document.getElementById("theme");
+  btn.setAttribute("aria-label", next === "dark" ? "Switch to light theme" : "Switch to dark theme");
+  const bg = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim();
+  const meta = document.getElementById("meta-theme-color");
+  if (bg && meta) meta.setAttribute("content", bg);
+}
+
+/* ------------------------------------------------------------------ drawer */
+
+function initDrawer() {
+  const ft = document.getElementById("ftoggle");
+  const side = document.getElementById("side");
+  const isOpen = () => document.body.classList.contains("drawer");
+
+  /* Only rendered elements are focusable. Checkboxes inside a COLLAPSED
+     <details> match querySelectorAll but are skipped by real Tab, so using
+     them as the trap boundary means the trap never fires. */
+  const focusables = () =>
+    [...side.querySelectorAll("summary, input:not([disabled]), button:not([disabled])")].filter(
+      (el) => el.offsetParent !== null
+    );
+
+  /* When shut, the drawer is only translated off-screen, so without this every
+     accordion header stays in the mobile tab order as an invisible stop. */
+  function syncInert() {
+    if (isNarrow() && !isOpen()) side.setAttribute("inert", "");
+    else side.removeAttribute("inert");
   }
+
+  function open() {
+    document.body.classList.add("drawer");
+    ft.setAttribute("aria-expanded", "true");
+    side.setAttribute("role", "dialog");
+    side.setAttribute("aria-modal", "true");
+    syncInert();
+    (focusables()[0] || side).focus();
+  }
+  function close() {
+    document.body.classList.remove("drawer");
+    ft.setAttribute("aria-expanded", "false");
+    side.removeAttribute("role");
+    side.removeAttribute("aria-modal");
+    syncInert();
+    ft.focus();
+  }
+
+  ft.addEventListener("click", () => (isOpen() ? close() : open()));
+  document.getElementById("scrim").addEventListener("click", close);
+  document.addEventListener("keydown", (e) => {
+    if (!isOpen()) return;
+    if (e.key === "Escape") return close();
+    if (e.key !== "Tab") return;
+    const f = focusables();
+    if (!f.length) return;
+    const first = f[0];
+    const last = f[f.length - 1];
+    if (e.shiftKey && document.activeElement === first) {
+      e.preventDefault();
+      last.focus();
+    } else if (!e.shiftKey && document.activeElement === last) {
+      e.preventDefault();
+      first.focus();
+    }
+  });
+  window.addEventListener("resize", syncInert);
+  syncInert();
 }
 
-function toggleTheme() {
-  var current = document.documentElement.getAttribute('data-theme');
-  var next = current === 'dark' ? 'light' : 'dark';
-  document.documentElement.setAttribute('data-theme', next);
-  localStorage.setItem('theme', next);
-  updateToggleIcon(next);
-  updateMetaThemeColor();
-}
+/* -------------------------------------------------------------------- copy */
 
-function updateToggleIcon(theme) {
-  var btn = document.getElementById('theme-toggle');
-  btn.textContent = theme === 'dark' ? '☀️' : '🌙';
-}
+function initCopy() {
+  const mascot = document.getElementById("mascot");
+  const brand = document.querySelector(".brand");
+  const snack = document.getElementById("snack");
+  const timers = new WeakMap();
+  let snackT;
+  let mascotT;
 
-var kaomojiData = null;
-var groupObserver = null;
-var categoryObserver = null;
-var kaomojiTooltipIdCounter = 0;
-var JAPANESE_LABELS = {
-  // Groups
-  popular: '人気',
-  'positive-emotions': 'ポジティブな感情',
-  'negative-emotions': 'ネガティブな感情',
-  'neutral-emotions': '中立的な感情',
-  actions: '動作',
-  animals: '動物',
+  document.getElementById("results").addEventListener("click", async (e) => {
+    const b = e.target.closest(".moji");
+    if (!b) return;
 
-  // Categories
-  joy: '喜び',
-  love: '愛',
-  embarrassment: '恥ずかしさ',
-  sympathy: '思いやり',
-  dissatisfaction: '不満',
-  anger: '怒り',
-  sadness: '悲しみ',
-  pain: '痛み',
-  fear: '恐れ',
-  indifference: '無関心',
-  confusion: '混乱',
-  doubt: '疑い',
-  surprise: '驚き',
-  greeting: '挨拶',
-  hugging: 'ハグ',
-  winking: 'ウィンク',
-  apologizing: '謝罪',
-  hiding: '隠れる',
-  writing: '書く',
-  running: '走る',
-  sleeping: '眠り',
-  cat: '猫',
-  bear: 'クマ',
-  dog: '犬',
-  rabbit: 'うさぎ',
-  panda: 'パンダ',
-  owl: 'フクロウ',
-  elephant: '象',
-  fox: 'キツネ',
-  mouse: 'ネズミ',
-  pig: '豚',
-  duck: 'アヒル',
-  monkey: '猿'
-};
+    let ok = true;
+    try {
+      await navigator.clipboard.writeText(b.dataset.c);
+    } catch (err) {
+      ok = false;
+    }
 
-function scrollNavToActive(navElement, activeLink) {
-  if (!navElement || !activeLink) return;
-  var linkLeft = activeLink.offsetLeft;
-  var linkWidth = activeLink.offsetWidth;
-  var navWidth = navElement.clientWidth;
-  navElement.scrollTo({
-    left: linkLeft - (navWidth / 2) + (linkWidth / 2),
-    behavior: 'smooth'
+    /* Swap the tooltip's label, never its visibility. Visibility is pure CSS
+       keyed off :hover, so the tooltip cannot get stuck after a click. */
+    b.dataset.tip = ok ? "Copied" : "Copy failed";
+    clearTimeout(timers.get(b));
+    timers.set(b, setTimeout(() => (b.dataset.tip = TIP), 1100));
+    if (!ok) return;
+
+    trackEvent("copy_kaomoji", { kaomoji: b.dataset.c });
+
+    /* the bear in the wordmark notices */
+    mascot.textContent = "ʕ♥ᴥ♥ʔ";
+    brand.classList.add("happy");
+    clearTimeout(mascotT);
+    mascotT = setTimeout(() => {
+      mascot.textContent = "ʕ•ᴥ•ʔ";
+      brand.classList.remove("happy");
+    }, 1200);
+
+    document.getElementById("snack-what").textContent = b.dataset.c;
+    document.getElementById("snack-sr").textContent =
+      (b.dataset.desc || "Kaomoji").replace(/^Copy /, "") + " copied to clipboard";
+    snack.classList.add("show");
+    clearTimeout(snackT);
+    snackT = setTimeout(() => snack.classList.remove("show"), 2000);
   });
 }
 
-function debounce(fn, delay) {
-  var timer;
-  return function() {
-    clearTimeout(timer);
-    timer = setTimeout(fn, delay);
+/* -------------------------------------------------------------------- boot */
+
+function normalise(raw) {
+  const ordered = GROUP_ORDER.map((id) => raw.groups.find((g) => g.id === id)).filter(Boolean);
+  for (const g of raw.groups) if (!ordered.includes(g)) ordered.push(g);
+  return {
+    groups: ordered,
+    categories: raw.categories,
+    kaomojis: raw.kaomojis.map((k) => ({ c: k.char, cats: k.categories, pop: !!k.popular })),
   };
 }
 
-function createElementFromHtml(html) {
-  var template = document.createElement('template');
-  template.innerHTML = String(html || '').trim();
-  return template.content.firstElementChild || null;
-}
-
-function scrollToTop() {
-  var reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  window.scrollTo({ top: 0, behavior: reducedMotion ? 'auto' : 'smooth' });
-}
-
-function initBackToTop() {
-  var backToTop = document.getElementById('back-to-top');
-  var headerScrollBtn = document.querySelector('.header-scroll-to-top');
-  if (!backToTop) return;
-
-  var updateVisibility = function() {
-    if (window.scrollY > 800) {
-      backToTop.classList.add('visible');
-    } else {
-      backToTop.classList.remove('visible');
-    }
-  };
-
-  backToTop.addEventListener('click', function() {
-    scrollToTop();
-    trackEvent('scroll_to_top', { source: 'back_to_top_button' });
-  });
-
-  if (headerScrollBtn) {
-    headerScrollBtn.addEventListener('click', function() {
-      scrollToTop();
-      trackEvent('scroll_to_top', { source: 'header_logo' });
-    });
-  }
-
-  window.addEventListener('scroll', debounce(updateVisibility, 50));
-  updateVisibility();
-}
-
-function initApp() {
-  fetch('kaomojis.json')
-    .then(function(response) {
-      if (!response.ok) {
-        throw new Error('Failed to load kaomoji data');
-      }
-      return response.json();
-    })
-    .then(function(data) {
-      if (!data || !Array.isArray(data.groups) || !Array.isArray(data.categories) || !Array.isArray(data.kaomojis)) {
-        throw new Error('Invalid kaomoji data format');
-      }
-      kaomojiData = data;
-      renderNav(data.groups);
-      renderAllSections(data);
-      initGroupObserver(data);
-      initCategoryObserver();
-      initScrollRevealObserver();
-      renderSubNav([]);
-      updateOverflowClasses();
-      window.addEventListener('resize', debounce(updateOverflowClasses, 150));
-    })
-    .catch(function(error) {
-      logError('initApp', error);
-      var main = document.getElementById('main-content');
-      if (main) {
-        main.innerHTML = '';
-        var msg = document.createElement('p');
-        msg.style.textAlign = 'center';
-        msg.style.padding = '48px 16px';
-        msg.style.color = 'var(--s-color-text-secondary)';
-        msg.textContent = 'Unable to load kaomoji. Please refresh the page.';
-        main.appendChild(msg);
-      }
-    });
-}
-
-function renderNav(groups) {
-  var nav = document.getElementById('sticky-nav');
-  nav.innerHTML = '';
-
-  var popLink = document.createElement('a');
-  popLink.href = '#popular';
-  popLink.textContent = 'Popular';
-  popLink.className = 'nav-link';
-  popLink.addEventListener('click', function() {
-    trackEvent('click_nav_group', { group_id: 'popular' });
-  });
-  nav.appendChild(popLink);
-
-  groups.forEach(function(group) {
-    var link = document.createElement('a');
-    link.href = '#' + group.id;
-    link.textContent = group.label;
-    link.className = 'nav-link';
-    link.addEventListener('click', function() {
-      trackEvent('click_nav_group', { group_id: group.id });
-    });
-    nav.appendChild(link);
-  });
-}
-
-function updateOverflowClasses() {
-  var navs = [document.getElementById('sticky-nav'), document.getElementById('sub-nav')];
-  navs.forEach(function(nav) {
-    if (!nav) return;
-    if (nav.scrollWidth > nav.clientWidth) {
-      nav.classList.add('has-overflow');
-    } else {
-      nav.classList.remove('has-overflow');
-    }
-  });
-}
-
-function renderSubNav(categories) {
-  var subNav = document.getElementById('sub-nav');
-  if (categories.length === 0) {
-    subNav.classList.add('hidden');
-    var cleared = false;
-    var doClear = function() {
-      if (cleared || !subNav.classList.contains('hidden')) return;
-      cleared = true;
-      subNav.removeEventListener('transitionend', doClear);
-      subNav.innerHTML = '';
-      updateOverflowClasses();
-    };
-    subNav.addEventListener('transitionend', doClear);
-    setTimeout(doClear, 300);
+async function init() {
+  let raw;
+  try {
+    const res = await fetch("kaomojis.json");
+    if (!res.ok) throw new Error(res.status);
+    raw = await res.json();
+  } catch (err) {
+    document.getElementById("grid").innerHTML =
+      `<div class="empty"><span class="big">(&#183;_&#183;;)</span>Could not load the kaomoji. Try refreshing.</div>`;
     return;
   }
-  subNav.innerHTML = '';
-  subNav.classList.remove('hidden');
-  categories.forEach(function(cat) {
-    var link = document.createElement('a');
-    link.className = 'sub-nav-link';
-    link.href = '#' + cat.id;
-    link.textContent = cat.label;
-    link.addEventListener('click', function() {
-      trackEvent('click_nav_category', { category_id: cat.id });
-    });
-    subNav.appendChild(link);
+
+  D = normalise(raw);
+  catById = Object.fromEntries(D.categories.map((c) => [c.id, c]));
+
+  document.getElementById("popular-grid").innerHTML = D.kaomojis
+    .filter((k) => k.pop)
+    .map(mojiHtml)
+    .join("");
+
+  document.getElementById("facets").addEventListener("change", (e) => {
+    const i = e.target;
+    if (!i.dataset.c) return;
+    i.checked ? state.cats.add(i.dataset.c) : state.cats.delete(i.dataset.c);
+    trackEvent("filter_category", { category: i.dataset.c, active: i.checked });
+    render();
   });
-  updateOverflowClasses();
-}
-
-function initGroupObserver(data) {
-  var main = document.getElementById('main-content');
-  var sections = main.querySelectorAll('section.content-section');
-  if (sections.length === 0) return;
-
-  groupObserver = new IntersectionObserver(
-    function(entries) {
-      var firstIntersecting = null;
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) {
-          firstIntersecting = entries[i];
-          break;
-        }
-      }
-      if (!firstIntersecting) return;
-
-      var sectionId = firstIntersecting.target.id;
-      var stickyNav = document.getElementById('sticky-nav');
-      var navLinks = stickyNav.querySelectorAll('.nav-link');
-      var activeLink = null;
-      navLinks.forEach(function(link) {
-        if (link.getAttribute('href') === '#' + sectionId) {
-          link.classList.add('active');
-          activeLink = link;
-        } else {
-          link.classList.remove('active');
-        }
-      });
-      if (activeLink) {
-        scrollNavToActive(document.getElementById('sticky-nav'), activeLink);
-        trackEvent('view_group', { group_id: sectionId });
-      }
-
-      if (sectionId === 'popular') {
-        renderSubNav([]);
-      } else {
-        var filtered = data.categories.filter(function(cat) { return cat.group === sectionId; });
-        renderSubNav(filtered);
-      }
-    },
-    { rootMargin: '-50% 0px -50% 0px', threshold: 0 }
-  );
-
-  sections.forEach(function(section) {
-    groupObserver.observe(section);
+  document.getElementById("chips").addEventListener("click", (e) => {
+    const b = e.target.closest("[data-x]");
+    if (!b) return;
+    state.cats.delete(b.dataset.x);
+    render();
   });
-}
-
-function initCategoryObserver() {
-  var main = document.getElementById('main-content');
-  var categorySections = main.querySelectorAll('div.category-section');
-  if (categorySections.length === 0) return;
-
-  categoryObserver = new IntersectionObserver(
-    function(entries) {
-      var firstIntersecting = null;
-      for (var i = 0; i < entries.length; i++) {
-        if (entries[i].isIntersecting) {
-          firstIntersecting = entries[i];
-          break;
-        }
-      }
-      if (!firstIntersecting) return;
-
-      var categoryId = firstIntersecting.target.id;
-      var subNav = document.getElementById('sub-nav');
-      var subLinks = subNav.querySelectorAll('.sub-nav-link');
-      var activeSubLink = null;
-      subLinks.forEach(function(link) {
-        if (link.getAttribute('href') === '#' + categoryId) {
-          link.classList.add('active');
-          activeSubLink = link;
-        } else {
-          link.classList.remove('active');
-        }
-      });
-      if (activeSubLink) {
-        scrollNavToActive(document.getElementById('sub-nav'), activeSubLink);
-        trackEvent('view_category', { category_id: categoryId });
-      }
-    },
-    { rootMargin: '-30% 0px -70% 0px', threshold: 0 }
-  );
-
-  categorySections.forEach(function(div) {
-    categoryObserver.observe(div);
-  });
-}
-
-function initScrollRevealObserver() {
-  var cards = document.querySelectorAll('.category-section');
-  if (cards.length === 0) return;
-
-  var revealObserver = new IntersectionObserver(
-    function(entries) {
-      entries.forEach(function(entry) {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('in-view');
-          revealObserver.unobserve(entry.target);
-        }
-      });
-    },
-    { rootMargin: '0px 0px -10% 0px', threshold: 0 }
-  );
-
-  cards.forEach(function(card) {
-    revealObserver.observe(card);
-  });
-}
-
-function renderAllSections(data) {
-  var main = document.getElementById('main-content');
-  main.innerHTML = '';
-
-  var popularSection = document.createElement('section');
-  popularSection.id = 'popular';
-  popularSection.className = 'content-section';
-
-  var popEyebrow = document.createElement('span');
-  popEyebrow.className = 'heading-eyebrow';
-  popEyebrow.textContent = '人気';
-  popularSection.appendChild(popEyebrow);
-
-  var popHeading = document.createElement('h2');
-  popHeading.textContent = 'Popular';
-  popularSection.appendChild(popHeading);
-
-  var popDesc = document.createElement('p');
-  popDesc.className = 'section-description';
-  popDesc.textContent = 'The most iconic kaomoji - click to copy.';
-  popularSection.appendChild(popDesc);
-
-  var popularKaomojis = data.kaomojis.filter(function(k) { return k.popular; });
-  var popCard = document.createElement('div');
-  popCard.className = 'category-section';
-  popCard.style.setProperty('--stagger-index', 0);
-  popCard.appendChild(createKaomojiGrid(popularKaomojis));
-  popularSection.appendChild(popCard);
-  main.appendChild(popularSection);
-
-  data.groups.forEach(function(group) {
-    var section = document.createElement('section');
-    section.id = group.id;
-    section.className = 'content-section';
-
-    var groupEyebrow = document.createElement('span');
-    groupEyebrow.className = 'heading-eyebrow';
-    groupEyebrow.textContent = JAPANESE_LABELS[group.id] || '';
-    section.appendChild(groupEyebrow);
-
-    var groupHeading = document.createElement('h2');
-    groupHeading.textContent = group.label;
-    section.appendChild(groupHeading);
-
-    var groupCategories = data.categories.filter(function(cat) {
-      return cat.group === group.id;
-    });
-
-    groupCategories.forEach(function(cat, index) {
-      var catDiv = document.createElement('div');
-      catDiv.id = cat.id;
-      catDiv.className = 'category-section';
-      catDiv.style.setProperty('--stagger-index', index);
-
-      var catEyebrow = document.createElement('span');
-      catEyebrow.className = 'heading-eyebrow';
-      catEyebrow.textContent = JAPANESE_LABELS[cat.id] || '';
-      catDiv.appendChild(catEyebrow);
-
-      var catHeading = document.createElement('h3');
-      catHeading.textContent = cat.label;
-      catDiv.appendChild(catHeading);
-
-      var catDesc = document.createElement('p');
-      catDesc.className = 'section-description';
-      catDesc.textContent = cat.description;
-      catDiv.appendChild(catDesc);
-
-      var catKaomojis = data.kaomojis.filter(function(k) {
-        return Array.isArray(k.categories) && k.categories.indexOf(cat.id) !== -1;
-      });
-      catDiv.appendChild(createKaomojiGrid(catKaomojis));
-
-      section.appendChild(catDiv);
-    });
-
-    main.appendChild(section);
-  });
-}
-
-function createKaomojiGrid(kaomojis) {
-  var shared = window.KaomojiComponents;
-  if (shared && typeof shared.renderKaomojiGridHtml === 'function') {
-    var sharedPrefix = 'kaomoji-tooltip-' + kaomojiTooltipIdCounter;
-    kaomojiTooltipIdCounter += kaomojis.length;
-
-    var sharedGridHtml = shared.renderKaomojiGridHtml(kaomojis, {
-      idPrefix: sharedPrefix,
-      includeRoles: false
-    });
-    var sharedGrid = createElementFromHtml(sharedGridHtml);
-
-    if (sharedGrid) {
-      sharedGrid.querySelectorAll('.kaomoji-button[data-kaomoji]').forEach(function(btn) {
-        btn.addEventListener('click', function(event) {
-          copyKaomojiToClipboard(btn.getAttribute('data-kaomoji'), event);
-        });
-      });
-      return sharedGrid;
-    }
-  }
-
-  var grid = document.createElement('div');
-  grid.className = 'kaomoji-grid';
-
-  kaomojis.forEach(function(k) {
-    var tooltipId = 'kaomoji-tooltip-' + kaomojiTooltipIdCounter++;
-
-    var wrapper = document.createElement('div');
-    wrapper.className = 'kaomoji-button-wrapper';
-
-    var tooltip = document.createElement('span');
-    tooltip.id = tooltipId;
-    tooltip.className = 'kaomoji-tooltip';
-    tooltip.textContent = 'Click to copy';
-
-    var btn = document.createElement('button');
-    btn.className = 'kaomoji-button';
-    btn.textContent = k.char;
-    btn.setAttribute('aria-describedby', tooltipId);
-    btn.setAttribute('data-kaomoji', k.char);
-    btn.addEventListener('click', function(event) {
-      copyKaomojiToClipboard(k.char, event);
-    });
-
-    wrapper.appendChild(tooltip);
-    wrapper.appendChild(btn);
-    grid.appendChild(wrapper);
+  document.getElementById("clear").addEventListener("click", () => {
+    state.cats.clear();
+    render();
   });
 
-  return grid;
-}
-
-function copyKaomojiToClipboard(kaomoji, event) {
-  var wrapper = event && event.currentTarget ? event.currentTarget.closest('.kaomoji-button-wrapper') : null;
-  if (wrapper) {
-    wrapper.classList.add('tooltip-hidden');
-    wrapper.addEventListener('mouseleave', function handler() {
-      wrapper.classList.remove('tooltip-hidden');
-      wrapper.removeEventListener('mouseleave', handler);
-    }, { once: true });
-  }
-
-  if (!navigator.clipboard || typeof navigator.clipboard.writeText !== 'function') {
-    var snackbar = document.getElementById('snackbar');
-    snackbar.textContent = 'Copy not supported - try HTTPS or a different browser';
-    snackbar.classList.add('show');
-    setTimeout(function() { snackbar.classList.remove('show'); }, 3000);
-    return;
-  }
-  navigator.clipboard
-    .writeText(kaomoji)
-    .then(function() {
-      var snackbar = document.getElementById('snackbar');
-      snackbar.classList.add('show');
-      snackbar.innerText = kaomoji + ' copied to clipboard';
-      setTimeout(function() {
-        snackbar.classList.remove('show');
-      }, 3000);
-      trackEvent('copy_kaomoji', { kaomoji: kaomoji });
-    })
-    .catch(function(error) {
-      logError('copyKaomoji', error);
-      var snackbar = document.getElementById('snackbar');
-      if (snackbar) {
-        snackbar.textContent = 'Copy failed - try again';
-        snackbar.classList.add('show');
-        setTimeout(function() { snackbar.classList.remove('show'); }, 2000);
-      }
-    });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  var theme = document.documentElement.getAttribute('data-theme') || 'light';
-  updateToggleIcon(theme);
-  updateMetaThemeColor();
-  document.getElementById('theme-toggle').addEventListener('click', function() {
-    toggleTheme();
-    trackEvent('toggle_theme', { theme: document.documentElement.getAttribute('data-theme') });
+  /* The empty state's reset is rebuilt on every render, so listen on the
+     container rather than binding to a button that will be replaced. */
+  document.getElementById("grid").addEventListener("click", (e) => {
+    if (!e.target.closest("#reset")) return;
+    state.cats.clear();
+    state.q = "";
+    document.getElementById("q").value = "";
+    render();
   });
-  initApp();
-  initBackToTop();
-});
+
+  const qInput = document.getElementById("q");
+  let qt;
+  qInput.addEventListener("input", (e) => {
+    clearTimeout(qt);
+    qt = setTimeout(() => {
+      state.q = e.target.value.trim();
+      render();
+    }, 140);
+  });
+  document.getElementById("qclear").addEventListener("click", () => {
+    qInput.value = "";
+    state.q = "";
+    render();
+    qInput.focus();
+  });
+
+  document.getElementById("theme").addEventListener("click", () => {
+    applyTheme(document.documentElement.dataset.theme === "dark" ? "light" : "dark");
+  });
+  applyTheme(document.documentElement.dataset.theme || "dark");
+
+  initDrawer();
+  initCopy();
+  readUrl();
+  render();
+}
+
+document.addEventListener("DOMContentLoaded", init);

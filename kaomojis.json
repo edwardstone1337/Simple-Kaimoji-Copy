@@ -2431,12 +2431,6 @@
       ]
     },
     {
-      "char": "ʕง ͠° ͟ل͜ ͡°ʔง",
-      "categories": [
-        "bear"
-      ]
-    },
-    {
       "char": "ʕง•ᴥ•ʔง",
       "categories": [
         "bear"
@@ -2668,8 +2662,822 @@
     },
     {
       "char": "(╯°□°)╯︵ ┻━┻",
-      "categories": ["anger"],
+      "categories": [
+        "anger"
+      ],
       "popular": true
+    },
+    {
+      "char": "ʕ •ᴥʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ　·ᴥʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ᵔᴥᵔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ •̀ o •́ ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ •̀ ω •́ ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕథ౪థʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "・㉨・",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "(ó㉨ò)",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "(๏㉨๏)",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "తꀧత",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ˁ˙˟˙ˀ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "❃ႣᄎႣ❃",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʢᵕᴗᵕʡ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ•㉨•ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ≧ᴥ≦ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ≧㉨≦ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "ʕ∙ჲ∙ʔ",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "[｡◉㉨◉]",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "(/°(ｴ)°)/",
+      "categories": [
+        "bear"
+      ]
+    },
+    {
+      "char": "(￣(00)￣)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "( ´(oo)ˋ )",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "(ˆ(oo)ˆ)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "(￣(ω)￣)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "｡ﾟ(ﾟ´(00)`ﾟ)ﾟ｡",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "ヽ( ˋ(00)´ )ノ",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "＼(￣(oo)￣)／",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "／(≧ x ≦)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(^ × ^)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(＞×＜)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(˃ᆺ˂)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "U・x・U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U=๏ x ๏=U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(•ㅅ•)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(´･×･`)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(,,Ő ｘ Ő,,)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U｡･.･｡U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(ㅇㅅㅇ❀)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(´・×・｀)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(╹ૅ×╹ૅ)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U=･ x ･=U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(,,๏ ⋏ ๏,,)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U(⁎˃ᆺ˂)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U( ÒㅅÓ)U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "U( ´•̥×•̥` )U",
+      "categories": [
+        "dog"
+      ]
+    },
+    {
+      "char": "⁽⁽˙˟˙⁾⁾",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(=๏ x ๏=)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(≡・ x ・≡)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (,,๏ ⋏ ๏,,)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(=∵=)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(￫ x ◕=)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(◕ x < )＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (•ㅅ•)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (⁎˃ᆺ˂)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ ( ÒㅅÓ)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "／(◕ x ≦ )＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (´･×･`)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (´・×・｀)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (ㅇㅅㅇ❀)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (,,Ő ｘ Ő,,)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ (╹ૅ×╹ૅ)＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "/ ( ´•̥×•̥` )＼",
+      "categories": [
+        "cat"
+      ]
+    },
+    {
+      "char": "( ͡° ͜ʖ ͡°)",
+      "categories": [
+        "winking"
+      ],
+      "popular": true
+    },
+    {
+      "char": "( . •́ _ʖ •̀ .)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "( ಠ ͜ʖ ಠ)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "( ͡ ͜ʖ ͡ )",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(ʘ ͜ʖ ʘ)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "( ఠ ͟ʖ ఠ)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "( ಥ ʖ̯ ಥ)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(≖ ͜ʖ≖)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(;´༎ຶٹ༎ຶ`)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "( ͠° ͟ʖ ͡°)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "( ͡ಠ ʖ̯ ͡ಠ)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "( ͡• ͜ʖ ͡• )",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(ʘ ʖ̯ ʘ)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "( ͡ᵔ ͜ʖ ͡ᵔ)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "( ಠ ʖ̯ ಠ)",
+      "categories": [
+        "doubt"
+      ]
+    },
+    {
+      "char": "( ･ิ ͜ʖ ･ิ)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "(ʘ ͟ʖ ʘ)",
+      "categories": [
+        "winking"
+      ]
+    },
+    {
+      "char": "ಠ_ಠ",
+      "categories": [
+        "dissatisfaction"
+      ],
+      "popular": true
+    },
+    {
+      "char": "ಠ▃ಠ",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "ಠ⌣ಠ",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "⋋_⋌",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "눈_눈",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "ఠ ͟ಠ",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "ノಠ_ಠノ",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(｀ε´)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(｀Д´)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(ಠ⌣ಠ)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(◣_◢)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(┳◇┳)",
+      "categories": [
+        "sadness"
+      ]
+    },
+    {
+      "char": "(¬､¬)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(`A´)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "（▽д▽）",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "-`д´-",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(’益’)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(⋋▂⋌)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "〴⋋_⋌〵",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "(◔ д◔)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "☜(`o´)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(ʘдʘ╬)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": ">(#｀皿´)",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(ಠ ∩ಠ)",
+      "categories": [
+        "dissatisfaction"
+      ]
+    },
+    {
+      "char": "ლಠ益ಠ)ლ",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "（♯▼皿▼）",
+      "categories": [
+        "anger"
+      ]
+    },
+    {
+      "char": "(￣(∞)￣)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "(▼￣⚇￣▼)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "(`(●●)´)",
+      "categories": [
+        "pig"
+      ]
+    },
+    {
+      "char": "ʢ•·̫•ʡ",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "ᘛ⁐ᕐᐷ",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "ᓚᘏᕐᐷ",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "(`･ϖ･´)",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "(●´ϖ`●)",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "(｡･ϖ･｡)",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "( • ϖ •)",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "๑｀ϖ´๑",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "(ᐢ. ̫ .ᐢ)",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "( ˘•ϖ•˘ )",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "<:3)~",
+      "categories": [
+        "mouse"
+      ]
+    },
+    {
+      "char": "(・Θ・)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(・ɞ・)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "∧( 'Θ' )∧",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(⊙ө⊙)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(´Θ｀)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "( ˙Θ˙ )",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(｀Θ´)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "(￣Θ￣)",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "٩( 'Θ' )۶",
+      "categories": [
+        "duck"
+      ]
+    },
+    {
+      "char": "@(・●・)@",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "@(・o・)@",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "@(ᵕ.ᵕ)@",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "⊆(⌒◎⌒)⊇",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "⊆◍益◍⊇",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "ᕳ ͡°ヮ ͡°ᕲ",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "ᕮ⌐■_■ᕭ",
+      "categories": [
+        "monkey"
+      ]
+    },
+    {
+      "char": "ᕳ ͡°◡ ͡°ᕲ",
+      "categories": [
+        "monkey"
+      ]
     }
   ]
 }

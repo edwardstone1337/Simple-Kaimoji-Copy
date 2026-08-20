@@ -1,58 +1,55 @@
 # kaomoji.click
 
-Static, data-driven kaomoji site with one-click copy UX and SEO landing pages.
+A static, data-driven kaomoji site. Browse 539 Japanese emoticons, click one to copy it.
 
-Latest UI shell update:
-- category sections (including Popular) render as frosted-glass cards with animated conic gradient borders
-- nav pills use the display font token for stronger hierarchy
-- section eyebrow and heading typography scales were increased for readability
+No framework, no build step. Vanilla HTML, CSS and JavaScript served straight from
+GitHub Pages.
 
-## Quick Start
+## Quick start
 
 ```bash
-cd /Users/edwardstone/Development/Simple-Kaimoji-Copy
 python3 -m http.server 4173
 ```
 
-Open: `http://localhost:4173`
+Open `http://localhost:4173`.
 
-## Core Files
+## Core files
 
-- `index.html`: main single-page product experience
-- `components.js`: shared rendering primitives for homepage + generated pages
-- `script.js`: main app rendering and interactions
-- `styles.css`: shared design tokens + component styles
-- `kaomojis.json`: content source of truth
-- `scripts/generate-seo-pages.js`: generates `/explore/` pages + `sitemap.xml`
-- `seo-page.js`: interactions for generated SEO pages
+- `index.html` - the whole product, one page
+- `script.js` - loads the data, renders the grid, handles filtering and copy
+- `styles.css` - design tokens and component styles
+- `kaomojis.json` - the single source of truth for content
+- `design-system.html` - live component gallery, reads tokens from `styles.css`
+- `404.html` - fallback for unmatched paths
 
-## Regenerate SEO Pages
+## Ship gate
 
-```bash
-node scripts/generate-seo-pages.js
-```
-
-## Ship Gate
-
-Run before opening a PR or shipping:
+Run before opening a PR:
 
 ```bash
 ./scripts/ship-check.sh
 ```
 
-This validates:
-- JS syntax
-- generated `/explore/` output and `sitemap.xml` consistency
-- no em dashes in shipping copy files
-- generated artifacts are committed
+It checks JS syntax, validates `kaomojis.json` (unknown categories, duplicate
+kaomoji, empty categories) and enforces the no-em-dash rule.
 
-Optional visual snapshot gate:
+## Adding kaomoji
 
-```bash
-SHIP_CHECK_VISUAL=1 ./scripts/ship-check.sh
+Add an entry to the `kaomojis` array in `kaomojis.json`:
+
+```json
+{ "char": "ʕ•ᴥ•ʔ", "categories": ["bear"] }
 ```
 
-## More Docs
+`categories` must reference ids that already exist in the `categories` array.
+Add `"popular": true` to surface it in the Popular band. Run the ship check
+afterwards; it will catch typos and duplicates.
 
-- `DOCUMENTATION.md`: architecture and behavior details
-- `CONTRIBUTING.md`: workflow, definition of done, and release checklist
+Source kaomoji from published references rather than composing new ones, and
+prefer characters with broad font coverage - rare codepoints render as empty
+boxes on many systems.
+
+## More docs
+
+- `DOCUMENTATION.md` - architecture and behaviour
+- `CONTRIBUTING.md` - workflow and definition of done

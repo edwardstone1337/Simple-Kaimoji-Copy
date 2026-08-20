@@ -1,151 +1,188 @@
-# Simple Kaomoji Copy — Documentation
+# Documentation
 
-Single-page web app for browsing Japanese kaomoji (text faces) and copying them to the clipboard. All content is data-driven from `kaomojis.json`; the UI is rendered in JavaScript.
+## What this is
 
----
+A single static page listing 539 kaomoji. Click one and it goes to your clipboard.
+Everything else exists to help you find the one you want.
 
-## Tech stack
+## Stack
 
-- **Frontend**: Vanilla HTML, CSS, JavaScript (no frameworks or build step)
-- **Data**: `kaomojis.json` — groups, categories, and kaomoji list; fetched at load
-- **Hosting**: Static files; `CNAME` points to `www.kaomoji.click` (e.g. GitHub Pages)
-- **Analytics**: Google Analytics (gtag.js, id `G-JKEBQ0M6NQ`)
+Vanilla HTML, CSS and JavaScript. No framework, no bundler, no dependencies.
+Hosted on GitHub Pages at `www.kaomoji.click` (see `CNAME`). Fonts come from
+Google Fonts; analytics is GA4 (`G-JKEBQ0M6NQ`).
 
----
+## Data model
 
-## Project structure
+`kaomojis.json` is the single source of truth, with three arrays:
 
-| Path | Purpose |
-|------|--------|
-| `index.html` | Shell: skip-link, theme toggle, header, nav placeholders, main, snackbar. Inline theme init and GA. |
-| `components.js` | Shared HTML rendering primitives (`escapeHtml`, kaomoji grid markup) used by both runtime and SEO generator |
-| `script.js` | Fetches JSON, renders nav + sections, IntersectionObserver for active nav, copy + snackbar, theme toggle |
-| `styles.css` | Primitives/semantic CSS variables, light/dark theme, layout, nav, grid, snackbar, responsive |
-| `kaomojis.json` | Data: `groups`, `categories`, `kaomojis` (see Data model) |
-| `scripts/generate-seo-pages.js` | Generates static SEO pages in `/explore/` from `kaomojis.json` and regenerates `sitemap.xml` |
-| `scripts/ship-check.sh` | Release gate: syntax checks, SEO page regeneration checks, sitemap count checks, copy policy checks, optional visual snapshots |
-| `scripts/visual-check.sh` | Playwright screenshot baseline check for key routes (`/`, `/explore/`, `/explore/categories/anger/`) |
-| `seo-page.js` | Shared interactions for generated SEO pages (theme toggle, copy, snackbar, back-to-top) |
-| `README.md` | Quick start and daily developer entrypoint |
-| `CONTRIBUTING.md` | Definition of done, release workflow, and guardrails |
-| `.github/workflows/ship-check.yml` | CI automation for ship checks on PRs and pushes to `main` |
-| `.github/pull_request_template.md` | PR checklist enforcing docs/changelog and ship checks |
-| `favicon.png` | 32×32 favicon |
-| `robots.txt` | Allows all crawlers |
-| `sitemap.xml` | URLs for home, explore hub, group pages, and category pages |
-| `CNAME` | Custom domain for static host |
+- **`groups`** - top level buckets: `{ id, label }`
+- **`categories`** - each belongs to a group: `{ id, group, label, description }`
+- **`kaomojis`** - `{ char, categories: string[], popular?: boolean }`
 
----
+539 kaomoji across 33 categories in 5 groups. 22 are marked popular.
 
-## How it works
+## Rendering flow
 
-1. **Load**  
-   `index.html` loads. Inline script sets `data-theme` from `localStorage` or `prefers-color-scheme`. `script.js` runs on `DOMContentLoaded`: fetches `kaomojis.json`, then calls `initApp()`.
+1. An inline script in `<head>` sets `data-theme` from localStorage or
+   `prefers-color-scheme`, before first paint, so there is no flash.
+2. `script.js` fetches `kaomojis.json` on `DOMContentLoaded`.
+3. `normalise()` reorders groups so Animals is first (deepest group, most
+   browsed) and flattens each kaomoji to `{ c, cats, pop }`.
+4. The Popular band renders once. The main grid re-renders on every filter or
+   search change.
+5. Filter state is mirrored into `?c=` and `?q=` via `history.replaceState` so
+   a filtered view can be shared.
 
-2. **Init**  
-   - **Nav**: `renderNav(data.groups)` builds the sticky nav: “Popular” + one link per group (e.g. Positive Emotions, Negative Emotions, Actions, Animals).  
-   - **Content**: `renderAllSections(data)` builds main: a “Popular” section (kaomojis with `popular: true`) with Japanese eyebrow label (`人気`) and a `.category-section` card wrapper around its kaomoji grid. Then one section per group. Each group section contains category cards (from `data.categories` for that group); each card has eyebrow label, heading, description, and a grid of kaomoji buttons.  
-   - **Sub-nav**: Rendered by `renderSubNav(categories)`; shows category links for the current group. When “Popular” is in view, sub-nav is hidden.  
-   - **Observers**: `IntersectionObserver` on sections updates the active link in the sticky nav and scrolls the nav so the active link is centered. A second observer on category blocks updates the active sub-nav link and scrolls the sub-nav.  
-   - **Overflow**: `updateOverflowClasses()` adds `.has-overflow` to navs when they scroll; CSS applies horizontal fade masks.
+## Filtering
 
-3. **Copy**  
-   Clicking a kaomoji button calls `copyKaomojiToClipboard(k.char)`.  
-   - Uses `navigator.clipboard.writeText(kaomoji)`.  
-   - Success: snackbar shows “{kaomoji} copied to clipboard”, hides after 3s; `gtag` event `copy_kaomoji`.  
-   - No clipboard API or failure: snackbar shows “Copy not supported…” or “Copy failed…”.
+Categories are **OR within the facet**. Selecting more categories can only ever
+add results.
 
-4. **Theme**  
-  Theme toggle (fixed top-right) switches `data-theme` between `light` and `dark`, updates `localStorage` and `meta-theme-color`. Icon: moon in light theme, sun in dark.
+This is forced by the data, not a preference. 398 of 539 kaomoji carry exactly
+one category, and 521 of the 528 possible category pairs share no kaomoji at
+all. AND-combining two categories would return an empty set 98.7% of the time.
+With OR, a zero-result state is unreachable by filtering, so no zero-result
+prevention logic is needed.
 
-5. **SEO pages (`/explore/`)**
-   Generated static pages provide crawlable intent-specific URLs:
-   - Hub: `/explore/`
-   - Group pages: `/explore/groups/{group-id}/`
-   - Category pages: `/explore/categories/{category-id}/`
-   These pages reuse the same design tokens and component styling (`styles.css`) and include JSON-LD breadcrumbs + canonical URLs.
+Because there is only one real dimension, this is a multi-select filter rather
+than faceted search. Per-option counts and disable-on-zero are kept because they
+are cheap and honest, not because facets require them.
 
----
+Search matches against the kaomoji characters and its category labels and
+descriptions. It is the only thing that can produce an empty result.
 
-## Regenerate SEO pages
+Popular hides whenever any filter or search is active, so the user's own
+results always occupy the top of the page.
 
-When `kaomojis.json` changes, regenerate SEO pages and sitemap:
+## Design system
 
-```bash
-node scripts/generate-seo-pages.js
+Two tiers, in `styles.css`:
+
+- **Primitives** - `--n-*` is a single warm neutral ramp. These exist **only**
+  to define semantics; components must never reference them directly.
+  Structural primitives (`--step`, `--r-*`, `--bw-*`, `--fs-*`, `--dur-*`,
+  `--z-*`) are meant for direct use.
+- **Semantics** - `--bg`, `--surface`, `--text`, `--border`, `--accent`,
+  `--focus` and friends. Redefined per `[data-theme]`. This is the only colour
+  tier components may touch.
+
+The palette is greyscale by choice. Spacing uses `calc(var(--step) * N)` with a
+closed set of multipliers: 1 2 3 4 6 8 10 12 16 24. Type is a 7 step scale.
+
+`design-system.html` is a live gallery that reads the tokens out of
+`styles.css` at runtime and measures contrast in the browser, so it cannot
+drift from the real values.
+
+### Contrast
+
+Text must clear 4.5:1 and identifying UI boundaries 3:1, in both themes.
+`--border-control` exists specifically because an unchecked checkbox has no
+fill, so its border is the only thing identifying it and must meet 3:1.
+`--border-strong` draws hover and focus borders on controls that already have
+a fill, so it is decorative and exempt.
+
+## Accessibility notes
+
+Several of these are non-obvious and easy to regress:
+
+- **Copy tooltip visibility is pure CSS**, keyed off `:hover` and
+  `:focus-visible`. JavaScript only ever swaps the label text. If you make JS
+  toggle visibility, the tooltip will stick after a click, as it used to.
+- **Buttons are labelled by category**, not by their glyph. A kaomoji read
+  aloud is a stream of Unicode codepoint names, which is meaningless. The glyph
+  itself is `aria-hidden`.
+- **The mobile drawer's focus trap filters on `offsetParent !== null`.**
+  Checkboxes inside a collapsed `<details>` match `querySelectorAll` but are
+  skipped by real Tab, so using them as the trap boundary means the trap never
+  fires and Tab escapes behind the scrim.
+- **The closed drawer is `inert`** on narrow viewports. It is only translated
+  off-screen, so without `inert` every accordion header stays in the tab order
+  as an invisible stop.
+- **Wide kaomoji wrap below 420px.** The longest is 363px, which overflows a
+  375px phone and forces the whole page to scroll sideways.
+- **The result count announcement is debounced to 700ms**, separately from the
+  140ms visual debounce, so it does not interrupt a screen reader on every
+  keystroke.
+
+## SEO
+
+The site is one page and the canonical is fixed at `https://www.kaomoji.click/`.
+Filter state lives in query params written via `replaceState`; the canonical
+must **not** be rewritten to match them, or every filter combination becomes a
+thin near-duplicate URL.
+
+`robots.txt` deliberately does not disallow `/explore/`. Those pages were
+deleted; blocking an already-indexed path prevents Google from crawling it to
+confirm it is gone, so a real 404 is what removes it from the index.
+
+### What the search data actually said
+
+A previous version generated 39 `/explore/` landing pages, on the theory that
+per-category URLs would capture "{category} kaomoji" searches. They did not.
+
+Search Console, 16 months to 2026-08-17:
+
+| | |
+|---|---|
+| Total | 9 clicks, 485 impressions, 1.86% CTR, average position 50.07 |
+| URLs that ever appeared in search | **1** - the homepage |
+| Impressions to any `/explore/` page | **0** |
+| Head term "kaomoji" | 196 impressions, position 70.2, **0 clicks** |
+
+Analytics agreed from the other side: over 28 days the explore tree drew 12
+views against the homepage's 48, all 33 category pages recorded zero, and
+average engagement was 0 seconds.
+
+Two conclusions worth keeping:
+
+**The category pages were redundant, not merely unsuccessful.** The homepage
+already ranks page 1 for exactly the queries they targeted - "fox kaomoji"
+position 7, "supportive kaomoji" 8, "suffering kaomoji" 9, "sly kaomoji" 10,
+"defeated kaomoji" 11. It can do this because one URL holds all 539 kaomoji, so
+it matches almost any specific query. Splitting that into thin pages made the
+site worse at the job, not better.
+
+**People search emotional nuances the taxonomy does not have.** "Supportive",
+"sly", "defeated" and "flustered" are not categories here, and the site ranks
+for them anyway. That is an argument for keeping search over adding categories.
+
+In fairness to the other side of the argument: impressions did rise 18.6%
+across equal 189-day windows either side of the explore launch (221 to 262).
+But clicks fell 5 to 4, and the explore pages themselves earned no impressions,
+so none of that rise is attributable to them. At these volumes it is noise.
+
+Other signals from the same export:
+
+- Mobile ranks far better than desktop: position 15.5 vs 58.7, 4.3% CTR vs
+  1.29%. Whatever happens to the mobile experience matters more than desktop.
+- "kaomoji maker" is the best-converting query on the site (22% CTR from
+  position 95) and "kaomoji creator" also appears. That is a product signal
+  about unmet intent, not an SEO one.
+- Japan is second by impressions (107) at 0.93% CTR, and Korean queries appear.
+  The site is English-only.
+
+**Do not rebuild the category pages.** If someone proposes it, this is the
+evidence against.
+
+### One standing risk
+
+The kaomoji are rendered client-side from `kaomojis.json`, so the only page
+that ranks is one whose content does not exist until JavaScript runs. Google
+has evidently rendered it, but the site's entire search presence depends on
+that continuing to work. Baking the kaomoji into `index.html` at build time
+would remove the dependency, at the cost of reintroducing a build step. That
+trade has been considered and declined; revisit it only if search starts to
+matter.
+
+## Shared footer
+
+The Edward Stone footer is embedded from `footer.edwardstone.design` via a
+mount point and an ES module:
+
+```html
+<div id="es-footer" data-project="kaomoji"></div>
+<script type="module" src="https://footer.edwardstone.design/src/footer.js"></script>
 ```
 
-## Ship checklist (required)
-
-Before shipping, run:
-
-```bash
-./scripts/ship-check.sh
-```
-
-This enforces:
-- JS syntax is valid
-- generated SEO pages and sitemap are in sync with `kaomojis.json`
-- no em dashes in shipping copy files
-- `/explore/` and `sitemap.xml` changes are committed
-
-Optional visual snapshot gate:
-
-```bash
-SHIP_CHECK_VISUAL=1 ./scripts/ship-check.sh
-```
-
-Initialize or update screenshot baselines:
-
-```bash
-UPDATE_VISUAL_BASELINE=1 ./scripts/visual-check.sh
-```
-
----
-
-## Data model (`kaomojis.json`)
-
-- **`groups`**: Array of `{ "id": string, "label": string }`. Top-level nav (e.g. Positive Emotions, Animals).
-- **`categories`**: Array of `{ "id": string, "group": string, "label": string, "description": string }`. `group` matches a `groups[].id`. Sub-nav shows categories for the currently visible group.
-- **`kaomojis`**: Array of `{ "char": string, "categories": string[], "popular"?: boolean }`.  
-  - `categories` are category `id`s.  
-  - `popular: true` includes the kaomoji in the “Popular” section.  
-  - Each category block in the UI shows kaomojis whose `categories` include that category’s `id`.
-
----
-
-## Functionality (current)
-
-- **Popular section**: Kaomojis with `popular: true`; first section, includes eyebrow label (`人気`) and card shell; no sub-nav.
-- **Group sections**: One section per group; each contains its categories and kaomoji grids.
-- **Sticky nav**: “Popular” + group links; active section tracked by scroll (IntersectionObserver); horizontal scroll with fade when overflow.
-- **Sub-nav**: Category links for current group; active category tracked by scroll; hidden on Popular.
-- **Copy to clipboard**: One click per kaomoji; snackbar feedback; works in secure context (HTTPS/localhost).
-- **Dark/light theme**: Toggle persists in `localStorage`; respects `prefers-color-scheme` on first visit.
-- **Accessibility**: Skip link to main content; focus-visible outlines; theme toggle and buttons keyboard-usable.
-- **SEO**: Title “Kaomoji — Copy Japanese Emoticons ʕ•ᴥ•ʔ | kaomoji.click”, meta description/keywords, canonical, OG/Twitter tags, schema.org WebSite JSON-LD.
-
----
-
-## Styling summary
-
-- **Variables**: `:root` defines primitives (`--p-color-*`, `--p-font-*`, `--p-space-*`, `--p-radius-*`) and semantics (`--s-color-bg-page`, `--s-color-text-primary`, etc.). `[data-theme="dark"]` overrides semantic colors. `@property --gradient-angle` enables animated conic borders on cards.
-- **Layout**: Container max-width 960px; sticky nav wrapper with border-bottom; main content full width inside container.
-- **Nav links**: Pill-style (full radius), now using display typeface token (`--p-font-display`); active state border + background; horizontal scroll, scrollbar hidden, optional mask when `.has-overflow`.
-- **Category cards**: `.category-section` uses frosted-glass treatment (`backdrop-filter`) with large radius and an animated conic-gradient border via `::before`; dark mode swaps to neon gradient stops; reduced-motion disables border animation.
-- **Kaomoji buttons**: Grid with gap; bordered, rounded; hover shadow, active inset shadow.
-- **Snackbar**: Fixed bottom center, overlay colors, fade in/out, visible ~3s after copy.
-- **Typography**: Group headings use a larger `h2` size (`28px` desktop), with the existing mobile override at ≤600px. Eyebrow labels use the `--p-font-size-sm` token.
-- **Responsive**: At ≤600px, navs justify flex-start; section headings drop to `--p-font-size-lg`.
-
----
-
-## Browser requirements
-
-- **Clipboard**: Requires secure context (HTTPS or localhost) and `navigator.clipboard.writeText()`. Otherwise a message is shown in the snackbar.
-
----
-
-## Changelog
-
-See [CHANGELOG.md](CHANGELOG.md) for release history.
+It renders into a shadow root, so host page CSS cannot affect it. Source lives
+in the `es-shared-footer` repo.

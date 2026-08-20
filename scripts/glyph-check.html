@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Glyph check | kaomoji.click</title>
+    <style>
+      :root { --moji: "Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic",Meiryo,"Apple Symbols",sans-serif; }
+      body { font-family: system-ui; margin: 0; padding: 2rem; line-height: 1.5; background: #fff; color: #1a1817; }
+      .wrap { max-width: 70rem; margin: 0 auto; }
+      h1 { font-size: 1.5rem; }
+      h2 { font-size: 1.05rem; margin: 2.5rem 0 .25rem; }
+      p { max-width: 60ch; color: #555; }
+      .note { background: #fff8e1; border-left: 4px solid #f0b429; padding: .75rem 1rem; margin: 1.5rem 0; }
+      .grid { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 1rem; }
+      .cell {
+        font-family: var(--moji); font-size: 28px; line-height: 1.5;
+        border: 1px solid #ddd; border-radius: 8px; padding: .5rem .8rem;
+        background: #fff; white-space: nowrap;
+      }
+      .cell.flag { border-color: #f0b429; background: #fffdf5; }
+      .meta { font-family: system-ui; font-size: 11px; color: #999; display: block; white-space: normal; }
+      .count { color: #999; font-weight: normal; font-size: .9rem; }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Glyph check</h1>
+      <p>
+        Open this in every browser and OS you care about and look for empty boxes.
+        Font availability differs by platform, so a kaomoji that renders here may
+        not render elsewhere.
+      </p>
+
+      <div class="note">
+        <strong>Why this is a visual check and not an automated one.</strong>
+        Automated detection was tried and does not work reliably. Comparing
+        advance widths fails because a tofu box and a full-width CJK glyph are
+        the same width, so it flags most of the character set. Comparing canvas
+        pixels fails the other way: canvas composes combining marks differently
+        from the DOM, so it reports everything as fine. The real failure mode
+        here is a base character the font <em>has</em>, carrying combining marks
+        it cannot compose, and only your eyes catch that dependably.
+      </div>
+
+      <p>
+        Highlighted cells use scripts a CJK and Latin font stack may not cover
+        (Arabic, Thai, Kannada, Tibetan, Canadian syllabics and similar), often
+        with stacked combining marks. They are the ones most likely to break, and
+        are listed first so you can scan them quickly.
+      </p>
+
+      <div id="out">loading...</div>
+    </div>
+
+    <script>
+      const RISKY = [
+        [0x0600, 0x06ff], [0xfb50, 0xfeff], [0x0e00, 0x0e7f], [0x0e80, 0x0eff],
+        [0x0900, 0x097f], [0x0a80, 0x0aff], [0x0b80, 0x0bff], [0x0c80, 0x0cff],
+        [0x1000, 0x109f], [0x1400, 0x167f], [0xa000, 0xa4cf], [0x3100, 0x312f],
+        [0x0f00, 0x0fff], [0x1780, 0x17ff], [0x0980, 0x09ff], [0x20a0, 0x20cf],
+      ];
+      const risky = (s) =>
+        [...s].some((ch) => {
+          const cp = ch.codePointAt(0);
+          return RISKY.some(([a, b]) => cp >= a && cp <= b);
+        });
+
+      const esc = (s) => s.replace(/[&<>]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+
+      fetch("../kaomojis.json")
+        .then((r) => r.json())
+        .then((d) => {
+          const flagged = d.kaomojis.filter((k) => risky(k.char));
+          const rest = d.kaomojis.filter((k) => !risky(k.char));
+          const cell = (k, cls) =>
+            `<span class="cell ${cls}">${esc(k.char)}<span class="meta">${k.categories.join(", ")}</span></span>`;
+
+          document.getElementById("out").innerHTML =
+            `<h2>Most likely to break <span class="count">${flagged.length} of ${d.kaomojis.length}</span></h2>` +
+            `<div class="grid">${flagged.map((k) => cell(k, "flag")).join("")}</div>` +
+            `<h2>Everything else <span class="count">${rest.length}</span></h2>` +
+            `<div class="grid">${rest.map((k) => cell(k, "")).join("")}</div>`;
+        });
+    </script>
+  </body>
+</html>

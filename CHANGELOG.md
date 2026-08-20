@@ -3,44 +3,58 @@
 ## Unreleased
 
 ### Added
-- `components.js` shared rendering module for reusable HTML primitives (`escapeHtml`, kaomoji grid markup) consumed by both homepage runtime and SEO page generator
-- `scripts/visual-check.sh` for lightweight Playwright screenshot baseline checks on key routes
-- Copyable category preview chips on explore group pages (chips are now `<button class="seo-chip kaomoji-button">` with copy behavior)
-- Google Analytics (gtag.js, id `G-JKEBQ0M6NQ`)
-- Favicon (`/favicon.png`, 32×32)
-- DOCUMENTATION.md — tech stack, structure, behavior, data model, styling
-- Data-driven UI from `kaomojis.json` (groups, categories, kaomojis array)
-- Dark/light theme toggle with `localStorage` and `prefers-color-scheme`
-- Sticky nav + sub-nav with scroll-based active state and overflow fade
-- Static SEO pages generated under `/explore/` (hub, group pages, category pages)
-- `scripts/generate-seo-pages.js` to regenerate `/explore/` and `sitemap.xml`
-- `seo-page.js` for shared interaction behavior on generated SEO pages
-- `scripts/ship-check.sh` for repeatable pre-ship validation
-- `README.md` and `CONTRIBUTING.md` for onboarding and maintenance workflow
-- CI ship check workflow (`.github/workflows/ship-check.yml`) and PR checklist template
+
+- 104 kaomoji recovered from the 2022 version of the site, which were lost when
+  the data moved into `kaomojis.json`. Includes Lenny face and the look of
+  disapproval, plus a `U(...)U` dog family and a `／(...)＼` cat family.
+- 31 kaomoji sourced from published references to fill out pig, mouse, duck and
+  monkey, which had 4 or 5 entries each.
+- Filter sidebar with multi-select categories, live counts and a mobile drawer.
+- Client-side search across kaomoji characters and category labels.
+- Shareable filter state in `?c=` and `?q=` query params.
+- Persistent Popular band at the top of the page.
+- `404.html` fallback, so GitHub Pages no longer serves its generic one.
+- Data integrity validation in the ship check: unknown category references,
+  duplicate kaomoji, and empty categories now fail the build.
 
 ### Changed
-- `script.js` now renders kaomoji grids via shared `components.js` markup helpers to reduce rendering drift
-- `scripts/generate-seo-pages.js` now consumes shared render helpers from `components.js` instead of duplicating grid/escaping logic
-- `scripts/ship-check.sh` now validates `components.js` syntax and supports an opt-in visual snapshot gate via `SHIP_CHECK_VISUAL=1`
-- Header + nav wrapped in `.site-header-group` with shared frosted background; dark mode applies blur to both group and nav wrapper
-- Sub-nav collapse is animated (max-height/opacity) instead of instant hide; innerHTML cleared after transition to avoid jump
-- Nav and sub-nav link pills use visible border (`--s-color-border-default`); sticky nav background opacity 0.85
-- SEO link card hover/active shadow moved to `::after` so transition doesn’t affect layout
-- Reduced-motion: sub-nav collapse and link-card ::after transitions disabled
-- Site debranding
-- DOCUMENTATION.md updated to match current implementation (JSON data, nav/sections, theme)
-- `sitemap.xml` now includes home + generated explore URLs
-- Homepage includes crawlable links to explore/group pages
-- Documentation now includes explicit ship checklist and release guardrails
-- Phase 2e visual shell polish:
-  - `.category-section` converted to frosted-glass cards with animated conic gradient borders (`@property --gradient-angle` + `rotate-gradient`)
-  - dark mode card borders now use neon gradient stops; reduced-motion disables border animation
-  - `--p-radius-md` and `--p-radius-lg` increased for larger component radii
-  - nav and sub-nav pills now use the display font token (`--p-font-display`)
-  - eyebrow text size increased and group `h2` heading scale increased on desktop
-  - Popular section now renders kaomoji inside a `.category-section` card, with eyebrow label `人気`
-  - Japanese label fix: `sleeping` now maps to `眠り`
+
+- Homepage rebuilt around the sidebar. The two-tier scroll nav, its two
+  IntersectionObservers, scroll-to-centre logic and back-to-top button are gone.
+- Visual design reset to greyscale. The animated conic gradient card borders,
+  rotating page gradient, noise overlay, scroll-reveal stagger, jelly hover and
+  Japanese eyebrow labels have all been removed.
+- Design system rebuilt as two honest tiers. Colour primitives now only define
+  semantics; 17 ad hoc font sizes collapsed to a 7 step scale; z-index, border
+  widths and radii are tokenised.
+- `design-system.html` now reads tokens live from `styles.css` and measures
+  contrast in the browser, so it cannot drift.
+- Kaomoji buttons are labelled by category for screen readers instead of by
+  their raw glyph.
+
+### Fixed
+
+- Mobile drawer focus trap did not trap. It counted checkboxes inside collapsed
+  `<details>` as focusable, so its boundary was an element Tab never reaches;
+  Tab escaped onto buttons behind the scrim.
+- Opening the drawer focused the disabled "Clear all" button, a silent no-op,
+  so focus never entered the dialog.
+- The closed drawer left every accordion header in the mobile tab order as an
+  invisible stop. It is now `inert`.
+- Wide kaomoji overflowed a 375px viewport and forced the page to scroll
+  sideways. They wrap below 420px.
+- Contrast failures: `--text-faint` was 2.30:1 and the unchecked checkbox
+  border was 1.49:1 in light theme. Text now clears 4.5:1 and identifying
+  control boundaries 3:1 in both themes.
+- `ship-check.sh` exited 1 on every run. It called `rg`, which is not installed,
+  so the em dash check silently no-opped; and it diffed a sitemap whose
+  `lastmod` was restamped on every run, so its artifact gate could never pass.
 
 ### Removed
-- Breadcrumb nav on all explore pages (layout, `renderBreadcrumbs`, `.seo-breadcrumb` CSS, design-system example)
+
+- The `/explore/` tree: 39 generated SEO landing pages, `generate-seo-pages.js`,
+  `seo-page.js` and `visual-check.sh`. Over 28 days they drew 12 views against
+  the homepage's 48, all 33 category pages recorded zero views, and engagement
+  time was 0 seconds.
+- `components.js`, which existed to share markup with the page generator.
+- `meta keywords`, ignored by search engines since 2009.
