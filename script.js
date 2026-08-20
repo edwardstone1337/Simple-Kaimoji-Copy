@@ -61,6 +61,18 @@ function mojiHtml(k) {
   return `<button class="moji" data-c="${esc(k.c)}" data-tip="${TIP}" aria-label="${esc(d)}" data-desc="${esc(d)}"><span aria-hidden="true">${esc(k.c)}</span></button>`;
 }
 
+/* The empty state's kaomoji is a real one from the dataset and behaves like
+   every other button on the page, so a dead end still gives you something. */
+const EMPTY_MOJI = { c: "(・_・ヾ", cats: ["confusion"], pop: false };
+
+function emptyHtml() {
+  return `<div class="empty">
+    ${mojiHtml(EMPTY_MOJI)}
+    <p>Nothing matches that. You can still copy this one.</p>
+    <button class="btn" id="reset" type="button">Clear search and filters</button>
+  </div>`;
+}
+
 function optHtml(id, label, n, checked) {
   const dead = n === 0 && !checked;
   return `<label class="opt${dead ? " zero" : ""}">
@@ -94,9 +106,7 @@ function renderFacets() {
 function render() {
   const list = D.kaomojis.filter((k) => matches(k));
 
-  document.getElementById("grid").innerHTML = list.length
-    ? list.map(mojiHtml).join("")
-    : `<div class="empty"><span class="big">(&#183;_&#183;;)</span>Nothing matches that search.</div>`;
+  document.getElementById("grid").innerHTML = list.length ? list.map(mojiHtml).join("") : emptyHtml();
 
   document.getElementById("count").innerHTML = `<b>${list.length}</b> kaomoji`;
 
@@ -317,6 +327,16 @@ async function init() {
   });
   document.getElementById("clear").addEventListener("click", () => {
     state.cats.clear();
+    render();
+  });
+
+  /* The empty state's reset is rebuilt on every render, so listen on the
+     container rather than binding to a button that will be replaced. */
+  document.getElementById("grid").addEventListener("click", (e) => {
+    if (!e.target.closest("#reset")) return;
+    state.cats.clear();
+    state.q = "";
+    document.getElementById("q").value = "";
     render();
   });
 

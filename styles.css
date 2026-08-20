@@ -82,7 +82,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 :where(a,button,input,summary,[tabindex]):focus-visible{
   outline:var(--bw-2) solid var(--focus); outline-offset:2px; border-radius:var(--r-sm);
 }
-:where(.icon-btn,.filter-toggle,.link-btn,.opt):active{background:var(--surface-active)}
+:where(.icon-btn,.btn,.link-btn,.opt):active{background:var(--surface-active)}
 
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .skip{
@@ -172,6 +172,10 @@ body{background:var(--bg);color:var(--text);font-family:var(--font-body);font-si
 /* ============================================================
    5. LAYOUT
    ============================================================ */
+/* Jumping to #top must clear the sticky bar, or the hero lands flush
+   against it and loses the space above "click to copy". */
+.shell{scroll-margin-top:var(--bar-h)}
+
 .shell{
   display:grid;grid-template-columns:var(--sidebar-w) 1fr;gap:calc(var(--step)*10);
   max-width:1400px;margin:0 auto;
@@ -291,8 +295,18 @@ details[open] > summary .chev{transform:rotate(180deg)}
 @media(hover:hover){.moji:hover::after{opacity:1;transform:translateX(-50%) translateY(0)}}
 .moji:focus-visible::after{opacity:1;transform:translateX(-50%) translateY(0)}
 
-.empty{padding:calc(var(--step)*16) 0;text-align:center;color:var(--text-soft)}
-.empty .big{font-family:var(--font-moji);font-size:2rem;display:block;margin-bottom:calc(var(--step)*3);color:var(--text-faint)}
+/* Empty state. Takes the full width of the grid so it can centre in the
+   results area rather than sitting top-left as another flex item. */
+.empty{
+  flex:1 1 100%;
+  min-height:44vh;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:calc(var(--step)*4);
+  text-align:center;color:var(--text-soft);
+  padding:calc(var(--step)*8) 0;
+}
+.empty p{max-width:34ch}
+.empty .moji{font-size:var(--fs-xl)}
 
 /* ============================================================
    8. SNACKBAR - states plainly what landed on the clipboard.
@@ -323,14 +337,17 @@ details[open] > summary .chev{transform:rotate(180deg)}
 /* ============================================================
    9. MOBILE DRAWER
    ============================================================ */
-.filter-toggle{
-  display:none;align-items:center;gap:calc(var(--step)*2);
+/* Shared pill button. The filter toggle and the empty state reset are the same
+   component; only their visibility rules differ. */
+.btn{
+  display:inline-flex;align-items:center;gap:calc(var(--step)*2);
   height:var(--control-h);
   background:var(--surface);border:var(--bw-1) solid var(--border);border-radius:var(--r-pill);
   padding:0 calc(var(--step)*4);color:var(--text);font:inherit;font-size:var(--fs-sm);cursor:pointer;
   transition:background-color var(--dur-fast),border-color var(--dur-fast);
 }
-.filter-toggle:hover{background:var(--surface-hover);border-color:var(--border-strong)}
+.btn:hover{background:var(--surface-hover);border-color:var(--border-strong)}
+.filter-toggle{display:none}
 .scrim{display:none;position:fixed;inset:0;background:var(--scrim);z-index:var(--z-scrim)}
 
 @media(max-width:900px){
